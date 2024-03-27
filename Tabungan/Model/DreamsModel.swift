@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct Dreams: Codable {
     let id: String
     let userId: String?
@@ -39,7 +37,10 @@ struct Dreams: Codable {
         case scheduler
         case schedulerRate = "scheduler_rate"
     }
+    
+    
 }
+
 
 
 

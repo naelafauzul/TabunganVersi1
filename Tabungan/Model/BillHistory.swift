@@ -9,7 +9,7 @@ import Foundation
 
 struct BillHistory {
     var id: String
-    var userId: String
+    var user_id: String
     var dreamId: String
     var username: String
     var type: String

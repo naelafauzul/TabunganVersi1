@@ -26,7 +26,9 @@ struct DreamList: View {
                     TotalView()
                     LazyVGrid(columns: gridItemLayout) {
                         ForEach(DreamsVM.dreams, id: \.id) { dream in
-                            DreamItem(dream: dream)
+                            NavigationLink(destination: DetailDream(dream: dream)) {
+                                DreamItem(dream: dream)
+                            }
                         }
                     }
                 }

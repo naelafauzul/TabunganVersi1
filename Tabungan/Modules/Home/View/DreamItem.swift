@@ -17,6 +17,7 @@ struct DreamItem: View {
         VStack (alignment: .leading) {
             HStack {
                 Image(systemName: "photo")
+                    .foregroundStyle(.black)
                     .frame(width: 60, height: 60)
                     .background(.white)
                     .clipShape(Circle())
@@ -32,10 +33,12 @@ struct DreamItem: View {
             
             Text(dream.name)
                 .font(.headline)
+                .foregroundStyle(.black)
                 .lineLimit(1)
                 .padding(.bottom, 5)
             Text(CreateDreamsVM.formatCurrency(dream.target))
                 .font(.subheadline)
+                .foregroundStyle(.black)
                 .lineLimit(1)
                 .padding(.bottom, 10)
         }
@@ -49,6 +52,6 @@ struct DreamItem: View {
     
 }
 
-#Preview {
-    DreamItem( dream: Dreams.dummyData[0])
-}
+//#Preview {
+//    DreamItem( dream: Dreams.dummyData[0])
+//}

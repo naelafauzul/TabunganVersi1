@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var userData: UserData? = nil
+    @StateObject var DreamsVM = DreamsViewModel()
     
     var body: some View {
         TabView {

@@ -119,6 +119,7 @@ struct CreateDreamForm: View {
                 }
                 .padding(.horizontal, 16)
             }
+            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showingColorPicker) {
                 CustomColorPicker(selectedColor: $selectedColor)
                     .presentationDetents([.large, .medium, .fraction(0.5)])

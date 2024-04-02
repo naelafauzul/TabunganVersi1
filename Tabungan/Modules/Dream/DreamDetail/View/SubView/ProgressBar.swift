@@ -7,25 +7,23 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ProgressBar: View {
     
     @State var isShowing = false
     var amount: CGFloat
     var target: CGFloat
     
-    var adjustedAmount: CGFloat {
-        return min(amount, target)
-    }
-    
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
                 .foregroundColor(Color.gray)
                 .opacity(0.3)
-                .frame(minWidth: 200.0, minHeight: 3)
+                .frame(width: 300.0, height: 3)
             Rectangle()
                 .foregroundColor(Color.blue)
-                .frame(width: self.isShowing ? 200.0 * (self.adjustedAmount / self.target) : 0.0, height: 3)
+                .frame(width: self.isShowing ? (self.amount >= self.target ? 300.0 : 300.0 * (self.amount / self.target)) : 0.0, height: 3)
                 .animation(.linear, value: 0.6)
         }
         .onAppear {
@@ -34,6 +32,8 @@ struct ProgressBar: View {
         .cornerRadius(4.0)
     }
 }
+
+
 
 
 #Preview {

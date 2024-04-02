@@ -9,16 +9,16 @@ import SwiftUI
 
 struct DetailDream: View {
     @StateObject var DreamDetailVewModel = DreamDetailVM()
+    @StateObject var DreamsVM = DreamsViewModel()
     
-//    @EnvironmentObject var DreamDetailViewModel = DreamDetailVM()
-//    @Environment(\.dismiss) var dismiss
-    
+    @Environment(\.dismiss) var dismiss
+   
     @State private var showModal = false
-    @State private var credit: String = ""
+    @State private var credit: Double? = nil
     @State private var operation: String = ""
     @State var userData: UserData
     
-    let progress: CGFloat = 25.0
+    let progress: CGFloat = 0.0
     let dream: Dreams
     
     var body: some View {
@@ -44,16 +44,18 @@ struct DetailDream: View {
                             
                             VStack{
                                 VStack(alignment:.trailing) {
-                                    HStack {
-                                        Text("Target")
-                                            .font(.callout)
-                                        Spacer()
-                                        Text(DreamDetailVewModel.formatCurrency(dream.target))
-                                            .font(.callout)
+                                    VStack(alignment:.trailing) {
+                                        HStack {
+                                            Text("Target")
+                                                .font(.callout)
+                                            Spacer()
+                                            Text(DreamDetailVewModel.formatCurrency(dream.target))
+                                                .font(.callout)
+                                        }
+                                        
+                                        ProgressBar(amount: dream.amount, target: dream.target)
                                     }
                                     
-                                    ProgressBar(amount: dream.amount, target: dream.target)
-                                        .frame(width: 330, height: 3)
                                     
                                     HStack {
                                         Image(systemName: "person")
@@ -71,7 +73,6 @@ struct DetailDream: View {
                                                 
                                             }
                                             ProgressBar(amount: dream.amount, target: dream.target)
-                                                .frame(width: 290, height: 3)
                                         }
                                         
                                     }
@@ -160,8 +161,9 @@ struct DetailDream: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showModal) {
-                AmountInputView(uid: userData.uid,credit: $credit, operation: $operation, dreamId: dream.id, amount: dream.amount)
-                
+                AmountInputView(credit: $credit, operation: $operation, uid: userData.uid, dreamId: dream.id, amount: dream.amount)
+                    .presentationDetents([.large, .medium, .fraction(0.5)])
+                    
             }
         }
     }

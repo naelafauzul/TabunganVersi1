@@ -49,6 +49,6 @@ struct CustomTextFieldString: View {
             }
         }
 
-//#Preview {
-//    CustomTextFieldString(text: "hai", placeholder: "hai")
-//}
+#Preview {
+    CustomTextFieldString(text: .constant("hai"), placeholder: "hai")
+}

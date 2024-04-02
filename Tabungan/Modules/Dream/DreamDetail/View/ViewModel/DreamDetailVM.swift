@@ -16,6 +16,8 @@ class DreamDetailVM: ObservableObject {
         return formatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
     
+    
+    
     func calculateTargetDate(target: Double, scheduler: String, schedulerRate: Double, amount: Double) -> String {
         let currentTarget = target - amount
         let timeNeeded = Int(ceil(currentTarget / schedulerRate))
@@ -56,7 +58,7 @@ class DreamDetailVM: ObservableObject {
         
         let billHistory = BillHistory(id: id, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
         
-        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
+        try await DatabaseManager.shared.subCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
     }
     
 }

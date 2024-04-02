@@ -4,32 +4,34 @@
 //
 //  Created by Naela Fauzul Muna on 02/04/24.
 //
-import SwiftUI
 
 import SwiftUI
 
 struct AmountInputView: View {
     @StateObject var DreamDetailVewModel = DreamDetailVM()
+    @Environment(\.dismiss) var dismiss
     
-    var uid: String
-    @Binding var credit: String
+    @Binding var credit: Double?
     @Binding var operation: String
+    var uid: String
     var dreamId: String
     var amount: Double
     
     var body: some View {
-        VStack {
-            TextField("Jumlah", text: $credit)
+        VStack (alignment: .leading) {
+            Text(operation == "Tambah" ? "Isi Tabungan" : "Ambil Tabungan")
+                .font(.headline)
+            
+            CustomTextFieldDouble(text: $credit, placeholder: "Nominal", formatter: NumberFormatter())
                 .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
-                .padding()
+            
             
             Button(action: {
                 if operation == "Tambah" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: Double(credit) ?? 0.0)
+                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0)
+                            dismiss()
                         } catch {
                             print(error)
                         }
@@ -37,7 +39,8 @@ struct AmountInputView: View {
                 } else if operation == "Kurang" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: Double(credit) ?? 0.0)
+                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0)
+                            dismiss()
                         } catch {
                             print(error)
                         }
@@ -47,7 +50,7 @@ struct AmountInputView: View {
                 Text(operation)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue)
+                    .background(Color(.teal700))
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
@@ -55,13 +58,13 @@ struct AmountInputView: View {
         }
         .background(Color.white)
         .cornerRadius(20)
-        .padding()
+        .padding(.horizontal, 16)
     }
 }
 
 
 
-//
+
 //#Preview {
 //    AmountInputView(newAmount: <#Binding<String>#>, operation: <#String#>)
 //}

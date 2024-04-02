@@ -44,7 +44,7 @@ class SignInViewModel: ObservableObject {
         let gender = "Male"
         let day_of_birth = "01-01-2000"
         
-        // Extract the name from the email by splitting the string and taking the first part
+        
         let nameParts = email.split(separator: "@")
         let name = String(nameParts.first ?? "") 
         

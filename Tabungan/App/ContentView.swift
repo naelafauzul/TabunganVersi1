@@ -14,11 +14,13 @@ struct ContentView: View {
     var body: some View {
         TabView {
             DreamList(userData: userData)
+                .tag(0)
                 .tabItem {
                     Label("Beranda", systemImage: "house")
                 }
             
             UserView(userData: $userData)
+                .tag(1)
                 .tabItem {
                     Label("Profil", systemImage: "person")
                 }

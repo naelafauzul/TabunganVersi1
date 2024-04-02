@@ -18,13 +18,8 @@ class DreamsViewModel: ObservableObject {
     }
     
     
-    func deleteItems() async throws {
+    func deleteDream() async throws {
         
-    }
-    
-    
-    func fetchTotalAmount(for uid: String) async throws {
-        totalAmount = try await DatabaseManager.shared.fetchTotalAmount(for: uid)
     }
     
 }

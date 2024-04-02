@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ProgressBar: View {
-
+    
     @State var isShowing = false
-    var progress: CGFloat
-
+    var amount: CGFloat
+    var target: CGFloat
+    
+    
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
@@ -22,8 +22,8 @@ struct ProgressBar: View {
                 .frame(minWidth: 200.0, minHeight: 3)
             Rectangle()
                 .foregroundColor(Color.blue)
-                .frame(width: self.isShowing ? 200.0 * (self.progress / 100.0) : 0.0, height: 3)
-                .animation(.linear(duration: 0.6))
+                .frame(width: self.isShowing ? 200.0 * (self.amount / self.target) : 0.0, height: 3)
+                .animation(.linear, value: 0.6)
         }
         .onAppear {
             self.isShowing = true
@@ -34,5 +34,5 @@ struct ProgressBar: View {
 
 
 #Preview {
-    ProgressBar(progress: 25.0)
+    ProgressBar(amount: 250, target: 900)
 }

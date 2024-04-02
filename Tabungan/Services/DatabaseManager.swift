@@ -45,7 +45,7 @@ class DatabaseManager {
     }
 
     func fetchDreamItem(for uid: String) async throws -> [Dreams] {
-        let response = try await client.database.from("dreams").select().equals("user_id", value: uid).order("created", ascending: true ).execute()
+        let response = try await client.database.from("dreams").select().equals("userId", value: uid).order("created", ascending: true ).execute()
         let data = response.data
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -54,32 +54,37 @@ class DatabaseManager {
         return dreams
     }
     
-    
-    func fetchTotalAmount(for uid: String) async throws -> Double {
+    func addCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double) async throws {
         do {
-            let response = try await client
-                .database
-                .from("dreams")
-                .select("amount")
-                .execute()
+            _ = try await client.database.from("bill_history").insert(billHistory).execute()
             
-            print("Response data: \(response.data)")
+            let newAmount = amount + credit
+            _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
             
-            if let data = response.data as? [[String: Any]], !data.isEmpty {
-                let amounts: [Double] = data.compactMap { $0["amount"] as? Double }
-                print("Amounts: \(amounts)")
-
-                let total = data.compactMap { $0["amount"] as? Double }.reduce(0, +)
-                return total
-            } else {
-                print("No data found or parsing error")
-                return 0
-            }
+            let updateDreamUser = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dream_id", value: dreamId).execute()
+            
+            print("Success")
         } catch {
-            print("Error fetching total amount: \(error)")
+            print("Error occurred while inserting data: \(error)")
             throw error
         }
     }
     
+    func subCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double) async throws {
+        do {
+            _ = try await client.database.from("bill_history").insert(billHistory).execute()
+            
+            let newAmount = amount - credit
+            _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
+            
+            let updateDreamUser = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dream_id", value: dreamId).execute()
+            
+            print("Success")
+        } catch {
+            print("Error occurred while inserting data: \(error)")
+            throw error
+        }
+    }
+
     
 }

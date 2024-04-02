@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CreateDreamForm: View {
-    
     @EnvironmentObject var CreateDreamVM: CreateDreamVM
     @Environment(\.dismiss) var dismiss
+    
     @State var userData: UserData
     let user: Users
     

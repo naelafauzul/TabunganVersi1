@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct BillHistory {
+struct BillHistory: Codable {
     var id: String
-    var user_id: String
+    var userId: String
     var dreamId: String
-    var username: String
-    var type: String
+    var userName: String
+    var type: Int
     var amount: Double
     var current: Double
     var created: Int64

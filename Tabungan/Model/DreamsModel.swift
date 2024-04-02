@@ -24,18 +24,18 @@ struct Dreams: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case userId = "user_id"
+        case userId
         case code
         case profile
         case background
         case name
         case target
         case amount
-        case isActive = "is_active"
+        case isActive
         case created
         case updated
         case scheduler
-        case schedulerRate = "scheduler_rate"
+        case schedulerRate 
     }
     
     

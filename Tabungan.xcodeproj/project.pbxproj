@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9106E2052BAC13C8007AAD82 /* DreamUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9106E2042BAC13C8007AAD82 /* DreamUsers.swift */; };
+		91135A3F2BBBE84400DE70D2 /* AmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */; };
 		913264F62BAAB1990099D077 /* CustomTextFieldString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F52BAAB1990099D077 /* CustomTextFieldString.swift */; };
 		913264F82BAAB57C0099D077 /* CustomTextFieldDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F72BAAB57C0099D077 /* CustomTextFieldDouble.swift */; };
 		913264FA2BAAC0030099D077 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F92BAAC0030099D077 /* CustomButton.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		9106E2042BAC13C8007AAD82 /* DreamUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamUsers.swift; sourceTree = "<group>"; };
+		91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputView.swift; sourceTree = "<group>"; };
 		913264F52BAAB1990099D077 /* CustomTextFieldString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldString.swift; sourceTree = "<group>"; };
 		913264F72BAAB57C0099D077 /* CustomTextFieldDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldDouble.swift; sourceTree = "<group>"; };
 		913264F92BAAC0030099D077 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -324,8 +326,8 @@
 		915F505C2BB40BBC00457B14 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				915F505F2BB410EE00457B14 /* SubView */,
 				915F505D2BB40BCA00457B14 /* DetailDream.swift */,
+				915F505F2BB410EE00457B14 /* SubView */,
 				915F50642BB4156700457B14 /* ViewModel */,
 			);
 			path = View;
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				915F50602BB4110000457B14 /* ProgressBar.swift */,
+				91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -361,9 +364,8 @@
 		91CFC15D2BA82BC60085AB1C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				91CFC1622BA82DCB0085AB1C /* SubView */,
-				91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */,
 				91CFC1602BA82BF50085AB1C /* DreamList.swift */,
+				91CFC1622BA82DCB0085AB1C /* SubView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -371,6 +373,7 @@
 		91CFC1622BA82DCB0085AB1C /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */,
 				91CFC1632BA82DE20085AB1C /* CircularProgressBar.swift */,
 				91CFC16D2BA83EA20085AB1C /* TotalView.swift */,
 			);
@@ -523,6 +526,7 @@
 				91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */,
 				913F21082BADCD9A001AD670 /* EmoticonView.swift in Sources */,
 				913264F62BAAB1990099D077 /* CustomTextFieldString.swift in Sources */,
+				91135A3F2BBBE84400DE70D2 /* AmountInputView.swift in Sources */,
 				913264F82BAAB57C0099D077 /* CustomTextFieldDouble.swift in Sources */,
 				913F1D352BA40DD400EE2E11 /* ContentView.swift in Sources */,
 				9156BB502BAC5DBE0022EBA8 /* BillHistoryNote.swift in Sources */,

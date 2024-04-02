@@ -10,6 +10,14 @@ import SwiftUI
 struct DetailDream: View {
     @StateObject var DreamDetailVewModel = DreamDetailVM()
     
+//    @EnvironmentObject var DreamDetailViewModel = DreamDetailVM()
+//    @Environment(\.dismiss) var dismiss
+    
+    @State private var showModal = false
+    @State private var credit: String = ""
+    @State private var operation: String = ""
+    @State var userData: UserData
+    
     let progress: CGFloat = 25.0
     let dream: Dreams
     
@@ -44,7 +52,7 @@ struct DetailDream: View {
                                             .font(.callout)
                                     }
                                     
-                                    ProgressBar(progress: progress)
+                                    ProgressBar(amount: dream.amount, target: dream.target)
                                         .frame(width: 330, height: 3)
                                     
                                     HStack {
@@ -62,7 +70,7 @@ struct DetailDream: View {
                                                     .font(.callout)
                                                 
                                             }
-                                            ProgressBar(progress: progress)
+                                            ProgressBar(amount: dream.amount, target: dream.target)
                                                 .frame(width: 290, height: 3)
                                         }
                                         
@@ -86,7 +94,7 @@ struct DetailDream: View {
                                                 .font(.callout)
                                                 .fontWeight(.bold)
                                                 .foregroundStyle(.blue)
-                                            Text(dream.scheduler ?? "")
+                                            Text(dream.scheduler )
                                                 .font(.footnote)
                                         }
                                         .padding(.vertical, 10)
@@ -95,7 +103,7 @@ struct DetailDream: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                         
                                         VStack {
-                                            let targetDate = DreamDetailVewModel.calculateTargetDate(target: dream.target, scheduler: dream.scheduler ?? "", schedulerRate: dream.schedulerRate ?? 0.0, amount: dream.amount)
+                                            let targetDate = DreamDetailVewModel.calculateTargetDate(target: dream.target, scheduler: dream.scheduler , schedulerRate: dream.schedulerRate ?? 0.0, amount: dream.amount)
                                             Text(targetDate)
                                                 .font(.callout)
                                                 .fontWeight(.bold)
@@ -118,7 +126,7 @@ struct DetailDream: View {
                     
                 }
                 .frame(height: 400)
-    
+                
                 
                 VStack {
                     HStack {
@@ -126,31 +134,39 @@ struct DetailDream: View {
                         Spacer()
                     }
                     .padding(.horizontal, 16)
-                .padding(.top, 3)
+                    .padding(.top, 3)
                 }
                 
                 Spacer()
                 
                 HStack {
                     Button {
-                        print("button")
+                        operation = "Kurang"
+                        showModal.toggle()
                     } label: {
-                        Text("kurangi -")
+                        Text("- Kurang")
                     }
                     .buttonStyle(.borderedProminent)
+                    
                     Button {
-                        print("button")
+                        operation = "Tambah"
+                        showModal.toggle()
                     } label: {
-                        Text("Tambah +")
+                        Text("+ Tambah")
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                
             }
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showModal) {
+                AmountInputView(uid: userData.uid,credit: $credit, operation: $operation, dreamId: dream.id, amount: dream.amount)
+                
+            }
         }
-        
     }
 }
+
 
 //#Preview {
 //    DetailDream(dream: Dreams.dummyData[0])

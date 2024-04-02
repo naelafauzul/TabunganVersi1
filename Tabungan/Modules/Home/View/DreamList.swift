@@ -26,7 +26,8 @@ struct DreamList: View {
                     TotalView()
                     LazyVGrid(columns: gridItemLayout) {
                         ForEach(DreamsVM.dreams, id: \.id) { dream in
-                            NavigationLink(destination: DetailDream(dream: dream)) {
+                            NavigationLink(destination: DetailDream(userData: userData!, dream: dream)
+                            ) {
                                 DreamItem(dream: dream)
                             }
                         }
@@ -37,7 +38,6 @@ struct DreamList: View {
                         Task {
                             do {
                                 try await DreamsVM.fetchDream(for: userData.uid)
-                                try await DreamsVM.fetchTotalAmount(for: userData.uid)
                             } catch {
                                 print(error)
                             }
@@ -46,6 +46,7 @@ struct DreamList: View {
                 }
             }
             .padding(.horizontal, 16)
+            .toolbar(.visible, for: .tabBar)
             .toolbar {
                 Button(action: {
                     guard userData != nil else {
@@ -66,7 +67,8 @@ struct DreamList: View {
                     .presentationDetents([.large, .medium, .fraction(0.25)])
             }
             .background(
-                NavigationLink(destination: CreateDreamForm(userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
+                NavigationLink(
+                    destination: CreateDreamForm(userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
                     .environmentObject(DreamsVM), isActive: $showingCreateForm) {
                         EmptyView()
                     }

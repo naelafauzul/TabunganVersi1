@@ -11,7 +11,7 @@ import SDWebImageSVGCoder
 
 @main
 struct TabunganApp: App {
-    
+
     var createDreamVM = CreateDreamVM()
     
     var body: some Scene {

@@ -34,7 +34,30 @@ class DreamDetailVM: ObservableObject {
             return ""
         }
         
-        
         return "\(timeNeeded) \(timeUnit) Lagi"
     }
+    
+    
+    func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double) async throws {
+        let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
+        let id = UUID().uuidString
+        var newAmount = amount + credit
+        
+        let billHistory = BillHistory(id: id, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        
+        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
+    }
+    
+    
+    func subCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double) async throws {
+        let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
+        let id = UUID().uuidString
+        var newAmount = amount - credit
+        
+        let billHistory = BillHistory(id: id, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        
+        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
+    }
+    
 }
+

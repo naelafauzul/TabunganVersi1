@@ -36,7 +36,7 @@ struct UserView: View {
             .onAppear {
                 Task {
                     do {
-                        try await DreamsViewModel().fetchDream(for: userData.uid)
+                        try await DreamsViewModel().fetchDreams(for: userData.uid)
                         
                     } catch {
                         print(error)

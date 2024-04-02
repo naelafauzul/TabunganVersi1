@@ -13,6 +13,9 @@ struct ProgressBar: View {
     var amount: CGFloat
     var target: CGFloat
     
+    var adjustedAmount: CGFloat {
+        return min(amount, target)
+    }
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -22,7 +25,7 @@ struct ProgressBar: View {
                 .frame(minWidth: 200.0, minHeight: 3)
             Rectangle()
                 .foregroundColor(Color.blue)
-                .frame(width: self.isShowing ? 200.0 * (self.amount / self.target) : 0.0, height: 3)
+                .frame(width: self.isShowing ? 200.0 * (self.adjustedAmount / self.target) : 0.0, height: 3)
                 .animation(.linear, value: 0.6)
         }
         .onAppear {

@@ -13,7 +13,7 @@ class DreamsViewModel: ObservableObject {
     @Published var totalAmount: Double = 0
     
     @MainActor
-    func fetchDream(for uid: String) async throws {
+    func fetchDreams(for uid: String) async throws {
         dreams = try await DatabaseManager.shared.fetchDreamItem(for: uid)
     }
     

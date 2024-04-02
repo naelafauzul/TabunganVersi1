@@ -18,8 +18,8 @@ struct CreateDreamForm: View {
     @State private var selectedEmoticon = ""
     
     @State private var name: String = ""
-    @State private var target: Double? = 0
-    @State private var scheduler_rate: Double? = 0
+    @State private var target: Double? = nil
+    @State private var scheduler_rate: Double? = nil
     @State private var scheduler: String = ""
     
     @State private var showingColorPicker = false

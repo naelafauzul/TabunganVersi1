@@ -37,7 +37,7 @@ struct DreamList: View {
                     if let userData = userData {
                         Task {
                             do {
-                                try await DreamsVM.fetchDream(for: userData.uid)
+                                try await DreamsVM.fetchDreams(for: userData.uid)
                             } catch {
                                 print(error)
                             }

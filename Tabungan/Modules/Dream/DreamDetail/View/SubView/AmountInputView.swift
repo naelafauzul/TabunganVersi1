@@ -13,6 +13,7 @@ struct AmountInputView: View {
     
     @Binding var credit: Double?
     @Binding var operation: String
+    @Binding var note: String
     var uid: String
     var dreamId: String
     var amount: Double
@@ -25,12 +26,13 @@ struct AmountInputView: View {
             CustomTextFieldDouble(text: $credit, placeholder: "Nominal", formatter: NumberFormatter())
                 .padding()
             
+            CustomTextFieldString(text: $note, placeholder: "Note")
             
             Button(action: {
                 if operation == "Tambah" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0)
+                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0, note: note)
                             dismiss()
                         } catch {
                             print(error)
@@ -39,7 +41,7 @@ struct AmountInputView: View {
                 } else if operation == "Kurang" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0)
+                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0, note: note)
                             dismiss()
                         } catch {
                             print(error)

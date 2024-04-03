@@ -16,8 +16,6 @@ class DreamDetailVM: ObservableObject {
         return formatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
     
-    
-    
     func calculateTargetDate(target: Double, scheduler: String, schedulerRate: Double, amount: Double) -> String {
         let currentTarget = target - amount
         let timeNeeded = Int(ceil(currentTarget / schedulerRate))
@@ -31,7 +29,7 @@ class DreamDetailVM: ObservableObject {
             timeUnit = "Minggu"
         case "month":
             timeUnit = "Bulan"
-          
+            
         default:
             return ""
         }
@@ -40,25 +38,31 @@ class DreamDetailVM: ObservableObject {
     }
     
     
-    func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double) async throws {
+    func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
-        let id = UUID().uuidString
+        let billId = UUID().uuidString
         let newAmount = amount + credit
+        let noteId = UUID().uuidString
         
-        let billHistory = BillHistory(id: id, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        let billHistory = BillHistory(id: billId, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
         
-        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
+        let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, created: timeNow, updated: timeNow)
+        
+        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
     
-    func subCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double) async throws {
+    func subCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
-        let id = UUID().uuidString
+        let billId = UUID().uuidString
         let newAmount = amount - credit
+        let noteId = UUID().uuidString
         
-        let billHistory = BillHistory(id: id, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        let billHistory = BillHistory(id: billId, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
         
-        try await DatabaseManager.shared.subCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit)
+        let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, created: timeNow, updated: timeNow)
+        
+        try await DatabaseManager.shared.subCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
 }

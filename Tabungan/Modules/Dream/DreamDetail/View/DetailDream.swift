@@ -16,6 +16,7 @@ struct DetailDream: View {
     @State private var showModal = false
     @State private var credit: Double? = nil
     @State private var operation: String = ""
+    @State private var note: String = ""
     @State var userData: UserData
     
     let progress: CGFloat = 0.0
@@ -161,7 +162,7 @@ struct DetailDream: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showModal) {
-                AmountInputView(credit: $credit, operation: $operation, uid: userData.uid, dreamId: dream.id, amount: dream.amount)
+                AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount)
                     .presentationDetents([.large, .medium, .fraction(0.5)])
                     
             }

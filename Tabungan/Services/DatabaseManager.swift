@@ -54,9 +54,11 @@ class DatabaseManager {
         return dreams
     }
     
-    func addCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double) async throws {
+    func addCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
         do {
             _ = try await client.database.from("bill_history").insert(billHistory).execute()
+            
+            _ = try await client.database.from("bill_history_note").insert(billHistoryNote).execute()
             
             let newAmount = amount + credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
@@ -70,9 +72,11 @@ class DatabaseManager {
         }
     }
     
-    func subCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double) async throws {
+    func subCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
         do {
             _ = try await client.database.from("bill_history").insert(billHistory).execute()
+            
+            _ = try await client.database.from("bill_history_note").insert(billHistoryNote).execute()
             
             let newAmount = amount - credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()

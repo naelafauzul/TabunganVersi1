@@ -41,12 +41,9 @@ struct Dreams: Codable {
     
 }
 
-
-
-
-//extension Dreams {
-//    static let dummyData = [
-//        Dreams(id: "1", user_id: "1", code: "1", profile: "image1", background: "image1", name: "Rumah Impian 1", target: 100000, amount: 50000, is_active: true, created: 1679461923099, updated: 1679461923099, scheduler: "Month", scheduler_rate: 5000)
-//       
-//    ]
-//}
+extension Dreams {
+    static let dummyData = [
+        Dreams(id: "1", userId: "1", code: "1", profile: "image1", background: "image1", name: "Rumah Impian 1", target: 100000, amount: 50000, isActive: true, created: 1679461923099, updated: 1679461923099, scheduler: "Month", schedulerRate: 5000)
+       
+    ]
+}

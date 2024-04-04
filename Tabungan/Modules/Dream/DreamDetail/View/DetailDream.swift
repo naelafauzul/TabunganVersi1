@@ -36,7 +36,6 @@ struct DetailDream: View {
                             Text(dream.name)
                                 .foregroundStyle(.white)
                                 .font(.headline)
-                                .padding(.bottom, 2)
                             
                             Text(DreamDetailVewModel.formatCurrency(dream.target))
                                 .foregroundStyle(.white)
@@ -56,6 +55,7 @@ struct DetailDream: View {
                                         
                                         ProgressBar(amount: dream.amount, target: dream.target)
                                     }
+                                    .foregroundStyle(.black)
                                     
                                     
                                     HStack {
@@ -71,6 +71,7 @@ struct DetailDream: View {
                                                 Spacer()
                                                 Text("\(DreamDetailVewModel.formatCurrency(dream.amount)) / \(DreamDetailVewModel.formatCurrency(dream.amount))")
                                                     .font(.callout)
+                                                    .foregroundStyle(.black)
                                                 
                                             }
                                             ProgressBar(amount: dream.amount, target: dream.target)
@@ -110,7 +111,7 @@ struct DetailDream: View {
                                                 .font(.callout)
                                                 .fontWeight(.bold)
                                                 .foregroundStyle(.blue)
-                                            Text("tercapai")
+                                            Text("Estimasi Tercapai")
                                                 .font(.footnote)
                                         }
                                         .padding(.vertical, 10)
@@ -133,8 +134,7 @@ struct DetailDream: View {
                 VStack {
                     HStack {
                         Text("Riwayat")
-                        
-                        
+                            .font(.callout)
                         Spacer()
                     }
                     .padding(.horizontal, 16)
@@ -184,6 +184,6 @@ struct DetailDream: View {
 }
 
 
-//#Preview {
-//    DetailDream(dream: Dreams.dummyData[0])
-//}
+#Preview {
+    DetailDream(userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
+}

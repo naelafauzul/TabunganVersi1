@@ -19,6 +19,7 @@ class DreamDetailVM: ObservableObject {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = Locale(identifier: "id_ID")
+        formatter.maximumFractionDigits = 0
         return formatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
     
@@ -33,9 +34,8 @@ class DreamDetailVM: ObservableObject {
     func calculateTargetDate(target: Double, scheduler: String, schedulerRate: Double, amount: Double) -> String {
         let currentTarget = target - amount
         let timeNeeded = Int(ceil(currentTarget / schedulerRate))
+
         var timeUnit: String
-        
-        
         switch scheduler.lowercased() {
         case "days":
             timeUnit = "Hari"
@@ -43,13 +43,18 @@ class DreamDetailVM: ObservableObject {
             timeUnit = "Minggu"
         case "month":
             timeUnit = "Bulan"
-            
         default:
-            return ""
+            return "Waktu tidak diketahui"
+        }
+
+        if timeNeeded < 0 {
+            return "0 \(timeUnit) Lagi"
         }
         
         return "\(timeNeeded) \(timeUnit) Lagi"
     }
+
+
     
     
     func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {

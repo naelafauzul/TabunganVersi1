@@ -14,30 +14,33 @@ struct HistoryItem: View {
     var body: some View {
         NavigationStack {
             HStack {
-                Image(systemName: billHistory.type == 0 ? "arrow.up" : "arrow.down")
+                Image(systemName: billHistory.type == 0 ? "arrow.down" : "arrow.up")
                     .font(.headline)
-                    .padding()
-                    .background(.purple.opacity(0.2))
+                    .padding(10)
+                    .background(.purple.opacity(0.1))
                     .clipShape(Circle())
                 
                 VStack(alignment: .leading) {
                     Text(billHistory.userName)
-                        .font(.headline)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                    
                     Text("bill history note")
-                        .font(.callout)
+                        .font(.footnote)
+                    
                     Text(DreamDetailViewModel.formatDate(from: billHistory.created))
-                        .font(.callout)
+                        .font(.caption)
                 }
                 
                 Spacer()
-                Text("\(billHistory.type == 0 ? "+" : "-")Rp\(String(format: "%.0f", billHistory.current))")
+                Text("\(billHistory.type == 0 ? "+" : "-") \(DreamDetailViewModel.formatCurrency(billHistory.current))")
                     .foregroundStyle(billHistory.type == 0 ? .green : .red)
-                    .font(.subheadline) 
+                    .font(.subheadline)
             }
         }
     }
 }
 
 #Preview {
-    HistoryItem(billHistory: BillHistory(id: "123", userId: "123", dreamId: "123", userName: "user", type: 1, amount: 200, current: 200, created: 12344, updated: 1233))
+    HistoryItem(billHistory: BillHistory(id: "123", userId: "123", dreamId: "123", userName: "user", type: 1, amount: 200000, current: 200000, created: 12344, updated: 1233))
 }

@@ -10,7 +10,6 @@ import SwiftUI
 
 class DreamsViewModel: ObservableObject {
     @Published var dreams = [Dreams]()
-    @Published var totalAmount: Double = 0
     
     @MainActor
     func fetchDreams(for uid: String) async throws {

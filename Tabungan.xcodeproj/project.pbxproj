@@ -60,6 +60,8 @@
 		91CFC1702BA8403F0085AB1C /* CreateDreamForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC16F2BA8403F0085AB1C /* CreateDreamForm.swift */; };
 		91CFC1732BA87ACD0085AB1C /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1722BA87ACD0085AB1C /* CustomColorPicker.swift */; };
 		91CFC1782BA88D3C0085AB1C /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1772BA88D3C0085AB1C /* DatabaseManager.swift */; };
+		91E37AFB2BBEF25500B7CE48 /* BillHistoryWithNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E37AFA2BBEF25500B7CE48 /* BillHistoryWithNote.swift */; };
+		91E37AFD2BBEFF8A00B7CE48 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */; };
 		91F121532BADDBB600ECA76C /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 91F121522BADDBB600ECA76C /* SDWebImageSVGCoder */; };
 		91F121562BADDC3F00ECA76C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91F121552BADDC3F00ECA76C /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
@@ -106,6 +108,8 @@
 		91CFC16F2BA8403F0085AB1C /* CreateDreamForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamForm.swift; sourceTree = "<group>"; };
 		91CFC1722BA87ACD0085AB1C /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
 		91CFC1772BA88D3C0085AB1C /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		91E37AFA2BBEF25500B7CE48 /* BillHistoryWithNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistoryWithNote.swift; sourceTree = "<group>"; };
+		91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +342,7 @@
 			children = (
 				915F50602BB4110000457B14 /* ProgressBar.swift */,
 				91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */,
+				91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 		91CFC16A2BA833110085AB1C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				91E37AFA2BBEF25500B7CE48 /* BillHistoryWithNote.swift */,
 				9156BB4D2BAC5DB00022EBA8 /* BillHistory.swift */,
 				9156BB4F2BAC5DBE0022EBA8 /* BillHistoryNote.swift */,
 				91CFC16B2BA833200085AB1C /* DreamsModel.swift */,
@@ -547,11 +553,13 @@
 				913F1D512BA40EE500EE2E11 /* SignInView.swift in Sources */,
 				9156BB5F2BAC70080022EBA8 /* Color.swift in Sources */,
 				9156BB522BAC61E50022EBA8 /* CreateDreamVM.swift in Sources */,
+				91E37AFD2BBEFF8A00B7CE48 /* HistoryItem.swift in Sources */,
 				9156BB4E2BAC5DB00022EBA8 /* BillHistory.swift in Sources */,
 				913264FA2BAAC0030099D077 /* CustomButton.swift in Sources */,
 				91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */,
 				91CFC1642BA82DE20085AB1C /* CircularProgressBar.swift in Sources */,
 				915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */,
+				91E37AFB2BBEF25500B7CE48 /* BillHistoryWithNote.swift in Sources */,
 				91CFC1702BA8403F0085AB1C /* CreateDreamForm.swift in Sources */,
 				91CE553C2BB296710089E583 /* StorageManager.swift in Sources */,
 			);

@@ -11,7 +11,7 @@ import SupabaseStorage
 
 class DatabaseManager {
     static let shared = DatabaseManager()
- 
+    
     let client = Constant.client
     
     func createUserInDatabase(_ user: Users) async throws {
@@ -43,7 +43,7 @@ class DatabaseManager {
             throw error
         }
     }
-
+    
     func fetchDreamItem(for uid: String) async throws -> [Dreams] {
         let response = try await client.database.from("dreams").select().equals("userId", value: uid).order("created", ascending: true ).execute()
         let data = response.data
@@ -89,6 +89,15 @@ class DatabaseManager {
             throw error
         }
     }
-
     
+    func fetchBillHistory(dreamId: String) async throws -> [BillHistory] {
+        let response = try await client.database.from("bill_history").select().equals("dreamId", value: dreamId).order("created", ascending: false ).execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let billHistory = try decoder.decode([BillHistory].self, from: data)
+        print(billHistory)
+        return billHistory
+    }
 }

@@ -12,7 +12,7 @@ struct DetailDream: View {
     @StateObject var DreamsVM = DreamsViewModel()
     
     @Environment(\.dismiss) var dismiss
-   
+    
     @State private var showModal = false
     @State private var credit: Double? = nil
     @State private var operation: String = ""
@@ -133,12 +133,19 @@ struct DetailDream: View {
                 VStack {
                     HStack {
                         Text("Riwayat")
+                        
+                        
                         Spacer()
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 3)
+                    
+                    List(DreamDetailVewModel.historyList) { billHistory in
+                        HistoryItem(billHistory: billHistory)
+                    }
+                    .listStyle(.plain)
                 }
-                
+
                 Spacer()
                 
                 HStack {
@@ -158,13 +165,19 @@ struct DetailDream: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                .onAppear {
+                    Task {
+                        try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                    }
+                }
                 
             }
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .tabBar)
             .sheet(isPresented: $showModal) {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount)
                     .presentationDetents([.large, .medium, .fraction(0.5)])
-                    
+                
             }
         }
     }

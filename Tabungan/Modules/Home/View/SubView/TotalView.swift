@@ -19,7 +19,7 @@ struct TotalView: View {
                 Spacer()
             }
            
-            Text("Rp\(DreamsVM.totalAmount, specifier: "%.0f")")
+            Text("Rp0")
                 .font(.title)
                 .fontWeight(.bold)
         }

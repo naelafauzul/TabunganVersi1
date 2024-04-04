@@ -12,7 +12,7 @@ struct BillHistoryNote: Codable {
     let billId: String
     let userId: String
     let note: String
-    let created: Int64
+    let createdAt: Int64
     let updated: Int64
     
     enum CodingKeys: String, CodingKey {
@@ -20,7 +20,7 @@ struct BillHistoryNote: Codable {
         case billId = "bill_id"
         case userId = "user_id"
         case note
-        case created
+        case createdAt = "created_at"
         case updated
     }
 }

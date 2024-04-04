@@ -1,13 +1,13 @@
 //
-//  BillHistory.swift
+//  BillHistoryWithNote.swift
 //  Tabungan
 //
-//  Created by Naela Fauzul Muna on 21/03/24.
+//  Created by Naela Fauzul Muna on 04/04/24.
 //
 
 import Foundation
 
-struct BillHistory: Codable, Identifiable {
+struct BillHistoryWithNote: Identifiable, Codable {
     var id: String
     var userId: String
     var dreamId: String
@@ -17,4 +17,5 @@ struct BillHistory: Codable, Identifiable {
     var current: Double
     var created: Int64
     var updated: Int64
+    var note: String?
 }

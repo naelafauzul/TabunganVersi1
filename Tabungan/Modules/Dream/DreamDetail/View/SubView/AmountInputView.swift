@@ -22,17 +22,20 @@ struct AmountInputView: View {
         VStack (alignment: .leading) {
             Text(operation == "Tambah" ? "Isi Tabungan" : "Ambil Tabungan")
                 .font(.headline)
+                .padding()
             
             CustomTextFieldDouble(text: $credit, placeholder: "Nominal", formatter: NumberFormatter())
                 .padding()
             
             CustomTextFieldString(text: $note, placeholder: "Note")
+                .padding()
             
             Button(action: {
                 if operation == "Tambah" {
                     Task {
                         do {
                             try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0, note: note)
+                            try await DreamDetailVewModel.fetchBillHistory(for: dreamId)
                             dismiss()
                         } catch {
                             print(error)
@@ -42,6 +45,7 @@ struct AmountInputView: View {
                     Task {
                         do {
                             try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0, note: note)
+                            try await DreamDetailVewModel.fetchBillHistory(for: dreamId)
                             dismiss()
                         } catch {
                             print(error)
@@ -57,6 +61,8 @@ struct AmountInputView: View {
                     .cornerRadius(8)
             }
             .padding()
+            
+            Spacer()
         }
         .background(Color.white)
         .cornerRadius(20)

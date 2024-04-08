@@ -17,4 +17,5 @@ struct BillHistory: Codable, Identifiable {
     var current: Double
     var created: Int64
     var updated: Int64
+    var notes: [BillHistoryNote]?
 }

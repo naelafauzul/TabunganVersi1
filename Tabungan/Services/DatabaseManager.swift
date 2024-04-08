@@ -91,13 +91,43 @@ class DatabaseManager {
     }
     
     func fetchBillHistory(dreamId: String) async throws -> [BillHistory] {
-        let response = try await client.database.from("bill_history").select().equals("dreamId", value: dreamId).order("created", ascending: false ).execute()
+        let response = try await client.database.from("bill_history")
+            .select()
+            .eq("dreamId", value: dreamId)
+            .order("created", ascending: false)
+            .execute()
         
         let data = response.data
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let billHistory = try decoder.decode([BillHistory].self, from: data)
-        print(billHistory)
-        return billHistory
+        var billHistories = try decoder.decode([BillHistory].self, from: data)
+
+        // fetch notes for each billHistory and associate them
+        try await withThrowingTaskGroup(of: (Int, [BillHistoryNote]).self, body: { group in
+            for (index, billHistory) in billHistories.enumerated() {
+                group.addTask {
+                    let notes = try await self.fetchNotes(forBillId: billHistory.id)
+                    return (index, notes)
+                }
+            }
+
+            for try await (index, notes) in group {
+                billHistories[index].notes = notes
+            }
+        })
+
+        return billHistories
+    }
+
+    
+    func fetchNotes(forBillId billId: String) async throws -> [BillHistoryNote] {
+        let response = try await client.database.from("bill_history_note").select("*").eq("billId", value: billId).execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let notes = try decoder.decode([BillHistoryNote].self, from: data)
+        
+        return notes
     }
 }

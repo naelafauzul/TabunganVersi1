@@ -25,8 +25,10 @@ struct HistoryItem: View {
                         .font(.subheadline)
                         .fontWeight(.bold)
                     
-                    Text("bill history note")
-                        .font(.footnote)
+                    ForEach(billHistory.notes ?? [], id: \.id) { note in
+                        Text(note.note)
+                            .font(.footnote)
+                    }
                     
                     Text(DreamDetailViewModel.formatDate(from: billHistory.created))
                         .font(.caption)

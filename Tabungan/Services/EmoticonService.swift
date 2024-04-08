@@ -35,6 +35,4 @@ class EmoticonService: ObservableObject {
     static func getEmoticon(byKey key: String) -> Emoticon? {
         getEmoticons().first { $0.key == key }
     }
-    
-    
 }

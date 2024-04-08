@@ -18,7 +18,6 @@ struct CircularProgressBar: View {
     var body: some View {
         ZStack {
             Circle()
-            
                 .stroke(lineWidth: 5.0)
                 .foregroundColor(Color.white)
             

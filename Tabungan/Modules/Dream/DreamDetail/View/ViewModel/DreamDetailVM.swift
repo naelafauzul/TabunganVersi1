@@ -54,9 +54,6 @@ class DreamDetailVM: ObservableObject {
         return "\(timeNeeded) \(timeUnit) Lagi"
     }
 
-
-    
-    
     func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
         let billId = UUID().uuidString

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct TotalView: View {
-    @StateObject var DreamsVM = DreamsViewModel()
-    var userData: UserData?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,17 +21,6 @@ struct TotalView: View {
                 .font(.title)
                 .fontWeight(.bold)
         }
-//        .onAppear {
-//            if let userData = userData {
-//                Task {
-//                    do {
-//                        try await DreamsVM.fetchTotalAmount(for: userData.uid)
-//                    } catch {
-//                        print(error)
-//                    }
-//                }
-//            }
-//        }
     }
 }
 

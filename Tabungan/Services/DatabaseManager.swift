@@ -90,6 +90,17 @@ class DatabaseManager {
         }
     }
     
+    func fetchNotes(forBillId billId: String) async throws -> [BillHistoryNote] {
+        let response = try await client.database.from("bill_history_note").select("*").eq("billId", value: billId).execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let notes = try decoder.decode([BillHistoryNote].self, from: data)
+        
+        return notes
+    }
+    
     func fetchBillHistory(dreamId: String) async throws -> [BillHistory] {
         let response = try await client.database.from("bill_history")
             .select()
@@ -117,17 +128,5 @@ class DatabaseManager {
         })
 
         return billHistories
-    }
-
-    
-    func fetchNotes(forBillId billId: String) async throws -> [BillHistoryNote] {
-        let response = try await client.database.from("bill_history_note").select("*").eq("billId", value: billId).execute()
-        
-        let data = response.data
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let notes = try decoder.decode([BillHistoryNote].self, from: data)
-        
-        return notes
     }
 }

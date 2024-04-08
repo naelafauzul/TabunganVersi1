@@ -12,7 +12,6 @@ struct DreamItem: View {
     let progress: CGFloat = 0.75
     let dream: Dreams
     
-    
     var body: some View {
         VStack (alignment: .leading) {
             HStack {
@@ -27,8 +26,7 @@ struct DreamItem: View {
                 CircularProgressBar(amount: dream.amount, target: dream.target)
                     .frame(width: 40, height: 40)
             }
-         
-            
+        
             Spacer()
             
             Text(dream.name)
@@ -48,10 +46,8 @@ struct DreamItem: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         
     }
-    
-    
 }
 
-//#Preview {
-//    DreamItem( dream: Dreams.dummyData[0])
-//}
+#Preview {
+    DreamItem( dream: Dreams.dummyData[0])
+}

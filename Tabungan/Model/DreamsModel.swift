@@ -37,8 +37,6 @@ struct Dreams: Codable {
         case scheduler
         case schedulerRate 
     }
-    
-    
 }
 
 extension Dreams {

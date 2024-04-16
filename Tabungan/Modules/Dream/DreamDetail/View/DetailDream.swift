@@ -145,7 +145,7 @@ struct DetailDream: View {
                     }
                     .listStyle(.plain)
                 }
-
+                
                 Spacer()
                 
                 HStack {
@@ -175,9 +175,12 @@ struct DetailDream: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .tabBar)
             .sheet(isPresented: $showModal) {
-                AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount)
-                    .presentationDetents([.large, .medium, .fraction(0.5)])
-                
+                AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
+                    Task {
+                        try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                    }
+                })
+                .presentationDetents([.large, .medium, .fraction(0.5)])
             }
         }
     }

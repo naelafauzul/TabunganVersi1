@@ -17,6 +17,7 @@ struct AmountInputView: View {
     var uid: String
     var dreamId: String
     var amount: Double
+    var onComplete: () -> Void
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -35,7 +36,7 @@ struct AmountInputView: View {
                     Task {
                         do {
                             try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0, note: note)
-                            try await DreamDetailVewModel.fetchBillHistory(for: dreamId)
+                            onComplete()
                             dismiss()
                         } catch {
                             print(error)
@@ -45,7 +46,7 @@ struct AmountInputView: View {
                     Task {
                         do {
                             try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0, note: note)
-                            try await DreamDetailVewModel.fetchBillHistory(for: dreamId)
+                            onComplete()
                             dismiss()
                         } catch {
                             print(error)

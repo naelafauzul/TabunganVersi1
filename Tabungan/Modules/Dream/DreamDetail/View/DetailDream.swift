@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SVGKit
 
 struct DetailDream: View {
-    @StateObject var DreamDetailVewModel = DreamDetailVM()
-    @StateObject var DreamsVM = DreamsViewModel()
+    @ObservedObject var DreamDetailVewModel = DreamDetailVM()
+    @ObservedObject var DreamsVM = DreamsViewModel()
     
     @Environment(\.dismiss) var dismiss
     
@@ -28,10 +29,17 @@ struct DetailDream: View {
                 VStack {
                     ZStack {
                         VStack {
-                            Image(systemName: "photo")
-                                .resizable()
-                                .frame(width: 40, height: 30)
-                                .padding(.bottom, 20)
+                            if let emoticon = EmoticonService.getEmoticon(byKey: dream.profile) {
+                                SVGImage(url: emoticon.path)
+                                    .frame(width: 60, height: 60)
+                        
+                            } else {
+                                Image(systemName: "photo")
+                                    .foregroundStyle(.black)
+                                    .frame(width: 60, height: 60)
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+                            }
                             
                             Text(dream.name)
                                 .foregroundStyle(.white)
@@ -168,6 +176,7 @@ struct DetailDream: View {
                 .onAppear {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+
                     }
                 }
                 
@@ -178,6 +187,7 @@ struct DetailDream: View {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                        try await DreamsVM.fetchDreams(for: userData.uid)
                     }
                 })
                 .presentationDetents([.large, .medium, .fraction(0.5)])

@@ -14,6 +14,7 @@ struct DreamList: View {
     @State private var showingSignInView = false
     @State private var showingCreateForm = false
     
+    
     var gridItemLayout = [
         GridItem(.flexible()),
         GridItem(.flexible())

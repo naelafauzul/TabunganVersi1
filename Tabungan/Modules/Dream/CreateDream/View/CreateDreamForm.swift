@@ -16,6 +16,7 @@ struct CreateDreamForm: View {
     
     @State private var selectedColor = "#ABD3DB"
     @State private var selectedEmoticon = ""
+    @State private var selectedEmoticonURL: URL? = nil
     
     @State private var name: String = ""
     @State private var target: Double? = nil
@@ -54,12 +55,21 @@ struct CreateDreamForm: View {
                         
                         Spacer()
                         
-                        Image(systemName: selectedEmoticon)
-                            .foregroundStyle(.white)
-                            .frame(width: 100, height: 100)
-                            .background(Color(hex: selectedColor)).clipShape(RoundedRectangle(cornerRadius: 20))
-                            .padding()
-                        
+                        if selectedEmoticonURL != nil {
+                            EmoticonItem(url: $selectedEmoticonURL)
+                                .frame(width: 100, height: 100)
+                                .background(Color(hex: selectedColor))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding()
+                            
+                        } else {
+                            Image(systemName: "photo")
+                                .frame(width: 100, height: 100)
+                                .background(Color(hex: selectedColor))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding()
+                        }
+
                         Spacer()
                         
                         Button {
@@ -125,7 +135,7 @@ struct CreateDreamForm: View {
                     .presentationDetents([.large, .medium, .fraction(0.5)])
             }
             .sheet(isPresented: $showingEmoticon) {
-                EmoticonView(selectedEmoticon: $selectedEmoticon)
+                EmoticonView(selectedEmoticon: $selectedEmoticon, selectedEmoticonURL: $selectedEmoticonURL)
                     .presentationDetents([.large, .medium, .fraction(0.5)])
             }
         }

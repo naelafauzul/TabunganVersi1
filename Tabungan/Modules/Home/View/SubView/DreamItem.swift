@@ -6,20 +6,29 @@
 //
 
 import SwiftUI
+import SVGKit
 
 struct DreamItem: View {
     @StateObject var CreateDreamsVM = CreateDreamVM()
     let progress: CGFloat = 0.75
     let dream: Dreams
-    
+    @State private var svgEmoticonURL: URL?
+
     var body: some View {
-        VStack (alignment: .leading) {
+        VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "photo")
-                    .foregroundStyle(.black)
-                    .frame(width: 60, height: 60)
-                    .background(.white)
-                    .clipShape(Circle())
+                if let emoticon = EmoticonService.getEmoticon(byKey: dream.profile) {
+                    SVGImage(url: emoticon.path)
+                        .frame(width: 60, height: 60)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                } else {
+                    Image(systemName: "photo")
+                        .foregroundStyle(.black)
+                        .frame(width: 60, height: 60)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                }
                 
                 Spacer()
                     
@@ -44,9 +53,9 @@ struct DreamItem: View {
         .frame(width: 170, height: 170)
         .background(Color(hex: dream.background))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        
     }
 }
+
 
 #Preview {
     DreamItem( dream: Dreams.dummyData[0])

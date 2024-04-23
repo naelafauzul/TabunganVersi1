@@ -11,10 +11,11 @@ import SwiftUI
 struct ContentView: View {
     @State var userData: UserData? = nil
     @StateObject var DreamsVM = DreamsViewModel()
+    @State private var selectedTab = 0
     
     var body: some View {
-        TabView {
-            DreamList(userData: userData)
+        TabView(selection: $selectedTab) {
+            DreamList(DreamsVM: DreamsVM, userData: userData)
                 .tag(0)
                 .tabItem {
                     Label("Beranda", systemImage: "house")

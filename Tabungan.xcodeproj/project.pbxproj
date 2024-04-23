@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		910358DB2BD7614400F230DD /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 910358DA2BD7614400F230DD /* SVGKit */; };
+		910358DD2BD7614400F230DD /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 910358DC2BD7614400F230DD /* SVGKitSwift */; };
+		910358E12BD778D100F230DD /* SVGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910358E02BD778D100F230DD /* SVGImage.swift */; };
+		910358E32BD77A8100F230DD /* EmoticonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910358E22BD77A8100F230DD /* EmoticonItem.swift */; };
 		9106E2052BAC13C8007AAD82 /* DreamUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9106E2042BAC13C8007AAD82 /* DreamUsers.swift */; };
 		91135A3F2BBBE84400DE70D2 /* AmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */; };
 		913264F62BAAB1990099D077 /* CustomTextFieldString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F52BAAB1990099D077 /* CustomTextFieldString.swift */; };
@@ -66,6 +70,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		910358E02BD778D100F230DD /* SVGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImage.swift; sourceTree = "<group>"; };
+		910358E22BD77A8100F230DD /* EmoticonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonItem.swift; sourceTree = "<group>"; };
 		9106E2042BAC13C8007AAD82 /* DreamUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamUsers.swift; sourceTree = "<group>"; };
 		91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountInputView.swift; sourceTree = "<group>"; };
 		913264F52BAAB1990099D077 /* CustomTextFieldString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldString.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 				913F1D7C2BA4124800EE2E11 /* Supabase in Frameworks */,
 				913F1D772BA411C700EE2E11 /* Realtime in Frameworks */,
 				913F1D6B2BA4119D00EE2E11 /* PostgREST in Frameworks */,
+				910358DB2BD7614400F230DD /* SVGKit in Frameworks */,
 				91F121532BADDBB600ECA76C /* SDWebImageSVGCoder in Frameworks */,
 				913F1D692BA4119D00EE2E11 /* Functions in Frameworks */,
 				913F1D712BA411C700EE2E11 /* Auth in Frameworks */,
@@ -126,6 +133,7 @@
 				91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */,
 				913E7BF52BA4B4F900FEA464 /* GoogleSignIn in Frameworks */,
 				913F1D672BA4119D00EE2E11 /* Auth in Frameworks */,
+				910358DD2BD7614400F230DD /* SVGKitSwift in Frameworks */,
 				913F1D752BA411C700EE2E11 /* PostgREST in Frameworks */,
 				913F1D732BA411C700EE2E11 /* Functions in Frameworks */,
 				913F1D6F2BA4119D00EE2E11 /* Storage in Frameworks */,
@@ -341,6 +349,7 @@
 				915F50602BB4110000457B14 /* ProgressBar.swift */,
 				91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */,
 				91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */,
+				910358E02BD778D100F230DD /* SVGImage.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -413,6 +422,7 @@
 				913264F72BAAB57C0099D077 /* CustomTextFieldDouble.swift */,
 				913264F92BAAC0030099D077 /* CustomButton.swift */,
 				913F21072BADCD9A001AD670 /* EmoticonView.swift */,
+				910358E22BD77A8100F230DD /* EmoticonItem.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -458,6 +468,8 @@
 				91F121522BADDBB600ECA76C /* SDWebImageSVGCoder */,
 				91F121552BADDC3F00ECA76C /* SDWebImageSwiftUI */,
 				91CE55402BB2C9E00089E583 /* SupabaseStorage */,
+				910358DA2BD7614400F230DD /* SVGKit */,
+				910358DC2BD7614400F230DD /* SVGKitSwift */,
 			);
 			productName = Tabungan;
 			productReference = 913F1D2F2BA40DD400EE2E11 /* Tabungan.app */;
@@ -493,6 +505,7 @@
 				91F121512BADDBB600ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				91F121542BADDC3E00ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */,
+				910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 913F1D302BA40DD400EE2E11 /* Products */;
 			projectDirPath = "";
@@ -524,6 +537,7 @@
 				91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */,
 				913F21062BADCD56001AD670 /* EmoticonService.swift in Sources */,
 				913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */,
+				910358E12BD778D100F230DD /* SVGImage.swift in Sources */,
 				91CFC1732BA87ACD0085AB1C /* CustomColorPicker.swift in Sources */,
 				913F1D532BA40F2100EE2E11 /* SignInViewModel.swift in Sources */,
 				91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */,
@@ -547,6 +561,7 @@
 				9156BB4A2BAC5D910022EBA8 /* Users.swift in Sources */,
 				913E7BF22BA4B04600FEA464 /* UserView.swift in Sources */,
 				91CFC1782BA88D3C0085AB1C /* DatabaseManager.swift in Sources */,
+				910358E32BD77A8100F230DD /* EmoticonItem.swift in Sources */,
 				913F1D512BA40EE500EE2E11 /* SignInView.swift in Sources */,
 				9156BB5F2BAC70080022EBA8 /* Color.swift in Sources */,
 				9156BB522BAC61E50022EBA8 /* CreateDreamVM.swift in Sources */,
@@ -767,6 +782,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		913E7BF32BA4B4F900FEA464 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -810,6 +833,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		910358DA2BD7614400F230DD /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		910358DC2BD7614400F230DD /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
+		};
 		913E7BF42BA4B4F900FEA464 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 913E7BF32BA4B4F900FEA464 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

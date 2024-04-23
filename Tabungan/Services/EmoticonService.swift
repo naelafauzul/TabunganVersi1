@@ -13,7 +13,7 @@ import Supabase
 class EmoticonService: ObservableObject {
     static let shared = EmoticonService()
     
-    static let baseKeyEmoticons = "celengan/emoticons"
+    static let baseKeyEmoticons = "tabungan/emoticons"
     private static let totalImages = 59
     private static let baseImageUrl = "https://atijrsvztjdenjmnsxzs.supabase.co/storage/v1/object/public/"
     

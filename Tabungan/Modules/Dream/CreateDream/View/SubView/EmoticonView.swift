@@ -7,43 +7,25 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import SVGKit
 
 struct EmoticonView: View {
     private let emoticons = EmoticonService.getEmoticons()
     private let columns = [GridItem(.adaptive(minimum: 70))]
     
-    @Binding var selectedEmoticon : String
+    @Binding var selectedEmoticon: String
+    @Binding var selectedEmoticonURL: URL?
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(emoticons) { emoticon in
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(emoticons, id: \.key) { emoticon in
                     Button(action: {
                         self.selectedEmoticon = emoticon.key
+                        self.selectedEmoticonURL = emoticon.path
                     }) {
-                        if emoticon.path.absoluteString.lowercased().hasSuffix("svg") {
-                            WebImage(url: emoticon.path, options: [], context: [.imageThumbnailPixelSize : CGSize.zero])
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 70, height: 70)
-                        } else {
-                            AsyncImage(url: emoticon.path) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    image.resizable()
-                                         .aspectRatio(contentMode: .fit)
-                                         .frame(width: 70, height: 70)
-                                case .failure:
-                                    Image(systemName: "photo")
-                                        .foregroundColor(.red)
-                                        .frame(width: 70, height: 70)
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                        }
+                        SVGImage(url: emoticon.path)
+                            .frame(width: 40, height: 40)
                     }
                     .padding(4)
                 }
@@ -55,6 +37,5 @@ struct EmoticonView: View {
 
 
 
-//#Preview {
-//    EmoticonView(selectedEmoticonKey: "emot")
-//}
+
+

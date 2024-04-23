@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 class CreateDreamVM: ObservableObject {
+    @Published var emoticons: [Emoticon] = []
+    
     
     func createDreams(uid: String, profile: String, background: String, name: String, name_user: String, target: Double, scheduler: String, schedulerRate: Double ) async throws {
         
@@ -31,7 +33,7 @@ class CreateDreamVM: ObservableObject {
         return formatter.string(from: NSNumber(value: amount)) ?? "\(amount)"
     }
     
-
+    
     func calculateTargetDate(target: Double, scheduler: String, schedulerRate: Double) -> String {
         guard target > 0 && schedulerRate > 0 else {
             return ""
@@ -68,6 +70,12 @@ class CreateDreamVM: ObservableObject {
         
         return "Tercapai dalam \(timeNeeded) \(timeUnit) pada \(formattedTargetDate)"
     }
+    
+    func loadEmoticons() {
+        emoticons = EmoticonService.getEmoticons()
+    }
+    
+    
 }
 
 

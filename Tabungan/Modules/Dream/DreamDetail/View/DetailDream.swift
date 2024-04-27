@@ -21,7 +21,7 @@ struct DetailDream: View {
     @State var userData: UserData
     
     let progress: CGFloat = 0.0
-    let dream: Dreams
+    var dream: Dreams
     
     var body: some View {
         NavigationStack {

@@ -20,11 +20,8 @@ struct SVGImage: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 40, height: 40)
-            } else if isLoading {
-                ProgressView()
             } else {
-                Text("Unable to load image.")
-                    .foregroundColor(.red)
+                ProgressView()
             }
         }
         .onAppear {

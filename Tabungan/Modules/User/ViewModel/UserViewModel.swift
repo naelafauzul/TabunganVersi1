@@ -8,6 +8,7 @@
 import Foundation
 
 class UserVM: ObservableObject {
+    @Published var user : Users?
     
     func createUser(uid: String, email: String, profile: String, name: String, gender: String, day_of_birth: String, isActive: Bool, created: Int64, updated: Int64) async throws {
         
@@ -20,4 +21,11 @@ class UserVM: ObservableObject {
         
         try await DatabaseManager.shared.createUserInDatabase(user)
     }
+    
+    @MainActor
+    func fetchUserInfo(for uid: String) async throws {
+        user = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
+    }
+    
+    
 }

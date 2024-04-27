@@ -18,14 +18,24 @@ class DatabaseManager {
         try await client.database.from("users").insert(user).execute()
     }
     
-    func fetchUserFromDatabase(email: String) async throws -> Users {
-        let users: [Users] = try await client.database.from("users").select().equals("email", value: email).execute().value
+    func fetchUserFromDatabase(uid: String) async throws -> Users {
+        let users: [Users] = try await client.database.from("users").select().equals("id", value: uid).execute().value
         
         guard let user = users.first else {
             throw URLError(.badURL)
         }
         
         return user
+    }
+    
+    func fetchUserInfo(for uid: String) async throws -> Users {
+        let response = try await client.database.from("dreams").select().equals("id", value: uid).execute()
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreams = try decoder.decode(Users.self, from: data)
+        print(dreams)
+        return dreams
     }
     
     func createDreamItem(dream: Dreams, dreamUser: DreamUsers) async throws {

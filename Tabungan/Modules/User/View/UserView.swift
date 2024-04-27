@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct UserView: View {
+    @StateObject private var userViewModel = UserVM()
     @Binding var userData: UserData?
     
     var body: some View {
-        if let userData = userData {
+        if let userData = userData, let user = userViewModel.user {
             VStack {
                 VStack {
                     Text(userData.uid)
                     Text(userData.email)
+                    Text(user.name)
              
                 }
                 Button {
@@ -37,9 +39,10 @@ struct UserView: View {
                 Task {
                     do {
                         try await DreamsViewModel().fetchDreams(for: userData.uid)
+                        try await userViewModel.fetchUserInfo(for: userData.uid)
                         
                     } catch {
-                        print(error)
+                        print("Failed to fetch user info: \(error)")
                     }
                 }
             }

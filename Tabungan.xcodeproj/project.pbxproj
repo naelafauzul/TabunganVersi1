@@ -52,7 +52,6 @@
 		915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F505D2BB40BCA00457B14 /* DetailDream.swift */; };
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
-		91CE553C2BB296710089E583 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553B2BB296710089E583 /* StorageManager.swift */; };
 		91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
@@ -102,7 +101,6 @@
 		915F505D2BB40BCA00457B14 /* DetailDream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDream.swift; sourceTree = "<group>"; };
 		915F50602BB4110000457B14 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		915F50622BB4152100457B14 /* DreamDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailVM.swift; sourceTree = "<group>"; };
-		91CE553B2BB296710089E583 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamItem.swift; sourceTree = "<group>"; };
 		91CFC1602BA82BF50085AB1C /* DreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamList.swift; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 			children = (
 				913F1D572BA4102D00EE2E11 /* AuthAPIService.swift */,
 				91CFC1772BA88D3C0085AB1C /* DatabaseManager.swift */,
-				91CE553B2BB296710089E583 /* StorageManager.swift */,
 				913F21052BADCD56001AD670 /* EmoticonService.swift */,
 			);
 			path = Services;
@@ -572,7 +569,6 @@
 				91CFC1642BA82DE20085AB1C /* CircularProgressBar.swift in Sources */,
 				915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */,
 				91CFC1702BA8403F0085AB1C /* CreateDreamForm.swift in Sources */,
-				91CE553C2BB296710089E583 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

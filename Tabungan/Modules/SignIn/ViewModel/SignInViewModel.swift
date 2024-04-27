@@ -24,7 +24,7 @@ class SignInViewModel: ObservableObject {
             
             let googleResult = try await signInGoogle.startSignInWithGoogleFlow()
             let userData = try await AuthAPIService.shared.SignInWithGoogle(idToken: googleResult.idToken, nonce: googleResult.nonce)
-            let existingUser = try? await DatabaseManager.shared.fetchUserFromDatabase(email: userData.email)
+            let existingUser = try? await DatabaseManager.shared.fetchUserInfo(for: userData.uid)
             
             if existingUser == nil {
                 try await createUser(uid: userData.uid, email: userData.email, profile: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0)

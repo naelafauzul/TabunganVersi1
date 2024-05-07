@@ -23,6 +23,10 @@ struct DetailDream: View {
     let progress: CGFloat = 0.0
     var dream: Dreams
     
+    var dreamTemp: Dreams {
+        DreamsVM.dreams.first (where: {$0.id == dream.id}) ?? dream
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -61,7 +65,7 @@ struct DetailDream: View {
                                                 .font(.callout)
                                         }
                                         
-                                        ProgressBar(amount: dream.amount, target: dream.target)
+                                        ProgressBar(amount: dreamTemp.amount, target: dream.target)
                                     }
                                     .foregroundStyle(.black)
                                     
@@ -77,12 +81,12 @@ struct DetailDream: View {
                                                 Text("User")
                                                     .font(.callout)
                                                 Spacer()
-                                                Text("\(DreamDetailVewModel.formatCurrency(dream.amount)) / \(DreamDetailVewModel.formatCurrency(dream.amount))")
+                                                Text("\(DreamDetailVewModel.formatCurrency(dreamTemp.amount)) / \(DreamDetailVewModel.formatCurrency(dreamTemp.amount))")
                                                     .font(.callout)
                                                     .foregroundStyle(.black)
                                                 
                                             }
-                                            ProgressBar(amount: dream.amount, target: dream.target)
+                                            ProgressBar(amount: dreamTemp.amount, target: dream.target)
                                         }
                                         
                                     }

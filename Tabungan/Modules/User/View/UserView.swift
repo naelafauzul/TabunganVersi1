@@ -12,13 +12,11 @@ struct UserView: View {
     @Binding var userData: UserData?
     
     var body: some View {
-        if let userData = userData, let user = userViewModel.user {
+        if let userData = userData {
             VStack {
                 VStack {
                     Text(userData.uid)
                     Text(userData.email)
-                    Text(user.name)
-             
                 }
                 Button {
                     Task {

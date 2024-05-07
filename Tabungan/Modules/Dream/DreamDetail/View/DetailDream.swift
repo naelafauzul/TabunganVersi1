@@ -191,7 +191,6 @@ struct DetailDream: View {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
-                        try await DreamsVM.fetchDreams(for: userData.uid)
                     }
                 })
                 .presentationDetents([.large, .medium, .fraction(0.5)])

@@ -15,7 +15,9 @@ struct DetailDream: View {
     @Environment(\.dismiss) var dismiss
     @Binding var tabBarVisibility: Visibility
     
+    @State private var showDeleteConfirmation = false
     @State private var showModal = false
+    
     @State private var credit: Double? = nil
     @State private var operation: String = ""
     @State private var note: String = ""
@@ -189,15 +191,23 @@ struct DetailDream: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .alert("Konfirmasi Penghapusan", isPresented: $showDeleteConfirmation) {
+                            Button("Hapus", role: .destructive) {
+                                Task {
+                                    try await DreamDetailVewModel.deleteDream(dreamId: dream.id, userId: userData.uid)
+                                }
+                            }
+                            Button("Batal", role: .cancel) { }
+                        } message: {
+                            Text("Apakah Anda yakin ingin menghapus impian ini?")
+                        }
             .toolbar {
                 Menu {
-                    NavigationLink(destination: UpdateDreamView()) {
-                        Label("Update", systemImage: "pencil")
+                    NavigationLink(destination: UpdateDreamForm(tabBarVisibility: $tabBarVisibility, userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), dream: dream)) {
+                        Text("Ubah")
                     }
                     Button(action: {
-                        Task {
-                            try await DreamDetailVewModel.deleteDream(dreamId: dream.id, userId: userData.uid)
-                        }
+                        showDeleteConfirmation = true
                         
                     }) {
                         Label("Delete", systemImage: "trash")
@@ -225,6 +235,6 @@ struct DetailDream: View {
 }
 
 
-#Preview {
-    DetailDream(tabBarVisibility: .constant(.hidden), userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
-}
+//#Preview {
+//    DetailDream(tabBarVisibility: .constant(.hidden), userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0], selectedDream: )
+//}

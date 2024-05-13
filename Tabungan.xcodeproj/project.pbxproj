@@ -53,6 +53,7 @@
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
 		918D58392BF211760041745D /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 918D58382BF211760041745D /* Introspect */; };
+		918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D583B2BF235650041745D /* UpdateDreamView.swift */; };
 		91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
@@ -100,6 +101,7 @@
 		915F505D2BB40BCA00457B14 /* DetailDream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDream.swift; sourceTree = "<group>"; };
 		915F50602BB4110000457B14 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		915F50622BB4152100457B14 /* DreamDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailVM.swift; sourceTree = "<group>"; };
+		918D583B2BF235650041745D /* UpdateDreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamView.swift; sourceTree = "<group>"; };
 		91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamItem.swift; sourceTree = "<group>"; };
 		91CFC1602BA82BF50085AB1C /* DreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamList.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 		915F505F2BB410EE00457B14 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				918D583A2BF232F60041745D /* UpdateView */,
 				915F50602BB4110000457B14 /* ProgressBar.swift */,
 				91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */,
 				91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */,
@@ -366,6 +369,14 @@
 				913F21052BADCD56001AD670 /* EmoticonService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		918D583A2BF232F60041745D /* UpdateView */ = {
+			isa = PBXGroup;
+			children = (
+				918D583B2BF235650041745D /* UpdateDreamView.swift */,
+			);
+			path = UpdateView;
 			sourceTree = "<group>";
 		};
 		91CFC15D2BA82BC60085AB1C /* View */ = {
@@ -565,6 +576,7 @@
 				91CFC1642BA82DE20085AB1C /* CircularProgressBar.swift in Sources */,
 				915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */,
 				91CFC1702BA8403F0085AB1C /* CreateDreamForm.swift in Sources */,
+				918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

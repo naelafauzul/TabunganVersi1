@@ -81,5 +81,10 @@ class DreamDetailVM: ObservableObject {
         try await DatabaseManager.shared.subCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
+    func deleteDream(dreamId: String, userId: String) async throws {
+        try await DatabaseManager.shared.deleteDream(dreamId: dreamId, userId: userId)
+    }
+
+    
 }
 

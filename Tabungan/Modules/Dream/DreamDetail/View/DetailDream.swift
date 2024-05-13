@@ -182,19 +182,32 @@ struct DetailDream: View {
 //                    print("onAppear triggered")
 //                    tabBarVisibility = .hidden
 //                    print("Tab bar visibility set to hidden")
-//
+                    
                     Task {
-                        do {
-                            print("Fetching bill history...")
-                            try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
-                            print("Bill history fetched successfully")
-                        } catch {
-                            print("Error fetching bill history: \(error)")
-                        }
+                        try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Menu {
+                    NavigationLink(destination: UpdateDreamView()) {
+                        Label("Update", systemImage: "pencil")
+                    }
+                    Button(action: {
+                        Task {
+                            try await DreamDetailVewModel.deleteDream(dreamId: dream.id, userId: userData.uid)
+                        }
+                        
+                    }) {
+                        Label("Delete", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .imageScale(.large)
+                        .rotationEffect(.degrees(90))
+                }
+            }
             .onDisappear {
                 tabBarVisibility = .visible
             }
@@ -202,6 +215,7 @@ struct DetailDream: View {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                        try await DreamsVM.fetchDreams(for: userData.uid)
                     }
                 })
                 .presentationDetents([.large, .medium, .fraction(0.5)])
@@ -211,6 +225,6 @@ struct DetailDream: View {
 }
 
 
-//#Preview {
-//    DetailDream(userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
-//}
+#Preview {
+    DetailDream(tabBarVisibility: .constant(.hidden), userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
+}

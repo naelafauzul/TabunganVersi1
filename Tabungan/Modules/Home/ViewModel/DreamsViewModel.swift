@@ -16,8 +16,4 @@ class DreamsViewModel: ObservableObject {
         dreams = try await DatabaseManager.shared.fetchDreamItem(for: uid)
     }
     
-    func deleteDream() async throws {
-        
-    }
-    
 }

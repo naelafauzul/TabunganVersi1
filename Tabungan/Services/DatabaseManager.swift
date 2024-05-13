@@ -55,7 +55,10 @@ class DatabaseManager {
     }
     
     func fetchDreamItem(for uid: String) async throws -> [Dreams] {
-        let response = try await client.database.from("dreams").select().equals("userId", value: uid).order("created", ascending: true ).execute()
+        let response = try await client.database.from("dreams").select()
+            .equals("userId", value: uid)
+            .equals("isActive", value: "true")
+            .order("created", ascending: true ).execute()
         let data = response.data
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -139,4 +142,19 @@ class DatabaseManager {
 
         return billHistories
     }
+    
+    func deleteDream(dreamId: String, userId: String) async throws {
+        do {
+            let response = try await client.database.from("dreams")
+                .update(["isActive": false])
+                .equals("id", value: dreamId)
+                .equals("userId", value: userId)
+                .execute()
+            print("Success deactivated dream \(dreamId)")
+        } catch {
+            print("Error occurred while updating dream: \(error)")
+            throw error
+        }
+    }
+
 }

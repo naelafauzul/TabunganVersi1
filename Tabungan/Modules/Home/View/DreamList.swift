@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct DreamList: View {
     @StateObject var DreamsVM = DreamsViewModel()
@@ -13,7 +14,7 @@ struct DreamList: View {
     
     @State private var showingSignInView = false
     @State private var showingCreateForm = false
-    
+    @State var tabBarVisibility: Visibility = .visible
     
     var gridItemLayout = [
         GridItem(.flexible()),
@@ -21,16 +22,17 @@ struct DreamList: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
                     TotalView()
                     LazyVGrid(columns: gridItemLayout) {
                         ForEach(DreamsVM.dreams, id: \.id) { dream in
-                            NavigationLink(destination: DetailDream(userData: userData!, dream: dream)
+                            NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData!, dream: dream)
                             ) {
                                 DreamItem(dream: dream)
                             }
+                            .toolbar(.hidden, for: .tabBar)
                         }
                     }
                 }
@@ -47,7 +49,6 @@ struct DreamList: View {
                 }
             }
             .padding(.horizontal, 16)
-            .toolbar(.visible, for: .tabBar)
             .toolbar {
                 Button(action: {
                     guard userData != nil else {
@@ -63,13 +64,14 @@ struct DreamList: View {
                         .padding(2)
                 }
             }
+            .toolbar(tabBarVisibility, for: .tabBar)
             .sheet(isPresented: $showingSignInView) {
                 SignInView(userData: userData)
                     .presentationDetents([.large, .medium, .fraction(0.25)])
             }
             .background(
                 NavigationLink(
-                    destination: CreateDreamForm(userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
+                    destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
                     .environmentObject(DreamsVM), isActive: $showingCreateForm) {
                         EmptyView()
                     }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import SVGKit
 
 struct EmoticonView: View {

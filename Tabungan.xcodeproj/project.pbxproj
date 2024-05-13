@@ -52,6 +52,7 @@
 		915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F505D2BB40BCA00457B14 /* DetailDream.swift */; };
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
+		918D58392BF211760041745D /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 918D58382BF211760041745D /* Introspect */; };
 		91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
@@ -64,8 +65,6 @@
 		91CFC1732BA87ACD0085AB1C /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1722BA87ACD0085AB1C /* CustomColorPicker.swift */; };
 		91CFC1782BA88D3C0085AB1C /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1772BA88D3C0085AB1C /* DatabaseManager.swift */; };
 		91E37AFD2BBEFF8A00B7CE48 /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */; };
-		91F121532BADDBB600ECA76C /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 91F121522BADDBB600ECA76C /* SDWebImageSVGCoder */; };
-		91F121562BADDC3F00ECA76C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91F121552BADDC3F00ECA76C /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,12 +118,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91F121562BADDC3F00ECA76C /* SDWebImageSwiftUI in Frameworks */,
 				913F1D7C2BA4124800EE2E11 /* Supabase in Frameworks */,
 				913F1D772BA411C700EE2E11 /* Realtime in Frameworks */,
 				913F1D6B2BA4119D00EE2E11 /* PostgREST in Frameworks */,
 				910358DB2BD7614400F230DD /* SVGKit in Frameworks */,
-				91F121532BADDBB600ECA76C /* SDWebImageSVGCoder in Frameworks */,
 				913F1D692BA4119D00EE2E11 /* Functions in Frameworks */,
 				913F1D712BA411C700EE2E11 /* Auth in Frameworks */,
 				913E7BF72BA4B4F900FEA464 /* GoogleSignInSwift in Frameworks */,
@@ -134,6 +131,7 @@
 				910358DD2BD7614400F230DD /* SVGKitSwift in Frameworks */,
 				913F1D752BA411C700EE2E11 /* PostgREST in Frameworks */,
 				913F1D732BA411C700EE2E11 /* Functions in Frameworks */,
+				918D58392BF211760041745D /* Introspect in Frameworks */,
 				913F1D6F2BA4119D00EE2E11 /* Storage in Frameworks */,
 				913F1D792BA411C700EE2E11 /* Storage in Frameworks */,
 				913F1D6D2BA4119D00EE2E11 /* Realtime in Frameworks */,
@@ -462,11 +460,10 @@
 				913F1D7B2BA4124800EE2E11 /* Supabase */,
 				913E7BF42BA4B4F900FEA464 /* GoogleSignIn */,
 				913E7BF62BA4B4F900FEA464 /* GoogleSignInSwift */,
-				91F121522BADDBB600ECA76C /* SDWebImageSVGCoder */,
-				91F121552BADDC3F00ECA76C /* SDWebImageSwiftUI */,
 				91CE55402BB2C9E00089E583 /* SupabaseStorage */,
 				910358DA2BD7614400F230DD /* SVGKit */,
 				910358DC2BD7614400F230DD /* SVGKitSwift */,
+				918D58382BF211760041745D /* Introspect */,
 			);
 			productName = Tabungan;
 			productReference = 913F1D2F2BA40DD400EE2E11 /* Tabungan.app */;
@@ -499,10 +496,9 @@
 			packageReferences = (
 				913F1D652BA4119D00EE2E11 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				913E7BF32BA4B4F900FEA464 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				91F121512BADDBB600ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				91F121542BADDC3E00ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */,
 				910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */,
+				918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 913F1D302BA40DD400EE2E11 /* Products */;
 			projectDirPath = "";
@@ -802,28 +798,20 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marcuswestin/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.6;
+			};
+		};
 		91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase-community/storage-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.1.4;
-			};
-		};
-		91F121512BADDBB600ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.0;
-			};
-		};
-		91F121542BADDC3E00ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -904,20 +892,15 @@
 			package = 913F1D652BA4119D00EE2E11 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
 		};
+		918D58382BF211760041745D /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
 		91CE55402BB2C9E00089E583 /* SupabaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */;
 			productName = SupabaseStorage;
-		};
-		91F121522BADDBB600ECA76C /* SDWebImageSVGCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 91F121512BADDBB600ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
-			productName = SDWebImageSVGCoder;
-		};
-		91F121552BADDC3F00ECA76C /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 91F121542BADDC3E00ECA76C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import GoogleSignIn
-import SDWebImageSVGCoder
 
 @main
 struct TabunganApp: App {
@@ -25,9 +24,4 @@ struct TabunganApp: App {
     }
 }
 
-private extension TabunganApp {
-    
-    func setUpDependencies() {
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-    }
-}
+

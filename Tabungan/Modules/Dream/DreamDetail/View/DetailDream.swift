@@ -13,6 +13,7 @@ struct DetailDream: View {
     @ObservedObject var DreamsVM = DreamsViewModel()
     
     @Environment(\.dismiss) var dismiss
+    @Binding var tabBarVisibility: Visibility
     
     @State private var showModal = false
     @State private var credit: Double? = nil
@@ -36,7 +37,7 @@ struct DetailDream: View {
                             if let emoticon = EmoticonService.getEmoticon(byKey: dream.profile) {
                                 SVGImage(url: emoticon.path)
                                     .frame(width: 60, height: 60)
-                        
+                                
                             } else {
                                 Image(systemName: "photo")
                                     .foregroundStyle(.black)
@@ -178,15 +179,25 @@ struct DetailDream: View {
                     .buttonStyle(.borderedProminent)
                 }
                 .onAppear {
+//                    print("onAppear triggered")
+//                    tabBarVisibility = .hidden
+//                    print("Tab bar visibility set to hidden")
+//
                     Task {
-                        try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
-
+                        do {
+                            print("Fetching bill history...")
+                            try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                            print("Bill history fetched successfully")
+                        } catch {
+                            print("Error fetching bill history: \(error)")
+                        }
                     }
                 }
-                
             }
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.hidden, for: .tabBar)
+            .onDisappear {
+                tabBarVisibility = .visible
+            }
             .sheet(isPresented: $showModal) {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
                     Task {
@@ -200,6 +211,6 @@ struct DetailDream: View {
 }
 
 
-#Preview {
-    DetailDream(userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
-}
+//#Preview {
+//    DetailDream(userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0])
+//}

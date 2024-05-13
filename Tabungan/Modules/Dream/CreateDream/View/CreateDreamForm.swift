@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct CreateDreamForm: View {
     @EnvironmentObject var CreateDreamVM: CreateDreamVM
     @Environment(\.dismiss) var dismiss
+
+    @Binding var tabBarVisibility: Visibility
     
     @State var userData: UserData
     let user: Users
@@ -28,7 +31,6 @@ struct CreateDreamForm: View {
     
     
     var body: some View {
-        NavigationView {
             ScrollView {
                 VStack {
                     HStack {
@@ -123,13 +125,17 @@ struct CreateDreamForm: View {
                         
                     }
                     .padding(.vertical, 2)
-                    
                     Spacer()
                     
                 }
                 .padding(.horizontal, 16)
             }
-            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                tabBarVisibility = .hidden
+            }
+            .onDisappear {
+                tabBarVisibility = .visible
+            }
             .sheet(isPresented: $showingColorPicker) {
                 CustomColorPicker(selectedColor: $selectedColor)
                     .presentationDetents([.large, .medium, .fraction(0.5)])
@@ -140,10 +146,10 @@ struct CreateDreamForm: View {
             }
         }
     }
-}
 
-#Preview {
-    CreateDreamForm(userData: .init(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0) )
-        .environmentObject(CreateDreamVM())
-}
 
+//#Preview {
+//    CreateDreamForm(userData: .init(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), tabBarVisibility:  )
+//        .environmentObject(CreateDreamVM())
+//}
+//

@@ -213,9 +213,6 @@ struct DetailDream: View {
                         .rotationEffect(.degrees(90))
                 }
             }
-            .onDisappear {
-                tabBarVisibility = .visible
-            }
             .sheet(isPresented: $showModal) {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dream.id, amount: dream.amount, onComplete: {
                     Task {

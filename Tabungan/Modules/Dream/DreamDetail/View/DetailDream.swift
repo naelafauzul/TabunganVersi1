@@ -32,8 +32,8 @@ struct DetailDream: View {
     }
     
     func updateEmoticonURL() {
-            selectedEmoticonURL = EmoticonService.getEmoticonURL(for: dreamTemp.profile)
-        }
+        selectedEmoticonURL = EmoticonService.getEmoticonURL(for: dreamTemp.profile)
+    }
     
     var body: some View {
         NavigationStack {
@@ -43,15 +43,13 @@ struct DetailDream: View {
                         VStack {
                             if selectedEmoticonURL != nil {
                                 EmoticonItem(url: $selectedEmoticonURL)
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .padding()
+                                    .frame(width: 60, height: 60)
                                 
                             } else {
                                 Image(systemName: "photo")
-                                    .frame(width: 100, height: 100)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .padding()
+                                    .foregroundStyle(.black)
+                                    .frame(width: 60, height: 60)
+                                    
                             }
                             Text(dreamTemp.name)
                                 .foregroundStyle(.white)

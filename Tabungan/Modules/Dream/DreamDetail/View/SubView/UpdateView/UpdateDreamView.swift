@@ -7,7 +7,6 @@ struct UpdateDreamForm: View {
     @ObservedObject var DreamsVM = DreamsViewModel()
     @Environment(\.dismiss) var dismiss
     
-    
     @State var userData: UserData
     let user: Users
     var dream: Dreams
@@ -104,10 +103,9 @@ struct UpdateDreamForm: View {
                         Task {
                             do {
                                 try await detailDreamViewModel.updateDream(dreamId: dream.id, userId: userData.uid, profile: selectedEmoticon, background: selectedColor, name: name, target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
-                                
+    
                                 onComplete()
-                                print("onComplete called")
-                                
+
                                 dismiss()
                             } catch {
                                 print(error)

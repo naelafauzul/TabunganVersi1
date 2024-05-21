@@ -9,7 +9,7 @@ import Foundation
 
 class DreamDetailVM: ObservableObject {
     @Published var historyList = [BillHistory]()
-    @Published var selectedEmoticonURL: URL?
+    @Published var selectedEmoticonURL: URL? = nil
     
     @MainActor
     func fetchBillHistory(for dreamId: String) async throws {
@@ -127,7 +127,7 @@ class DreamDetailVM: ObservableObject {
         return "Tercapai dalam \(timeNeeded) \(timeUnit) pada \(formattedTargetDate)"
     }
     
-    func updateEmoticonURL(for profile: String) {
+    func updateEmoticonURL(for profile: String) async {
             selectedEmoticonURL = EmoticonService.getEmoticonURL(for: profile)
         }
     

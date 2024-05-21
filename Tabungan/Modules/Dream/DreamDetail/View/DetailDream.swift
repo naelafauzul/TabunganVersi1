@@ -31,7 +31,7 @@ struct DetailDream: View {
         DreamsVM.dreams.first(where: { $0.id == dream.id }) ?? dream
     }
     
-    func updateEmoticonURL() {
+    func updateEmoticonURL() async throws {
         selectedEmoticonURL = EmoticonService.getEmoticonURL(for: dreamTemp.profile)
     }
     
@@ -41,15 +41,19 @@ struct DetailDream: View {
                 VStack {
                     ZStack {
                         VStack {
-                            if selectedEmoticonURL != nil {
-                                EmoticonItem(url: $selectedEmoticonURL)
+                            //                            if selectedEmoticonURL != nil {
+                            //                                EmoticonItem(url: $selectedEmoticonURL)
+                            //                                    .frame(width: 60, height: 60)
+                            
+                            if let emoticon = EmoticonService.getEmoticon(byKey: dream.profile) {
+                                SVGImage(url: emoticon.path)
                                     .frame(width: 60, height: 60)
                                 
                             } else {
                                 Image(systemName: "photo")
                                     .foregroundStyle(.black)
                                     .frame(width: 60, height: 60)
-                                    
+                                
                             }
                             Text(dreamTemp.name)
                                 .foregroundStyle(.white)
@@ -179,8 +183,7 @@ struct DetailDream: View {
                 .onAppear {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
-                        print("fetch dream all")
-                        updateEmoticonURL()
+                        
                     }
                 }
             }
@@ -223,18 +226,19 @@ struct DetailDream: View {
                 .presentationDetents([.large, .medium, .fraction(0.5)])
             }
             .sheet(isPresented: $showUpdateModal) {
-                UpdateDreamForm(userData: userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), dream: dreamTemp, onComplete: {
+                UpdateDreamForm(userData: userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), dream: dreamTemp,
+                                onComplete: {
                     Task {
                         try await DreamsVM.fetchDreams(for: userData.uid)
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
-                        updateEmoticonURL()
+                        
                     }
-                })
+                }
+                )
             }
         }
     }
 }
-
 
 //#Preview {
 //    DetailDream(tabBarVisibility: .constant(.hidden), userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0], selectedDream: )

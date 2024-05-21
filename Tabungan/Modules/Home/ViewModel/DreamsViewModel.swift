@@ -16,4 +16,10 @@ class DreamsViewModel: ObservableObject {
         dreams = try await DatabaseManager.shared.fetchDreamItem(for: uid)
     }
     
+    func updateDreamInViewModel(updatedDream: Dreams) {
+            if let index = dreams.firstIndex(where: { $0.id == updatedDream.id }) {
+                dreams[index] = updatedDream
+                objectWillChange.send()
+            }
+        }
 }

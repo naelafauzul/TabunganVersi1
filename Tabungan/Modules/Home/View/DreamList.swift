@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-import Introspect
 
 struct DreamList: View {
     @StateObject var DreamsVM = DreamsViewModel()
+    @StateObject var DreamDetailVewModel = DreamDetailVM()
     var userData: UserData?
     
     @State private var showingSignInView = false
@@ -29,6 +29,7 @@ struct DreamList: View {
                     LazyVGrid(columns: gridItemLayout) {
                         ForEach(DreamsVM.dreams, id: \.id) { dream in
                             NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData!, dream: dream)
+                                .environmentObject(DreamDetailVewModel)
                             ) {
                                 DreamItem(dream: dream)
                             }
@@ -84,3 +85,4 @@ struct DreamList: View {
 #Preview {
     DreamList(userData: .init(uid: "", email: ""))
 }
+

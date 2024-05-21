@@ -15,7 +15,7 @@ class EmoticonService: ObservableObject {
     
     static let baseKeyEmoticons = "tabungan/emoticons"
     private static let totalImages = 59
-    private static let baseImageUrl = "https://atijrsvztjdenjmnsxzs.supabase.co/storage/v1/object/public/"
+    static let baseImageUrl = "https://atijrsvztjdenjmnsxzs.supabase.co/storage/v1/object/public/"
     
     static func generatedKey(index: Int) -> String {
         "\(baseKeyEmoticons)/emoticon_\(index).svg"
@@ -35,4 +35,8 @@ class EmoticonService: ObservableObject {
     static func getEmoticon(byKey key: String) -> Emoticon? {
         getEmoticons().first { $0.key == key }
     }
+    
+    static func getEmoticonURL(for profile: String) -> URL? {
+            return URL(string: "\(baseImageUrl)\(profile)")
+        }
 }

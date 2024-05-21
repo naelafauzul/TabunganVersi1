@@ -12,11 +12,13 @@ import GoogleSignIn
 struct TabunganApp: App {
     
     var createDreamVM = CreateDreamVM()
+    var DreamDetailViewModel = DreamDetailVM()
     
     var body: some Scene {
         WindowGroup {
             ContentView(userData: nil)
                 .environmentObject(createDreamVM)
+                .environmentObject(DreamDetailViewModel)
                 .onOpenURL(perform: { url in
                     GIDSignIn.sharedInstance.handle(url)
                 })

@@ -125,7 +125,7 @@ class DatabaseManager {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         var billHistories = try decoder.decode([BillHistory].self, from: data)
-
+        
         // fetch notes for each billHistory and associate them
         try await withThrowingTaskGroup(of: (Int, [BillHistoryNote]).self, body: { group in
             for (index, billHistory) in billHistories.enumerated() {
@@ -134,27 +134,53 @@ class DatabaseManager {
                     return (index, notes)
                 }
             }
-
+            
             for try await (index, notes) in group {
                 billHistories[index].notes = notes
             }
         })
-
+        
         return billHistories
     }
     
     func deleteDream(dreamId: String, userId: String) async throws {
         do {
-            let response = try await client.database.from("dreams")
+            _ = try await client.database.from("dreams")
                 .update(["isActive": false])
                 .equals("id", value: dreamId)
                 .equals("userId", value: userId)
                 .execute()
             print("Success deactivated dream \(dreamId)")
         } catch {
+            print("Error occurred while deactivate dream: \(error)")
+            throw error
+        }
+    }
+    
+
+    func updateDream(dreamId: String, userId: String, profile: String, background: String, name: String, target: Double, scheduler: String, schedulerRate: Double) async throws {
+        do {
+            let response = try await client.database
+                .from("dreams")
+                .update([
+                    "profile": profile,
+                    "background": background,
+                    "name": name,
+                    "target": String(target),
+                    "scheduler": scheduler,
+                    "schedulerRate": String(schedulerRate)
+                ])
+                .eq("id", value: dreamId)
+                .eq("userId", value: userId)
+                .execute()
+            
+            print("Success updated dream \(dreamId)")
+        } catch {
             print("Error occurred while updating dream: \(error)")
             throw error
         }
     }
 
+
+    
 }

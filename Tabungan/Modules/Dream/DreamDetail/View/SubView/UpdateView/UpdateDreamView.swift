@@ -1,23 +1,18 @@
-//
-//  UpdateDreamView.swift
-//  Tabungan
-//
-//  Created by Naela Fauzul Muna on 13/05/24.
-//
-
-
 import SwiftUI
 
 struct UpdateDreamForm: View {
-    @EnvironmentObject var CreateDreamVM: CreateDreamVM
-    @EnvironmentObject var DetailDreamViewModel: DreamDetailVM
+    @EnvironmentObject var createDreamVM: CreateDreamVM
+    @EnvironmentObject var detailDreamViewModel: DreamDetailVM
+    
+    @ObservedObject var DreamsVM = DreamsViewModel()
     @Environment(\.dismiss) var dismiss
     
-    @Binding var tabBarVisibility: Visibility
     
     @State var userData: UserData
     let user: Users
     var dream: Dreams
+    
+    var onComplete: () -> Void
     
     @State private var selectedColor = "#ABD3DB"
     @State private var selectedEmoticon = ""
@@ -31,12 +26,11 @@ struct UpdateDreamForm: View {
     @State private var showingColorPicker = false
     @State private var showingEmoticon = false
     
-    
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    VStack (alignment: .leading, spacing: 6){
+                    VStack(alignment: .leading, spacing: 6) {
                         Text("Sesuaikan Impianmu")
                             .font(.title3)
                         Text("Berikan nama, emoji, color, dan target.")
@@ -100,22 +94,25 @@ struct UpdateDreamForm: View {
                 CustomTextFieldDouble(text: $scheduler_rate, placeholder: "Nominal Pengisian", formatter: NumberFormatter())
                     .padding(.top, 3)
                 
-                
                 VStack {
-                    let targetDate = CreateDreamVM.calculateTargetDate(target: target ?? 0, scheduler: scheduler, schedulerRate: scheduler_rate ?? 0)
+                    let targetDate = createDreamVM.calculateTargetDate(target: target ?? 0, scheduler: scheduler, schedulerRate: scheduler_rate ?? 0)
                     Text(targetDate)
                         .font(.caption2)
                         .foregroundStyle(.gray)
                     
                     Button {
-                        //                            Task {
-                        //                                do {
-                        //                                    try await CreateDreamVM.createDreams(uid: userData.uid, profile: selectedEmoticon, background: selectedColor, name: name, name_user: user.name, target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
-                        //                                    dismiss()
-                        //                                } catch {
-                        //                                    print(error)
-                        //                                }
-                        //                            }
+                        Task {
+                            do {
+                                try await detailDreamViewModel.updateDream(dreamId: dream.id, userId: userData.uid, profile: selectedEmoticon, background: selectedColor, name: name, target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
+                                
+                                onComplete()
+                                print("onComplete called")
+                                
+                                dismiss()
+                            } catch {
+                                print(error)
+                            }
+                        }
                     } label: {
                         Text("Simpan")
                             .foregroundColor(.white)
@@ -124,7 +121,6 @@ struct UpdateDreamForm: View {
                             .background(.teal700)
                             .cornerRadius(10)
                     }
-                    
                 }
                 .padding(.vertical, 2)
                 Spacer()
@@ -135,14 +131,13 @@ struct UpdateDreamForm: View {
         .onAppear {
             selectedColor = dream.background
             selectedEmoticon = dream.profile
+            if let url = EmoticonService.getEmoticonURL(for: dream.profile) {
+                selectedEmoticonURL = url
+            }
             name = dream.name
             target = dream.target
             scheduler_rate = dream.schedulerRate
             scheduler = dream.scheduler
-            tabBarVisibility = .hidden
-        }
-        .onDisappear {
-            tabBarVisibility = .visible
         }
         .sheet(isPresented: $showingColorPicker) {
             CustomColorPicker(selectedColor: $selectedColor)
@@ -155,10 +150,7 @@ struct UpdateDreamForm: View {
     }
 }
 
-
 #Preview {
     CreateDreamForm(tabBarVisibility: .constant(.visible), userData: .init(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
         .environmentObject(CreateDreamVM())
 }
-
-

@@ -12,7 +12,6 @@ struct DreamItem: View {
     @StateObject var CreateDreamsVM = CreateDreamVM()
     let progress: CGFloat = 0.75
     let dream: Dreams
-    @State private var svgEmoticonURL: URL?
 
     var body: some View {
         VStack(alignment: .leading) {

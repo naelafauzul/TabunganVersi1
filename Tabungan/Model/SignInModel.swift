@@ -18,9 +18,10 @@ struct SignInAppleResult {
     let nonce: String
 }
 
-struct UserData {
+struct UserData: Equatable {
     let uid: String
     let email: String
 }
+
 
 

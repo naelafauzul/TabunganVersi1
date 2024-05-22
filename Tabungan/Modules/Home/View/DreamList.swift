@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct DreamList: View {
-    @StateObject var DreamsVM = DreamsViewModel()
-    @StateObject var DreamDetailVewModel = DreamDetailVM()
-    var userData: UserData?
+    @ObservedObject var DreamsVM: DreamsViewModel
+    @StateObject var DreamDetailViewModel = DreamDetailVM()
+    @Binding var userData: UserData?
     
     @State private var showingSignInView = false
     @State private var showingCreateForm = false
@@ -25,28 +25,29 @@ struct DreamList: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    TotalView()
-                    LazyVGrid(columns: gridItemLayout) {
-                        ForEach(DreamsVM.dreams, id: \.id) { dream in
-                            NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData!, dream: dream)
-                                .environmentObject(DreamDetailVewModel)
-                            ) {
-                                DreamItem(dream: dream)
+                    if let userData = userData {
+                        TotalView()
+                        LazyVGrid(columns: gridItemLayout) {
+                            ForEach(DreamsVM.dreams, id: \.id) { dream in
+                                NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData, dream: dream)
+                                    .environmentObject(DreamDetailViewModel)
+                                ) {
+                                    DreamItem(dream: dream)
+                                }
+                                .toolbar(.hidden, for: .tabBar)
                             }
-                            .toolbar(.hidden, for: .tabBar)
                         }
+                    } else {
+                        Text("Please log in to view your dreams.")
+                            .font(.title)
+                            .padding()
                     }
                 }
                 .onAppear {
-                    if let userData = userData {
-                        Task {
-                            do {
-                                try await DreamsVM.fetchDreams(for: userData.uid)
-                            } catch {
-                                print(error)
-                            }
-                        }
-                    }
+                    fetchDreamsIfNeeded()
+                }
+                .onChange(of: userData) { _ in
+                    fetchDreamsIfNeeded()
                 }
             }
             .padding(.horizontal, 16)
@@ -61,7 +62,7 @@ struct DreamList: View {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 32, height: 32)
-                        .foregroundStyle(.teal700)
+                        .foregroundStyle(.teal)
                         .padding(2)
                 }
             }
@@ -79,10 +80,19 @@ struct DreamList: View {
             )
         }
     }
+    
+    private func fetchDreamsIfNeeded() {
+        guard let userData = userData, DreamsVM.dreams.isEmpty else { return }
+        Task {
+            do {
+                try await DreamsVM.fetchDreams(for: userData.uid)
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
-
 
 #Preview {
-    DreamList(userData: .init(uid: "", email: ""))
+    DreamList(DreamsVM: DreamsViewModel(), userData: .constant(UserData(uid: "", email: "")))
 }
-

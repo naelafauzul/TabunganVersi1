@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            DreamList(DreamsVM: DreamsVM, userData: userData)
+            DreamList(DreamsVM: DreamsVM, userData: $userData)
                 .tag(0)
                 .tabItem {
                     Label("Beranda", systemImage: "house")
@@ -39,3 +39,4 @@ struct ContentView: View {
 #Preview {
     ContentView(userData: UserData(uid: "123", email: "hai@gmail.com"))
 }
+

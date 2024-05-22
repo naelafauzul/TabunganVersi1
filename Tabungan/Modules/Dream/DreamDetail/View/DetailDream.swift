@@ -23,6 +23,7 @@ struct DetailDream: View {
     @State private var note: String = ""
     @State var userData: UserData
     @State private var selectedEmoticonURL: URL? = nil
+    @State private var username: String? = nil
     
     let progress: CGFloat = 0.0
     var dream: Dreams
@@ -87,8 +88,11 @@ struct DetailDream: View {
                                         
                                         VStack(alignment: .trailing) {
                                             HStack {
-                                                Text("User")
-                                                    .font(.callout)
+                                                
+                                                if let username = username {
+                                                    Text(username)
+                                                        .font(.callout)
+                                                }
                                                 Spacer()
                                                 Text("\(DreamDetailVewModel.formatCurrency(dreamTemp.amount)) / \(DreamDetailVewModel.formatCurrency(dreamTemp.amount))")
                                                     .font(.callout)
@@ -183,6 +187,7 @@ struct DetailDream: View {
                 .onAppear {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
+                        username = try await DreamDetailVewModel.fetchUserName(for: userData.uid)
                         
                     }
                 }

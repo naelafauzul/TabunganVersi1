@@ -1,10 +1,3 @@
-//
-//  DreamDetailVM.swift
-//  Tabungan
-//
-//  Created by Naela Fauzul Muna on 27/03/24.
-//
-
 import Foundation
 
 class DreamDetailVM: ObservableObject {
@@ -55,27 +48,36 @@ class DreamDetailVM: ObservableObject {
         return "\(timeNeeded) \(timeUnit) Lagi"
     }
     
-    func addCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
+    @MainActor
+    func fetchUserName(for uid: String) async throws -> String {
+        let user = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
+        return user.name
+    }
+    
+    func addCredit(uid: String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
         let billId = UUID().uuidString
         let newAmount = amount + credit
         let noteId = UUID().uuidString
         
-        let billHistory = BillHistory(id: billId, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        let userName = try await fetchUserName(for: uid)
+        
+        let billHistory = BillHistory(id: billId, userId: uid, dreamId: dreamId, userName: userName, type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
         
         let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, createdAt: timeNow, updated: timeNow)
         
         try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
-    
-    func subCredit(uid:String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
+    func subCredit(uid: String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
         let billId = UUID().uuidString
         let newAmount = amount - credit
         let noteId = UUID().uuidString
         
-        let billHistory = BillHistory(id: billId, userId: uid , dreamId: dreamId, userName: "userName", type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
+        let userName = try await fetchUserName(for: uid)
+        
+        let billHistory = BillHistory(id: billId, userId: uid, dreamId: dreamId, userName: userName, type: type, amount: newAmount, current: credit, created: timeNow, updated: timeNow)
         
         let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, createdAt: timeNow, updated: timeNow)
         
@@ -128,8 +130,6 @@ class DreamDetailVM: ObservableObject {
     }
     
     func updateEmoticonURL(for profile: String) async {
-            selectedEmoticonURL = EmoticonService.getEmoticonURL(for: profile)
-        }
-    
+        selectedEmoticonURL = EmoticonService.getEmoticonURL(for: profile)
+    }
 }
-

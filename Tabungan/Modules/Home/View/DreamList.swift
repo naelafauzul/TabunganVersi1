@@ -44,7 +44,15 @@ struct DreamList: View {
                     }
                 }
                 .onAppear {
-                    fetchDreamsIfNeeded()
+                    if let userData = userData {
+                        Task {
+                            do {
+                                try await DreamsVM.fetchDreams(for: userData.uid)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
                 }
                 .onChange(of: userData) { _ in
                     fetchDreamsIfNeeded()
@@ -68,12 +76,12 @@ struct DreamList: View {
             }
             .toolbar(tabBarVisibility, for: .tabBar)
             .sheet(isPresented: $showingSignInView) {
-                SignInView(userData: userData)
+                SignInView(userData: $userData)
                     .presentationDetents([.large, .medium, .fraction(0.25)])
             }
             .background(
                 NavigationLink(
-                    destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: userData ?? UserData(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
+                    destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: $userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
                     .environmentObject(DreamsVM), isActive: $showingCreateForm) {
                         EmptyView()
                     }

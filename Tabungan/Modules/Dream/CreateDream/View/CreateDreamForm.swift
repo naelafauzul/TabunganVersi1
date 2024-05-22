@@ -12,9 +12,8 @@ struct CreateDreamForm: View {
     @Environment(\.dismiss) var dismiss
 
     @Binding var tabBarVisibility: Visibility
-    
-    @State var userData: UserData
-    let user: Users
+    @Binding var userData: UserData?
+    var user: Users
     
     @State private var selectedColor = "#ABD3DB"
     @State private var selectedEmoticon = ""
@@ -27,7 +26,6 @@ struct CreateDreamForm: View {
     
     @State private var showingColorPicker = false
     @State private var showingEmoticon = false
-    
     
     var body: some View {
             ScrollView {
@@ -107,7 +105,7 @@ struct CreateDreamForm: View {
                         Button {
                             Task {
                                 do {
-                                    try await CreateDreamVM.createDreams(uid: userData.uid, profile: selectedEmoticon, background: selectedColor, name: name, name_user: user.name, target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
+                                    try await CreateDreamVM.createDreams(uid: userData?.uid ?? "", profile: selectedEmoticon, background: selectedColor, name: name, name_user: user.name, target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
                                     dismiss()
                                 } catch {
                                     print(error)
@@ -147,8 +145,8 @@ struct CreateDreamForm: View {
     }
 
 
-#Preview {
-    CreateDreamForm(tabBarVisibility: .constant(.visible), userData: .init(uid: "", email: ""), user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
-        .environmentObject(CreateDreamVM())
-}
-
+//#Preview {
+//    CreateDreamForm(tabBarVisibility: .constant(.visible), userData: .init(uid: "", email: "") ?? <#default value#> as! Binding<UserData>, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), onDreamCreated: <#() -> Void#>)
+//        .environmentObject(CreateDreamVM())
+//}
+//

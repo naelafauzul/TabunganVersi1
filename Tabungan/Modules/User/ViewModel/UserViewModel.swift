@@ -22,10 +22,10 @@ class UserVM: ObservableObject {
         try await DatabaseManager.shared.createUserInDatabase(user)
     }
     
-    @MainActor
     func fetchUserInfo(for uid: String) async throws {
-        user = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
-    }
+            let fetchedUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
+            self.user = fetchedUser
+        }
     
     
 }

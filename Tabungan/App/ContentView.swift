@@ -27,16 +27,17 @@ struct ContentView: View {
                     Label("Profil", systemImage: "person")
                 }
         }
-        .accentColor(.teal700)
+        .accentColor(.teal)
         .onAppear {
             Task {
-                self.userData = try await AuthAPIService.shared.getCurrentSession()
+                if let sessionUserData = try? await AuthAPIService.shared.getCurrentSession() {
+                    userData = sessionUserData
+                }
             }
         }
     }
 }
 
 #Preview {
-    ContentView(userData: UserData(uid: "123", email: "hai@gmail.com"))
+    ContentView()
 }
-

@@ -16,12 +16,12 @@ class SignInViewModel: ObservableObject {
     let signInApple = SignInApple()
     let signInGoogle = SignInGoogle()
     
-    func signInWithApple() async throws {
+    func signInWithApple() async throws -> UserData {
         let appleResult = try await signInApple.startSigningWithAppleFlow()
-        currentUser = try await AuthAPIService.shared.SignInWithApple(idToken: appleResult.idToken, nonce: appleResult.nonce)
+        return try await AuthAPIService.shared.SignInWithApple(idToken: appleResult.idToken, nonce: appleResult.nonce)
     }
     
-    func signInWithGoogle() async throws {
+    func signInWithGoogle() async throws -> UserData {
         do {
             let googleResult = try await signInGoogle.startSignInWithGoogleFlow()
             let userData = try await AuthAPIService.shared.SignInWithGoogle(idToken: googleResult.idToken, nonce: googleResult.nonce)
@@ -30,10 +30,12 @@ class SignInViewModel: ObservableObject {
             do {
                 let existingUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: userData.uid)
                 currentUser = convertUsersToUserData(users: existingUser)
+                return convertUsersToUserData(users: existingUser)
             } catch {
                 // User does not exist, create new user
                 try await createUser(uid: userData.uid, email: userData.email, profile: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0)
                 currentUser = userData
+                return userData
             }
         } catch {
             print("Error signing in with Google: \(error)")
@@ -68,5 +70,3 @@ class SignInViewModel: ObservableObject {
         return UserData(uid: users.id, email: users.email)
     }
 }
-
-

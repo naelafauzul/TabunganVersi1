@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignInView: View {
     @StateObject var signInVM = SignInViewModel()
-    var userData: UserData?
+    @Binding var userData: UserData?
     
     var body: some View {
         VStack (alignment: .leading){
@@ -19,7 +19,8 @@ struct SignInView: View {
             Button {
                 Task {
                     do {
-                        _ = try await signInVM.signInWithGoogle()
+                        let loggedInUserData = try await signInVM.signInWithGoogle()
+                        userData = loggedInUserData // Update userData after successful login
                     } catch {
                         print(error)
                     }
@@ -35,7 +36,7 @@ struct SignInView: View {
             .padding(.vertical,8)
             
             Spacer()
-           
+            
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 30)
@@ -43,5 +44,5 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+    SignInView(userData: .constant(UserData(uid: "", email: "")))
 }

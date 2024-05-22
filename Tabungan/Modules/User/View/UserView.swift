@@ -17,6 +17,11 @@ struct UserView: View {
                 VStack {
                     Text(userData.uid)
                     Text(userData.email)
+                    if let user = userViewModel.user {
+                        Text(user.gender)
+                    } else {
+                        Text("Loading...")
+                    }
                 }
                 Button {
                     Task {
@@ -24,29 +29,25 @@ struct UserView: View {
                             try await AuthAPIService.shared.signOut()
                             self.userData = nil
                         } catch {
-                            print("unable to sign out")
+                            print("Unable to sign out")
                         }
                     }
-                    
                 } label: {
-                     Text("Sign Out")
+                    Text("Sign Out")
                 }
                 .buttonStyle(.borderedProminent)
             }
             .onAppear {
                 Task {
                     do {
-                        try await DreamsViewModel().fetchDreams(for: userData.uid)
                         try await userViewModel.fetchUserInfo(for: userData.uid)
-                        
                     } catch {
                         print("Failed to fetch user info: \(error)")
                     }
                 }
             }
-            
         } else {
-            Text("kamu belum login")
+            Text("You are not logged in")
         }
     }
 }

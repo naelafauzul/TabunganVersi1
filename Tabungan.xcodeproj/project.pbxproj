@@ -55,7 +55,6 @@
 		915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F505D2BB40BCA00457B14 /* DetailDream.swift */; };
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
-		918D58392BF211760041745D /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 918D58382BF211760041745D /* Introspect */; };
 		918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D583B2BF235650041745D /* UpdateDreamView.swift */; };
 		91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
@@ -139,7 +138,6 @@
 				910358DD2BD7614400F230DD /* SVGKitSwift in Frameworks */,
 				913F1D752BA411C700EE2E11 /* PostgREST in Frameworks */,
 				913F1D732BA411C700EE2E11 /* Functions in Frameworks */,
-				918D58392BF211760041745D /* Introspect in Frameworks */,
 				913F1D6F2BA4119D00EE2E11 /* Storage in Frameworks */,
 				913F1D792BA411C700EE2E11 /* Storage in Frameworks */,
 				913F1D6D2BA4119D00EE2E11 /* Realtime in Frameworks */,
@@ -178,8 +176,8 @@
 		913CA4402BFDEB2E007AA56C /* SegmentedPicker */ = {
 			isa = PBXGroup;
 			children = (
-				913CA43E2BFDE763007AA56C /* CustomSegmentedPicker.swift */,
 				913CA4412BFDEB40007AA56C /* SegmentedPickerView.swift */,
+				913CA43E2BFDE763007AA56C /* CustomSegmentedPicker.swift */,
 			);
 			path = SegmentedPicker;
 			sourceTree = "<group>";
@@ -491,7 +489,6 @@
 				91CE55402BB2C9E00089E583 /* SupabaseStorage */,
 				910358DA2BD7614400F230DD /* SVGKit */,
 				910358DC2BD7614400F230DD /* SVGKitSwift */,
-				918D58382BF211760041745D /* Introspect */,
 			);
 			productName = Tabungan;
 			productReference = 913F1D2F2BA40DD400EE2E11 /* Tabungan.app */;
@@ -526,7 +523,6 @@
 				913E7BF32BA4B4F900FEA464 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */,
 				910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */,
-				918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 913F1D302BA40DD400EE2E11 /* Products */;
 			projectDirPath = "";
@@ -830,14 +826,6 @@
 				minimumVersion = 2.4.0;
 			};
 		};
-		918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/marcuswestin/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.6;
-			};
-		};
 		91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase-community/storage-swift.git";
@@ -923,11 +911,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 913F1D652BA4119D00EE2E11 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
-		};
-		918D58382BF211760041745D /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 918D58372BF211760041745D /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
 		};
 		91CE55402BB2C9E00089E583 /* SupabaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;

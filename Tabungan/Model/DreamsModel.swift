@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Dreams: Codable {
+struct Dreams: Codable, Hashable {
     let id: String
     let userId: String?
     let code: String

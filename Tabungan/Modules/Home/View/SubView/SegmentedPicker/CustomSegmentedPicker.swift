@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 public struct SegmentedPicker<Element, Content, Selection>: View
     where
     Content: View,

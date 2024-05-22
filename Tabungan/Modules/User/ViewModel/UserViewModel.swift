@@ -23,9 +23,7 @@ class UserVM: ObservableObject {
     }
     
     func fetchUserInfo(for uid: String) async throws {
-            let fetchedUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
-            self.user = fetchedUser
-        }
-    
-    
+        let fetchedUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
+        self.user = fetchedUser
+    }
 }

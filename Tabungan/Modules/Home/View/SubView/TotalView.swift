@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct TotalView: View {
+    var totalAmount = 0
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Anda Telah Menabung")
-                    .font(.title2)
+                    .font(.headline)
                 Spacer()
             }
            
-            Text("Rp0")
-                .font(.title)
+            Text("Rp\(totalAmount)")
+                .font(.title2)
                 .fontWeight(.bold)
         }
     }

@@ -15,20 +15,43 @@ struct DreamList: View {
     @State private var showingSignInView = false
     @State private var showingCreateForm = false
     @State var tabBarVisibility: Visibility = .visible
+    @State private var selectedIndex = 0
     
     var gridItemLayout = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
+    var filteredDreams: [Dreams] {
+        if selectedIndex == 0 {
+            return DreamsVM.dreams.filter { $0.amount < $0.target }
+        } else {
+            return DreamsVM.dreams.filter { $0.amount >= $0.target }
+        }
+    }
+    
+    var totalAmountSaved: Double {
+            return DreamsVM.dreams.reduce(0) { $0 + $1.amount }
+        }
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack {
                     if let userData = userData {
-                        TotalView()
+                        
+                        TotalView(totalAmount: Int(totalAmountSaved))
+                        
+                        HStack {
+                            Text("Daftar Impian")
+                                .font(.callout)
+                            Spacer()
+                            SegmentedPickerView(titles: ["Berjalan", "Selesai"], selectedIndex: $selectedIndex)
+                        }
+                        .padding(.vertical, 10)
+                        
                         LazyVGrid(columns: gridItemLayout) {
-                            ForEach(DreamsVM.dreams, id: \.id) { dream in
+                            ForEach(filteredDreams, id: \.id) { dream in
                                 NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData, dream: dream)
                                     .environmentObject(DreamDetailViewModel)
                                 ) {
@@ -70,7 +93,7 @@ struct DreamList: View {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 32, height: 32)
-                        .foregroundStyle(.teal)
+                        .foregroundStyle(.teal700)
                         .padding(2)
                 }
             }
@@ -82,9 +105,9 @@ struct DreamList: View {
             .background(
                 NavigationLink(
                     destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: $userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
-                    .environmentObject(DreamsVM), isActive: $showingCreateForm) {
-                        EmptyView()
-                    }
+                        .environmentObject(DreamsVM), isActive: $showingCreateForm) {
+                            EmptyView()
+                        }
             )
         }
     }
@@ -102,5 +125,6 @@ struct DreamList: View {
 }
 
 #Preview {
-    DreamList(DreamsVM: DreamsViewModel(), userData: .constant(UserData(uid: "", email: "")))
+    DreamList(DreamsVM: DreamsViewModel(), userData: .constant(UserData(uid: "", email: ""))
+    )
 }

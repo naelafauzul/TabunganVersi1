@@ -17,6 +17,9 @@
 		913264F82BAAB57C0099D077 /* CustomTextFieldDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F72BAAB57C0099D077 /* CustomTextFieldDouble.swift */; };
 		913264FA2BAAC0030099D077 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913264F92BAAC0030099D077 /* CustomButton.swift */; };
 		91396E202BA56A5D000F8901 /* SignInGoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91396E1F2BA56A5D000F8901 /* SignInGoogle.swift */; };
+		913CA43D2BFDE5C0007AA56C /* NotLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913CA43C2BFDE5C0007AA56C /* NotLoggedView.swift */; };
+		913CA43F2BFDE763007AA56C /* CustomSegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913CA43E2BFDE763007AA56C /* CustomSegmentedPicker.swift */; };
+		913CA4422BFDEB40007AA56C /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913CA4412BFDEB40007AA56C /* SegmentedPickerView.swift */; };
 		913E7BF22BA4B04600FEA464 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913E7BF12BA4B04600FEA464 /* UserView.swift */; };
 		913E7BF52BA4B4F900FEA464 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 913E7BF42BA4B4F900FEA464 /* GoogleSignIn */; };
 		913E7BF72BA4B4F900FEA464 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 913E7BF62BA4B4F900FEA464 /* GoogleSignInSwift */; };
@@ -77,6 +80,9 @@
 		913264F72BAAB57C0099D077 /* CustomTextFieldDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldDouble.swift; sourceTree = "<group>"; };
 		913264F92BAAC0030099D077 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		91396E1F2BA56A5D000F8901 /* SignInGoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogle.swift; sourceTree = "<group>"; };
+		913CA43C2BFDE5C0007AA56C /* NotLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLoggedView.swift; sourceTree = "<group>"; };
+		913CA43E2BFDE763007AA56C /* CustomSegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedPicker.swift; sourceTree = "<group>"; };
+		913CA4412BFDEB40007AA56C /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
 		913E7BF12BA4B04600FEA464 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		913E7BF82BA4B65A00FEA464 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		913F1D2F2BA40DD400EE2E11 /* Tabungan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tabungan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +173,15 @@
 				91CFC1762BA888BD0085AB1C /* ViewModel */,
 			);
 			path = CreateDream;
+			sourceTree = "<group>";
+		};
+		913CA4402BFDEB2E007AA56C /* SegmentedPicker */ = {
+			isa = PBXGroup;
+			children = (
+				913CA43E2BFDE763007AA56C /* CustomSegmentedPicker.swift */,
+				913CA4412BFDEB40007AA56C /* SegmentedPickerView.swift */,
+			);
+			path = SegmentedPicker;
 			sourceTree = "<group>";
 		};
 		913E7BF02BA4B03600FEA464 /* View */ = {
@@ -394,6 +409,8 @@
 				91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */,
 				91CFC1632BA82DE20085AB1C /* CircularProgressBar.swift */,
 				91CFC16D2BA83EA20085AB1C /* TotalView.swift */,
+				913CA43C2BFDE5C0007AA56C /* NotLoggedView.swift */,
+				913CA4402BFDEB2E007AA56C /* SegmentedPicker */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -548,6 +565,7 @@
 				913F21082BADCD9A001AD670 /* EmoticonView.swift in Sources */,
 				913264F62BAAB1990099D077 /* CustomTextFieldString.swift in Sources */,
 				91135A3F2BBBE84400DE70D2 /* AmountInputView.swift in Sources */,
+				913CA43F2BFDE763007AA56C /* CustomSegmentedPicker.swift in Sources */,
 				913264F82BAAB57C0099D077 /* CustomTextFieldDouble.swift in Sources */,
 				913F1D352BA40DD400EE2E11 /* ContentView.swift in Sources */,
 				9156BB502BAC5DBE0022EBA8 /* BillHistoryNote.swift in Sources */,
@@ -555,6 +573,7 @@
 				915F50612BB4110000457B14 /* ProgressBar.swift in Sources */,
 				9156BB612BAC7EE90022EBA8 /* SignInApple.swift in Sources */,
 				9106E2052BAC13C8007AAD82 /* DreamUsers.swift in Sources */,
+				913CA4422BFDEB40007AA56C /* SegmentedPickerView.swift in Sources */,
 				913F1D582BA4102D00EE2E11 /* AuthAPIService.swift in Sources */,
 				91CFC1672BA832C00085AB1C /* DreamsViewModel.swift in Sources */,
 				913F1D832BA41C0E00EE2E11 /* SignInModel.swift in Sources */,
@@ -569,6 +588,7 @@
 				913F1D512BA40EE500EE2E11 /* SignInView.swift in Sources */,
 				9156BB5F2BAC70080022EBA8 /* Color.swift in Sources */,
 				9156BB522BAC61E50022EBA8 /* CreateDreamVM.swift in Sources */,
+				913CA43D2BFDE5C0007AA56C /* NotLoggedView.swift in Sources */,
 				91E37AFD2BBEFF8A00B7CE48 /* HistoryItem.swift in Sources */,
 				9156BB4E2BAC5DB00022EBA8 /* BillHistory.swift in Sources */,
 				913264FA2BAAC0030099D077 /* CustomButton.swift in Sources */,

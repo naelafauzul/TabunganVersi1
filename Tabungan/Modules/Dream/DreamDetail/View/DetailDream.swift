@@ -192,7 +192,7 @@ struct DetailDream: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .alert("Konfirmasi Penghapusan", isPresented: $showDeleteConfirmation) {
+            .alert("Hapus impian \(dream.name)?", isPresented: $showDeleteConfirmation) {
                 Button("Hapus", role: .destructive) {
                     Task {
                         try await DreamDetailVewModel.deleteDream(dreamId: dream.id, userId: userData.uid)
@@ -200,7 +200,7 @@ struct DetailDream: View {
                 }
                 Button("Batal", role: .cancel) { }
             } message: {
-                Text("Apakah Anda yakin ingin menghapus impian \(dream.name)?")
+                Text("Kamu tidak akan bisa melihat impian ini lagi")
             }
             .toolbar {
                 Menu {
@@ -237,13 +237,18 @@ struct DetailDream: View {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
                         
                     }
-                }
-                )
+                })
             }
         }
     }
 }
 
-//#Preview {
-//    DetailDream(tabBarVisibility: .constant(.hidden), userData: UserData(uid: "123", email: "helo"), dream: Dreams.dummyData[0], selectedDream: )
-//}
+#Preview {
+    DetailDream(
+                tabBarVisibility: .constant(.hidden),
+                userData: UserData(uid: "123", email: "example@example.com"),
+                dream: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
+            )
+            .environmentObject(DreamDetailVM())
+            .environmentObject(DreamsViewModel())
+}

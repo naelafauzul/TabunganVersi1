@@ -27,7 +27,7 @@ struct ContentView: View {
                     Label("Profil", systemImage: "person")
                 }
         }
-        .accentColor(.teal)
+        .accentColor(.teal700)
         .onAppear {
             Task {
                 if let sessionUserData = try? await AuthAPIService.shared.getCurrentSession() {

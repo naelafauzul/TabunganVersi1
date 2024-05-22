@@ -76,7 +76,7 @@ class DatabaseManager {
             let newAmount = amount + credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
             
-            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dream_id", value: dreamId).execute()
+            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).execute()
             
             print("Success")
         } catch {
@@ -94,7 +94,7 @@ class DatabaseManager {
             let newAmount = amount - credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
             
-            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dream_id", value: dreamId).execute()
+            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).execute()
             
             print("Success")
         } catch {

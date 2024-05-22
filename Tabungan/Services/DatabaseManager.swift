@@ -167,7 +167,7 @@ class DatabaseManager {
 
     func updateDream(dreamId: String, userId: String, profile: String, background: String, name: String, target: Double, scheduler: String, schedulerRate: Double) async throws {
         do {
-            let response = try await client.database
+            let _ = try await client.database
                 .from("dreams")
                 .update([
                     "profile": profile,

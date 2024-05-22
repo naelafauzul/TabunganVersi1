@@ -31,8 +31,8 @@ struct DreamList: View {
     }
     
     var totalAmountSaved: Double {
-            return DreamsVM.dreams.reduce(0) { $0 + $1.amount }
-        }
+        return DreamsVM.dreams.reduce(0) { $0 + $1.amount }
+    }
     
     var body: some View {
         NavigationStack {

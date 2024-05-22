@@ -19,7 +19,7 @@ struct TotalView: View {
             }
            
             Text("Rp\(totalAmount)")
-                .font(.title2)
+                .font(.title)
                 .fontWeight(.bold)
         }
     }

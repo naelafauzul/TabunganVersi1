@@ -62,7 +62,9 @@ class SignInGoogle {
 
 extension UIApplication {
     
-    class func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    class func getTopViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+                                        .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+                                        .first { $0.isKeyWindow }?.rootViewController) -> UIViewController? {
         
         if let nav = base as? UINavigationController {
             return getTopViewController(base: nav.visibleViewController)
@@ -76,3 +78,4 @@ extension UIApplication {
         return base
     }
 }
+

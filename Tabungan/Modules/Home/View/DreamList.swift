@@ -52,7 +52,7 @@ struct DreamList: View {
                         
                         LazyVGrid(columns: gridItemLayout) {
                             ForEach(filteredDreams, id: \.id) { dream in
-                                NavigationLink(destination: DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData, dreamTemp: dream)
+                                NavigationLink(destination: DetailDream(DreamsVM: DreamsVM, tabBarVisibility: $tabBarVisibility, userData: userData, dreamTemp: dream)
                                     .environmentObject(DreamDetailViewModel)
                                 ) {
                                     DreamItem(dream: dream)
@@ -102,10 +102,13 @@ struct DreamList: View {
                 SignInView(userData: $userData)
                     .presentationDetents([.large, .medium, .fraction(0.25)])
             }
-            .navigationDestination(for: Dreams.self) { dream in
-                DetailDream(tabBarVisibility: $tabBarVisibility, userData: userData ?? UserData(uid: "", email: ""), dreamTemp: dream)
-                    .environmentObject(DreamDetailViewModel)
-            }
+            .background(
+                NavigationLink(
+                    destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: $userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
+                        .environmentObject(DreamsVM), isActive: $showingCreateForm) {
+                            EmptyView()
+                        }
+            )
         }
     }
     

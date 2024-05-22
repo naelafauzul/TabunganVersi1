@@ -10,7 +10,7 @@ import SVGKit
 
 struct DetailDream: View {
     @EnvironmentObject var DreamDetailVewModel: DreamDetailVM
-    @ObservedObject var DreamsVM = DreamsViewModel()
+    @ObservedObject var DreamsVM: DreamsViewModel
     
     @Environment(\.dismiss) var dismiss
     @Binding var tabBarVisibility: Visibility
@@ -173,10 +173,16 @@ struct DetailDream: View {
                     .buttonStyle(.borderedProminent)
                 }
                 .onAppear {
+                    tabBarVisibility = .hidden
                     Task {
-                        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
-                        username = try await DreamDetailVewModel.fetchUserName(for: userData.uid)
-                        updateEmoticonURL()
+                        try await fetchDreamDetailData()
+                    }
+                }
+                .onDisappear {
+                    tabBarVisibility = .visible
+                    Task {
+                        try await fetchDreamDetailData()
+                        try await DreamsVM.fetchDreams(for: userData.uid)
                     }
                 }
             }
@@ -212,10 +218,7 @@ struct DetailDream: View {
             .sheet(isPresented: $showModal) {
                 AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dreamTemp.id, amount: dreamTemp.amount, onComplete: {
                     Task {
-                        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
-                        try await DreamsVM.fetchDreams(for: userData.uid)
-                        dreamTemp = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) ?? dreamTemp
-                        updateEmoticonURL()
+                        try await updateDreamDetail()
                     }
                 })
                 .presentationDetents([.large, .medium, .fraction(0.5)])
@@ -224,14 +227,24 @@ struct DetailDream: View {
                 UpdateDreamForm(userData: userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), dream: dreamTemp,
                                 onComplete: {
                     Task {
-                        try await DreamsVM.fetchDreams(for: userData.uid)
-                        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
-                        dreamTemp = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) ?? dreamTemp
-                        updateEmoticonURL()
+                        try await updateDreamDetail()
                     }
                 })
             }
         }
+    }
+    
+    func fetchDreamDetailData() async throws {
+        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
+        username = try await DreamDetailVewModel.fetchUserName(for: userData.uid)
+        updateEmoticonURL()
+    }
+    
+    func updateDreamDetail() async throws {
+        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
+        try await DreamsVM.fetchDreams(for: userData.uid)
+        dreamTemp = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) ?? dreamTemp
+        updateEmoticonURL()
     }
     
     func updateEmoticonURL() {
@@ -239,10 +252,11 @@ struct DetailDream: View {
     }
 }
 
-#Preview {
-    DetailDream(
-        tabBarVisibility: .constant(.hidden),
-        userData: UserData(uid: "123", email: "example@example.com"),
-        dreamTemp: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
-    )
-}
+//#Preview {
+//    DetailDream(
+//        tabBarVisibility: .constant(.hidden), DreamsVM: <#DreamsViewModel#>,
+//        userData: UserData(uid: "123", email: "example@example.com"),
+//        dreamTemp: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
+//    )
+//    .environmentObject(DreamsViewModel())
+//}

@@ -188,7 +188,6 @@ struct DetailDream: View {
                     Task {
                         try await DreamDetailVewModel.fetchBillHistory(for: dream.id)
                         username = try await DreamDetailVewModel.fetchUserName(for: userData.uid)
-                        
                     }
                 }
             }

@@ -150,6 +150,13 @@ class DatabaseManager {
                 .equals("id", value: dreamId)
                 .equals("userId", value: userId)
                 .execute()
+            
+            _ = try await client.database.from("dream_users")
+                .update(["isActive": false])
+                .equals("dreamId", value: dreamId)
+                .equals("userId", value: userId)
+                .execute()
+            
             print("Success deactivated dream \(dreamId)")
         } catch {
             print("Error occurred while deactivate dream: \(error)")
@@ -180,7 +187,4 @@ class DatabaseManager {
             throw error
         }
     }
-
-
-    
 }

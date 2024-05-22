@@ -21,7 +21,7 @@ class CreateDreamVM: ObservableObject {
         
         let dream = Dreams(id: dreamId, userId: uid, code: dreamId, profile: profile, background: background, name: name, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow, scheduler: scheduler, schedulerRate: schedulerRate)
         
-        let dreamUser = DreamUsers(id: dreamUserId, dream_id: dreamId, user_id: uid, profile: profile, name: name_user, target: target, amount: 0.0, is_active: true, created: timeNow, updated: timeNow)
+        let dreamUser = DreamUsers(id: dreamUserId, dreamId: dreamId, userId: uid, profile: profile, name: name_user, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow)
         
         try await DatabaseManager.shared.createDreamItem(dream: dream, dreamUser: dreamUser)
     }
@@ -75,7 +75,11 @@ class CreateDreamVM: ObservableObject {
         emoticons = EmoticonService.getEmoticons()
     }
     
-    
+    @MainActor
+    func fetchUserName(for uid: String) async throws -> String {
+        let user = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
+        return user.name
+    }
 }
 
 

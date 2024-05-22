@@ -10,6 +10,7 @@ import SwiftUI
 struct SignInView: View {
     @StateObject var signInVM = SignInViewModel()
     @Binding var userData: UserData?
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack (alignment: .leading){
@@ -21,6 +22,7 @@ struct SignInView: View {
                     do {
                         let loggedInUserData = try await signInVM.signInWithGoogle()
                         userData = loggedInUserData // Update userData after successful login
+                        dismiss()
                     } catch {
                         print(error)
                     }

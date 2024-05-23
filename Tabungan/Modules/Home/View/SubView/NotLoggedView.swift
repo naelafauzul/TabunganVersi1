@@ -13,6 +13,7 @@ struct NotLoggedView: View {
     var body: some View {
         VStack {
             TotalView(totalAmount: 0)
+                .padding(.top, 20)
             
             HStack {
                 Text("Daftar Impian")

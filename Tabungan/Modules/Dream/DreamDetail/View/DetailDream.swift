@@ -221,7 +221,7 @@ struct DetailDream: View {
                         try await updateDreamDetail()
                     }
                 })
-                .presentationDetents([.large, .medium, .fraction(0.5)])
+                .presentationDetents([.large, .medium, .fraction(0.4)])
             }
             .sheet(isPresented: $showUpdateModal) {
                 UpdateDreamForm(userData: userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), dream: dreamTemp,

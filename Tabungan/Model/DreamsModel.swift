@@ -41,7 +41,7 @@ struct Dreams: Codable, Hashable {
 
 extension Dreams {
     static let dummyData = [
-        Dreams(id: "1", userId: "1", code: "1", profile: "image1", background: "image1", name: "Rumah Impian 1", target: 100000, amount: 50000, isActive: true, created: 1679461923099, updated: 1679461923099, scheduler: "Month", schedulerRate: 5000)
+        Dreams(id: "1", userId: "1", code: "1", profile: "photo", background: "#E5F5DC", name: "Your Dream", target: 0, amount: 0, isActive: true, created: 1679461923099, updated: 1679461923099, scheduler: "Month", schedulerRate: 0)
        
     ]
 }

@@ -36,68 +36,77 @@ struct DreamList: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    if let userData = userData {
-                        
-                        TotalView(totalAmount: Int(totalAmountSaved))
-                        
-                        HStack {
-                            Text("Daftar Impian")
-                                .font(.callout)
-                            Spacer()
-                            SegmentedPickerView(titles: ["Berjalan", "Selesai"], selectedIndex: $selectedIndex)
-                        }
-                        .padding(.vertical, 10)
-                        
-                        LazyVGrid(columns: gridItemLayout) {
-                            ForEach(filteredDreams, id: \.id) { dream in
-                                NavigationLink(destination: DetailDream(DreamsVM: DreamsVM, tabBarVisibility: $tabBarVisibility, userData: userData, dreamTemp: dream)
-                                    .environmentObject(DreamDetailViewModel)
-                                ) {
-                                    DreamItem(dream: dream)
+            ZStack {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        if let userData = userData {
+                            
+                            TotalView(totalAmount: Int(totalAmountSaved))
+                            
+                            HStack {
+                                Text("Daftar Impian")
+                                    .font(.callout)
+                                Spacer()
+                                SegmentedPickerView(titles: ["Berjalan", "Selesai"], selectedIndex: $selectedIndex)
+                            }
+                            .padding(.vertical, 10)
+                            
+                            LazyVGrid(columns: gridItemLayout) {
+                                ForEach(filteredDreams, id: \.id) { dream in
+                                    NavigationLink(destination: DetailDream(DreamsVM: DreamsVM, tabBarVisibility: $tabBarVisibility, userData: userData, dreamTemp: dream)
+                                        .environmentObject(DreamDetailViewModel)
+                                    ) {
+                                        DreamItem(dream: dream)
+                                    }
+                                    .toolbar(.hidden, for: .tabBar)
                                 }
-                                .toolbar(.hidden, for: .tabBar)
                             }
+                        } else {
+                            NotLoggedView()
                         }
-                    } else {
-                        Text("Please log in to view your dreams.")
-                            .font(.title)
-                            .padding()
                     }
-                }
-                .onAppear {
-                    if let userData = userData {
-                        Task {
-                            do {
-                                try await DreamsVM.fetchDreams(for: userData.uid)
-                            } catch {
-                                print(error)
+                    .onAppear {
+                        if let userData = userData {
+                            Task {
+                                do {
+                                    try await DreamsVM.fetchDreams(for: userData.uid)
+                                } catch {
+                                    print(error)
+                                }
                             }
                         }
                     }
-                }
-                .onChange(of: userData) { _ in
-                    fetchDreamsIfNeeded()
-                }
-            }
-            .padding(.horizontal, 16)
-            .toolbar {
-                Button(action: {
-                    guard userData != nil else {
-                        showingSignInView = true
-                        return
+                    .onChange(of: userData) { _ in
+                        fetchDreamsIfNeeded()
                     }
-                    showingCreateForm = true
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundStyle(.teal700)
-                        .padding(2)
+                }
+                .padding(.horizontal, 16)
+                .toolbar(tabBarVisibility, for: .tabBar)
+                
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            guard userData != nil else {
+                                showingSignInView = true
+                                return
+                            }
+                            showingCreateForm = true
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.title.weight(.semibold))
+                                .padding()
+                                .background(.teal700)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 4, x: 0, y: 4)
+                            
+                        }
+                        .padding()
+                    }
                 }
             }
-            .toolbar(tabBarVisibility, for: .tabBar)
             .sheet(isPresented: $showingSignInView) {
                 SignInView(userData: $userData)
                     .presentationDetents([.large, .medium, .fraction(0.25)])

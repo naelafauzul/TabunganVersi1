@@ -30,7 +30,9 @@ struct CustomTextFieldDouble: View {
                     }
                     return
                 }
-                self.text = value
+                if value >= 0 {
+                    self.text = value
+                }
             }
         )
     }
@@ -65,7 +67,7 @@ struct CustomTextFieldDouble: View {
         .cornerRadius(12)
         .overlay {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(focused ? Color.teal.opacity(0.6) : .black.opacity(0.2), lineWidth: 2)
+                .stroke(focused ? Color.teal700.opacity(0.6) : .black.opacity(0.2), lineWidth: 2)
         }
     }
 }

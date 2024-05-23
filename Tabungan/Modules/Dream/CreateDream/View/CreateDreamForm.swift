@@ -27,6 +27,8 @@ struct CreateDreamForm: View {
     
     @State private var showingColorPicker = false
     @State private var showingEmoticon = false
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
     @State private var username: String? = nil
     
     var body: some View {
@@ -105,12 +107,20 @@ struct CreateDreamForm: View {
                         .foregroundStyle(.gray)
                     
                     Button {
-                        Task {
-                            do {
-                                try await CreateDreamVM.createDreams(uid: userData?.uid ?? "", profile: selectedEmoticon, background: selectedColor, name: name, name_user: username ?? "", target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
-                                dismiss()
-                            } catch {
-                                print(error)
+                        if name.isEmpty || target == nil || scheduler_rate == nil || scheduler.isEmpty || selectedEmoticon.isEmpty {
+                            alertMessage = "Semua kolom dan gambar harus diisi!"
+                            showingAlert = true
+                        } else if target == nil || scheduler_rate == nil {
+                            alertMessage = "Nominal Target dan Nominal Pengisian harus berupa angka!"
+                            showingAlert = true
+                        } else {
+                            Task {
+                                do {
+                                    try await CreateDreamVM.createDreams(uid: userData?.uid ?? "", profile: selectedEmoticon, background: selectedColor, name: name, name_user: username ?? "", target: target!, scheduler: scheduler, schedulerRate: scheduler_rate!)
+                                    dismiss()
+                                } catch {
+                                    print(error)
+                                }
                             }
                         }
                     } label: {
@@ -120,6 +130,9 @@ struct CreateDreamForm: View {
                             .frame(maxWidth: .infinity, minHeight: 42)
                             .background(.teal700)
                             .cornerRadius(10)
+                    }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text("Peringatan"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                     }
                     
                 }

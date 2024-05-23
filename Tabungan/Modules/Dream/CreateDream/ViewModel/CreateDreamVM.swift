@@ -80,6 +80,13 @@ class CreateDreamVM: ObservableObject {
         let user = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
         return user.name
     }
+    
+    var numberFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }
 }
 
 

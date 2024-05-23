@@ -23,13 +23,17 @@ struct AmountInputView: View {
         VStack (alignment: .leading) {
             Text(operation == "Tambah" ? "Isi Tabungan" : "Ambil Tabungan")
                 .font(.headline)
-                .padding()
+                .padding(.top, 20)
+                .padding(.bottom, 10)
+                .padding(.horizontal, 16)
             
             CustomTextFieldDouble(text: $credit, placeholder: "Nominal", formatter: NumberFormatter())
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 3)
             
             CustomTextFieldString(text: $note, placeholder: "Note")
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 3)
             
             Button(action: {
                 if operation == "Tambah" {
@@ -37,6 +41,7 @@ struct AmountInputView: View {
                         do {
                             try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0, note: note)
                             onComplete()
+                            resetFields()
                             dismiss()
                         } catch {
                             print(error)
@@ -47,6 +52,7 @@ struct AmountInputView: View {
                         do {
                             try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0, note: note)
                             onComplete()
+                            resetFields()
                             dismiss()
                         } catch {
                             print(error)
@@ -61,13 +67,19 @@ struct AmountInputView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.top, 10)
             
             Spacer()
         }
         .background(Color.white)
         .cornerRadius(20)
         .padding(.horizontal, 16)
+    }
+    
+    private func resetFields() {
+        credit = nil
+        note = ""
     }
 }
 

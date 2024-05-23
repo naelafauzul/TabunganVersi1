@@ -37,7 +37,8 @@ struct UpdateDreamForm: View {
                     }
                     Spacer()
                 }
-                .padding(.vertical, 2)
+                .padding(.top, 20)
+                .padding(.bottom, 2)
                 
                 HStack {
                     Button {

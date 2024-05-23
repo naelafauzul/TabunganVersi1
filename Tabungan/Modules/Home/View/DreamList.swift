@@ -42,6 +42,7 @@ struct DreamList: View {
                         if let userData = userData {
                             
                             TotalView(totalAmount: Int(totalAmountSaved))
+                                .padding(.top, 20)
                             
                             HStack {
                                 Text("Daftar Impian")
@@ -114,6 +115,7 @@ struct DreamList: View {
             .background(
                 NavigationLink(
                     destination: CreateDreamForm(tabBarVisibility: $tabBarVisibility, userData: $userData, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0))
+                        .navigationBarTitleDisplayMode(.inline)
                         .environmentObject(DreamsVM), isActive: $showingCreateForm) {
                             EmptyView()
                         }

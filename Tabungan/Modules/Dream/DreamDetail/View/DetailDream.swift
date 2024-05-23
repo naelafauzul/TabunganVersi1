@@ -252,11 +252,10 @@ struct DetailDream: View {
     }
 }
 
-//#Preview {
-//    DetailDream(
-//        tabBarVisibility: .constant(.hidden), DreamsVM: <#DreamsViewModel#>,
-//        userData: UserData(uid: "123", email: "example@example.com"),
-//        dreamTemp: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
-//    )
-//    .environmentObject(DreamsViewModel())
-//}
+#Preview {
+    DetailDream(
+        DreamsVM: DreamsViewModel(), tabBarVisibility: .constant(.hidden),
+        userData: UserData(uid: "123", email: "example@example.com"),
+        dreamTemp: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
+    )
+}

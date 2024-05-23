@@ -7,7 +7,6 @@
 import SwiftUI
 
 struct CustomTextFieldDouble: View {
-    
     @Binding var text: Double?
     let placeholder: String
     var formatter: NumberFormatter
@@ -19,11 +18,7 @@ struct CustomTextFieldDouble: View {
             get: {
                 if let value = self.text {
                     let formattedText = formatter.string(from: NSNumber(value: value)) ?? ""
-                    if formattedText.isEmpty {
-                        return ""
-                    } else {
-                        return formattedText
-                    }
+                    return formattedText.isEmpty ? "" : formattedText
                 } else {
                     return ""
                 }
@@ -31,20 +26,17 @@ struct CustomTextFieldDouble: View {
             set: { newValue in
                 guard let value = formatter.number(from: newValue)?.doubleValue else {
                     if newValue.isEmpty {
-                        self.text = nil 
+                        self.text = nil
                     }
                     return
                 }
-                if value > 0 {
-                    self.text = value
-                }
+                self.text = value
             }
         )
     }
-
     
     var body: some View {
-        let isActive = focused || self.text != 0
+        let isActive = focused || (self.text != nil && self.text != 0)
         
         ZStack(alignment: isActive ? .topLeading : .center) {
             TextField("", text: textStringBinding)
@@ -73,7 +65,7 @@ struct CustomTextFieldDouble: View {
         .cornerRadius(12)
         .overlay {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(focused ? .teal700.opacity(0.6) : .black.opacity(0.2), lineWidth: 2)
+                .stroke(focused ? Color.teal.opacity(0.6) : .black.opacity(0.2), lineWidth: 2)
         }
     }
 }

@@ -71,9 +71,6 @@ struct AmountInputView: View {
     }
 }
 
-
-
-
-//#Preview {
-//    AmountInputView(newAmount: <#Binding<String>#>, operation: <#String#>)
-//}
+#Preview {
+    AmountInputView(credit: .constant(2000), operation: .constant("Tambah"), note: .constant("menabung"), uid: "123", dreamId: "123", amount: 2000, onComplete: {})
+}

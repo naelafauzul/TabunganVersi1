@@ -154,8 +154,10 @@ struct CreateDreamForm: View {
 }
 
 
-//#Preview {
-//    CreateDreamForm(tabBarVisibility: .constant(.visible), userData: .init(uid: "", email: "") ?? <#default value#> as! Binding<UserData>, user: Users(id: "", email: "", profile: "", name: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0), onDreamCreated: <#() -> Void#>)
-//        .environmentObject(CreateDreamVM())
-//}
-//
+#Preview {
+    CreateDreamForm(
+        tabBarVisibility: .constant(.visible),
+        userData: .constant(UserData(uid: "123", email: "example@example.com")),
+        user: Users(id: "1", email: "user@example.com", profile: "profile1", name: "User", gender: "M", day_of_birth: "1990-01-01", is_active: true, created: 1234567890, updated: 1234567890)
+    )
+}

@@ -40,16 +40,12 @@ class DatabaseManager {
     
     func createDreamItem(dream: Dreams, dreamUser: DreamUsers) async throws {
         do {
-            let response = try await client.database.from("dreams").insert(dream).execute()
-            print(response)
+            let _ = try await client.database.from("dreams").insert(dream).execute()
+            let _ = try await client.database.from("dream_users").insert(dreamUser).execute()
             
-            let response2 = try await client.database.from("dream_users").insert(dreamUser).execute()
-            print(response2)
-            
-            print("Insert kedua data berhasil.")
-            
+            print("Successfully created dream and dream user")
         } catch {
-            print("Terjadi kesalahan saat memasukkan data: \(error)")
+            print("Error occurred while creating dream and dream user: \(error)")
             throw error
         }
     }
@@ -181,7 +177,6 @@ class DatabaseManager {
         }
     }
     
-    
     func updateDream(dreamId: String, userId: String, profile: String, background: String, name: String, target: Double, scheduler: String, schedulerRate: Double) async throws {
         do {
             let _ = try await client.database
@@ -204,4 +199,58 @@ class DatabaseManager {
             throw error
         }
     }
+    
+    func joinDream(code: String, userId: String, profile: String, name: String) async throws {
+        
+        let response = try await client.database.from("dreams").select().eq("code", value: code).execute()
+        let data = response.data
+        print("Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
+        
+        guard let dreams = try? JSONDecoder().decode([Dreams].self, from: data), let dream = dreams.first else {
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "failed to decode dream data"])
+        }
+        print("Decoded Dream: \(dream)")
+        
+        guard dream.userId != userId else {
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "this is your dream"])
+        }
+        
+        guard dream.isActive ?? true else {
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "dream is not active anymore"])
+        }
+        
+        let userDreamResponse = try await client.database.from("dream_users").select().eq("userId", value: userId).eq("dreamId", value: dream.id).execute()
+        let dataUser = userDreamResponse.data
+        
+        guard let userDreams = try? JSONDecoder().decode([DreamUsers].self, from: dataUser) else {
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "failed to decode user dream data"])
+        }
+        
+        _ = try? JSONDecoder().decode(DreamUsers.self, from: dataUser)
+        
+        if let currentUserDream = userDreams.first {
+            guard !currentUserDream.isActive else {
+                throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "you already joined this dream"])
+            }
+            
+            try await client.database.from("dream_users").update(["isActive": true]).eq("id", value: currentUserDream.id).execute()
+        } else {
+            let timeNow = Date().timeIntervalSince1970
+            let newUserDream = DreamUsers(
+                id: UUID().uuidString,
+                dreamId: dream.id,
+                userId: userId,
+                profile: profile,
+                name: name,
+                target: 0.0,
+                amount: 0.0,
+                isActive: true,
+                created: Int64(timeNow),
+                updated: Int64(timeNow)
+            )
+            try await client.database.from("dream_users").insert(newUserDream).execute()
+            print("berhasil insert new user : \(newUserDream)")
+        }
+    }
 }
+

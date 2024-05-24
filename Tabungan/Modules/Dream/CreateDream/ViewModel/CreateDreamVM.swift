@@ -15,13 +15,19 @@ class CreateDreamVM: ObservableObject {
     func createDreams(uid: String, profile: String, background: String, name: String, name_user: String, target: Double, scheduler: String, schedulerRate: Double ) async throws {
         
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
-        let dreamId = UUID().uuidString
-        let dreamUserId = UUID().uuidString
+        let dreamId = UUID().uuidString.lowercased()
+        let dreamUserId = UUID().uuidString.lowercased()
         let background = background
+        
+        print("Lowercased dreamId: \(dreamId)")
+        print("Lowercased dreamUserId: \(dreamUserId)")
         
         let dream = Dreams(id: dreamId, userId: uid, code: dreamId, profile: profile, background: background, name: name, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow, scheduler: scheduler, schedulerRate: schedulerRate)
         
         let dreamUser = DreamUsers(id: dreamUserId, dreamId: dreamId, userId: uid, profile: profile, name: name_user, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow)
+        
+        print("Creating dream: \(dream)")
+        print("Creating dream user: \(dreamUser)")
         
         try await DatabaseManager.shared.createDreamItem(dream: dream, dreamUser: dreamUser)
     }

@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var userViewModel = UserVM()
+    @ObservedObject var DreamsVM: DreamsViewModel
     @Binding var userData: UserData?
+    
+    @State private var code: String = ""
+    @State private var joinDreamState: StateView = .idle
     
     let profileItems = [
         ProfileItemModel(image: "person.fill", title: "Ubah Profil", description: "Ubah Nama dan Profil"),
@@ -21,13 +25,11 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            VStack() {
+            VStack {
                 VStack {
-                    if userData != nil {
-                        if let user = userViewModel.user {
-                            Text(user.name)
-                                .font(.title2)
-                        }
+                    if let user = userViewModel.user {
+                        Text(user.name)
+                            .font(.title2)
                     } else {
                         Text("Kamu Belum Login")
                             .font(.title2)
@@ -50,7 +52,7 @@ struct ProfileView: View {
                 List(profileItems) { item in
                     NavigationLink(destination: destinationView(for: item)) {
                         ProfileItem(image: item.image, title: item.title, description: item.description)
-                            .padding(.vertical,10)
+                            .padding(.vertical, 10)
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(
@@ -58,18 +60,49 @@ struct ProfileView: View {
                             .cornerRadius(10)
                             .padding(.vertical, 8)
                     )
-                    
                 }
                 .listStyle(.plain)
                 
-                Button {
+                VStack {
+                    TextField("Enter invite code", text: $code)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
                     
-                } label: {
-                    Text("Gabung")
+                    Button("Join Dream") {
+                        guard let user = userViewModel.user else { return }
+                        joinDream(code: code, userId: user.id, profile: user.profile, name: user.name)
+                    }
+                    .padding()
+                    
+                    switch joinDreamState {
+                    case .idle:
+                        EmptyView()
+                    case .loading:
+                        ProgressView("Joining...")
+                    case .joinSuccess:
+                        Text("Successfully joined the dream!")
+                            .foregroundColor(.green)
+                    case .joinFailed(let error):
+                        Text("Failed to join the dream: \(error.localizedDescription)")
+                            .foregroundColor(.red)
+                    }
                 }
-                
+                .padding()
             }
             .padding()
+        }
+    }
+    
+    @MainActor
+    func joinDream(code: String, userId: String, profile: String, name: String) {
+        joinDreamState = .loading
+        Task {
+            do {
+                try await DatabaseManager.shared.joinDream(code: code, userId: userId, profile: profile, name: name)
+                joinDreamState = .joinSuccess
+            } catch {
+                joinDreamState = .joinFailed(error)
+            }
         }
     }
     
@@ -85,14 +118,18 @@ struct ProfileView: View {
         case "Kebijakan Privasi":
             PrivacyPolicyView()
         case "Sign Out":
-            SignOutView(userData: $userData)
+            if let userData = userData {
+                SignOutView(userData: $userData)
+            } else {
+                Text("No user data available")
+            }
         default:
             Text("Page not found")
         }
     }
 }
 
-
-#Preview {
-    ProfileView(userData: .constant(UserData(uid: "123", email: "naela@gmail.com")))
-}
+//
+//#Preview {
+//    ProfileView(userData: .constant(UserData(uid: "123", email: "naela@gmail.com")))
+//}

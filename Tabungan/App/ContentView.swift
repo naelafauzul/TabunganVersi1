@@ -21,7 +21,7 @@ struct ContentView: View {
                     Label("Beranda", systemImage: "house")
                 }
             
-            ProfileView(userData: $userData)
+            ProfileView(DreamsVM: DreamsVM, userData: $userData)
                 .tag(1)
                 .tabItem {
                     Label("Profil", systemImage: "person")

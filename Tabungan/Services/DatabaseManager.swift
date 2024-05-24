@@ -204,33 +204,31 @@ class DatabaseManager {
         
         let response = try await client.database.from("dreams").select().eq("code", value: code).execute()
         let data = response.data
-        print("Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
-        
+       
         guard let dreams = try? JSONDecoder().decode([Dreams].self, from: data), let dream = dreams.first else {
-            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "failed to decode dream data"])
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Kode undangan tidak valid."])
         }
-        print("Decoded Dream: \(dream)")
         
         guard dream.userId != userId else {
-            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "this is your dream"])
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Ini adalah impianmu."])
         }
         
         guard dream.isActive ?? true else {
-            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "dream is not active anymore"])
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Impian sudah tidak aktif."])
         }
         
         let userDreamResponse = try await client.database.from("dream_users").select().eq("userId", value: userId).eq("dreamId", value: dream.id).execute()
         let dataUser = userDreamResponse.data
         
         guard let userDreams = try? JSONDecoder().decode([DreamUsers].self, from: dataUser) else {
-            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "failed to decode user dream data"])
+            throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Kode undangan tidak valid."])
         }
         
         _ = try? JSONDecoder().decode(DreamUsers.self, from: dataUser)
         
         if let currentUserDream = userDreams.first {
             guard !currentUserDream.isActive else {
-                throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "you already joined this dream"])
+                throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Kamu telah bergabung di impian ini."])
             }
             
             try await client.database.from("dream_users").update(["isActive": true]).eq("id", value: currentUserDream.id).execute()

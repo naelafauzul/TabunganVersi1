@@ -8,18 +8,9 @@
 import Foundation
 import SwiftUI
 
-enum StateView {
-    case idle
-    case loading
-    case joinSuccess
-    case joinFailed(Error)
-}
-
 class DreamsViewModel: ObservableObject {
     @Published var dreams = [Dreams]()
-    @Published var state: StateView = .idle
 
-    
     @MainActor
     func fetchDreams(for uid: String) async throws {
         do {
@@ -42,15 +33,5 @@ class DreamsViewModel: ObservableObject {
         }
     }
     
-    func joinDream(code: String, userId: String, profile: String, name: String) {
-            Task {
-                do {
-                    state = .loading
-                    try await DatabaseManager.shared.joinDream(code: code, userId: userId, profile: profile, name: name)
-                    state = .joinSuccess
-                } catch {
-                    state = .joinFailed(error)
-                }
-            }
-        }
+    
 }

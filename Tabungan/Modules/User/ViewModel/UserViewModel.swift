@@ -7,9 +7,20 @@
 
 import Foundation
 
+enum StateView {
+    case idle
+    case loading
+    case joinSuccess
+    case joinFailed(Error)
+}
+
+
 @MainActor
 class UserVM: ObservableObject {
     @Published var user : Users?
+    @Published var state: StateView = .idle
+    @Published var showErrorAlert: Bool = false
+    @Published var errorMessage: String?
     
     func createUser(uid: String, email: String, profile: String, name: String, gender: String, day_of_birth: String, isActive: Bool, created: Int64, updated: Int64) async throws {
         
@@ -28,5 +39,26 @@ class UserVM: ObservableObject {
         DispatchQueue.main.async {
             self.user = fetchedUser
         }
+    }
+    
+    @MainActor
+    func joinDream(code: String, userId: String, profile: String, name: String) {
+        Task {
+            do {
+                state = .loading
+                try await DatabaseManager.shared.joinDream(code: code, userId: userId, profile: profile, name: name)
+                state = .joinSuccess
+                showErrorAlert = false
+            } catch {
+                state = .joinFailed(error)
+                errorMessage = error.localizedDescription
+                showErrorAlert = true
+            }
+        }
+    }
+    
+    func resetError() {
+        errorMessage = nil
+        showErrorAlert = false
     }
 }

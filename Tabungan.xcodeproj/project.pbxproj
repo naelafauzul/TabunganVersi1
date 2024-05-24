@@ -52,6 +52,7 @@
 		9156BB522BAC61E50022EBA8 /* CreateDreamVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB512BAC61E50022EBA8 /* CreateDreamVM.swift */; };
 		9156BB5F2BAC70080022EBA8 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB5E2BAC70080022EBA8 /* Color.swift */; };
 		9156BB612BAC7EE90022EBA8 /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB602BAC7EE90022EBA8 /* SignInApple.swift */; };
+		9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */; };
 		915DF7A92BFF3049002889D9 /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DF7A82BFF3049002889D9 /* ProfileItem.swift */; };
 		915DF7AF2BFF345A002889D9 /* DestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DF7AE2BFF345A002889D9 /* DestinationView.swift */; };
 		915DF7B12BFF3872002889D9 /* ProfileItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DF7B02BFF3872002889D9 /* ProfileItemModel.swift */; };
@@ -106,6 +107,7 @@
 		9156BB512BAC61E50022EBA8 /* CreateDreamVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDreamVM.swift; sourceTree = "<group>"; };
 		9156BB5E2BAC70080022EBA8 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9156BB602BAC7EE90022EBA8 /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
+		9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinDreamModal.swift; sourceTree = "<group>"; };
 		915DF7A82BFF3049002889D9 /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
 		915DF7AE2BFF345A002889D9 /* DestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationView.swift; sourceTree = "<group>"; };
 		915DF7B02BFF3872002889D9 /* ProfileItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItemModel.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				9128C0392BFF2B200030F94D /* ProfileView.swift */,
 				915DF7A82BFF3049002889D9 /* ProfileItem.swift */,
 				915DF7AE2BFF345A002889D9 /* DestinationView.swift */,
+				9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				913F1D5A2BA4107700EE2E11 /* Constant.swift in Sources */,
 				91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */,
 				913F21062BADCD56001AD670 /* EmoticonService.swift in Sources */,
+				9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */,
 				913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */,
 				910358E12BD778D100F230DD /* SVGImage.swift in Sources */,
 				91CFC1732BA87ACD0085AB1C /* CustomColorPicker.swift in Sources */,

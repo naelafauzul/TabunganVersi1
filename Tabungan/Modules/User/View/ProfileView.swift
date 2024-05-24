@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var userViewModel = UserVM()
-    @ObservedObject var DreamsVM: DreamsViewModel
     @Binding var userData: UserData?
     
+    @State private var showingModal = false
     @State private var code: String = ""
     @State private var joinDreamState: StateView = .idle
     
@@ -63,48 +63,21 @@ struct ProfileView: View {
                 }
                 .listStyle(.plain)
                 
-                VStack {
-                    TextField("Enter invite code", text: $code)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                    
-                    Button("Join Dream") {
-                        guard let user = userViewModel.user else { return }
-                        joinDream(code: code, userId: user.id, profile: user.profile, name: user.name)
-                    }
-                    .padding()
-                    
-                    switch joinDreamState {
-                    case .idle:
-                        EmptyView()
-                    case .loading:
-                        ProgressView("Joining...")
-                    case .joinSuccess:
-                        Text("Successfully joined the dream!")
-                            .foregroundColor(.green)
-                    case .joinFailed(let error):
-                        Text("Failed to join the dream: \(error.localizedDescription)")
-                            .foregroundColor(.red)
+                Button("Gabung Undangan Impian Teman") {
+                    showingModal.toggle()
+                }
+                .sheet(isPresented: $showingModal) {
+                    if let user = userViewModel.user {
+                        JoinDreamModal(code: $code, userId: user.id, profile: user.profile, name: user.name)
+                            .presentationDetents([.large, .medium, .fraction(0.4)])
                     }
                 }
-                .padding()
             }
             .padding()
         }
     }
     
-    @MainActor
-    func joinDream(code: String, userId: String, profile: String, name: String) {
-        joinDreamState = .loading
-        Task {
-            do {
-                try await DatabaseManager.shared.joinDream(code: code, userId: userId, profile: profile, name: name)
-                joinDreamState = .joinSuccess
-            } catch {
-                joinDreamState = .joinFailed(error)
-            }
-        }
-    }
+    
     
     @ViewBuilder
     func destinationView(for item: ProfileItemModel) -> some View {

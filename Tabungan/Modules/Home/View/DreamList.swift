@@ -94,6 +94,7 @@ struct DreamList: View {
                                 return
                             }
                             showingCreateForm = true
+                            
                         }) {
                             Image(systemName: "plus")
                                 .font(.title.weight(.semibold))

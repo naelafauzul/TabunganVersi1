@@ -18,11 +18,7 @@ class SignInViewModel: ObservableObject {
     
     func signInWithApple() async throws -> UserData {
         let appleResult = try await signInApple.startSigningWithAppleFlow()
-        let userData = try await AuthAPIService.shared.SignInWithApple(idToken: appleResult.idToken, nonce: appleResult.nonce)
-        
-        // Convert uid to lowercase
-        let lowercasedUserData = UserData(uid: userData.uid.lowercased(), email: userData.email)
-        return try await processUser(userData: lowercasedUserData)
+        return try await AuthAPIService.shared.SignInWithApple(idToken: appleResult.idToken, nonce: appleResult.nonce)
     }
     
     func signInWithGoogle() async throws -> UserData {
@@ -30,25 +26,20 @@ class SignInViewModel: ObservableObject {
             let googleResult = try await signInGoogle.startSignInWithGoogleFlow()
             let userData = try await AuthAPIService.shared.SignInWithGoogle(idToken: googleResult.idToken, nonce: googleResult.nonce)
             
-            // Convert uid to lowercase
-            let lowercasedUserData = UserData(uid: userData.uid.lowercased(), email: userData.email)
-            return try await processUser(userData: lowercasedUserData)
+            // Check if user already exists in the database
+            do {
+                let existingUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: userData.uid)
+                currentUser = convertUsersToUserData(users: existingUser)
+                return convertUsersToUserData(users: existingUser)
+            } catch {
+                // User does not exist, create new user
+                try await createUser(uid: userData.uid, email: userData.email, profile: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0)
+                currentUser = userData
+                return userData
+            }
         } catch {
             print("Error signing in with Google: \(error)")
             throw error
-        }
-    }
-    
-    private func processUser(userData: UserData) async throws -> UserData {
-        do {
-            let existingUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: userData.uid)
-            currentUser = convertUsersToUserData(users: existingUser)
-            return convertUsersToUserData(users: existingUser)
-        } catch {
-            // User does not exist, create new user
-            try await createUser(uid: userData.uid, email: userData.email, profile: "", gender: "", day_of_birth: "", is_active: true, created: 0, updated: 0)
-            currentUser = userData
-            return userData
         }
     }
     

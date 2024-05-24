@@ -62,6 +62,12 @@ struct ProfileView: View {
                 }
                 .listStyle(.plain)
                 
+                Button {
+                    
+                } label: {
+                    Text("Gabung")
+                }
+                
             }
             .padding()
         }

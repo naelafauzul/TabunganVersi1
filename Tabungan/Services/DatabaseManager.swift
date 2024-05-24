@@ -54,18 +54,35 @@ class DatabaseManager {
         }
     }
     
-    func fetchDreamItem(for uid: String) async throws -> [Dreams] {
+    
+    func fetchUserDreams(for uid: String) async throws -> [DreamUsers] {
+        let response = try await client.database.from("dream_users").select()
+            .eq("userId", value: uid)
+            .eq("isActive", value: true)
+            .order("created", ascending: true)
+            .execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
+        return dreamUsers
+    }
+    
+    func fetchDreamsByIds(dreamsIds: [String]) async throws -> [Dreams] {
         let response = try await client.database.from("dreams").select()
-            .equals("userId", value: uid)
-            .equals("isActive", value: "true")
-            .order("created", ascending: true ).execute()
+            .in("id", value: dreamsIds)
+            .eq("isActive", value: true)
+            .order("created", ascending: true)
+            .execute()
+        
         let data = response.data
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         let dreams = try decoder.decode([Dreams].self, from: data)
-        print(dreams)
         return dreams
     }
+    
     
     func addCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
         do {
@@ -164,7 +181,7 @@ class DatabaseManager {
         }
     }
     
-
+    
     func updateDream(dreamId: String, userId: String, profile: String, background: String, name: String, target: Double, scheduler: String, schedulerRate: Double) async throws {
         do {
             let _ = try await client.database

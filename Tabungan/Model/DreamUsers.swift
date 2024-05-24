@@ -10,12 +10,12 @@ import Foundation
 struct DreamUsers: Codable {
     let id: String
     let dreamId: String
-    let userId: String?
+    let userId: String
     let profile: String
     let name: String
     let target: Double
     let amount: Double
-    let isActive: Bool?
+    let isActive: Bool
     let created: Int64
     let updated: Int64
 }

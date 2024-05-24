@@ -10,7 +10,7 @@ import SVGKit
 
 struct DetailDream: View {
     @EnvironmentObject var DreamDetailVewModel: DreamDetailVM
-    @ObservedObject var DreamsVM: DreamsViewModel
+    @StateObject var DreamsVM: DreamsViewModel
     
     @Environment(\.dismiss) var dismiss
     @Binding var tabBarVisibility: Visibility
@@ -240,11 +240,17 @@ struct DetailDream: View {
         updateEmoticonURL()
     }
     
+    
     func updateDreamDetail() async throws {
         try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
         try await DreamsVM.fetchDreams(for: userData.uid)
-        dreamTemp = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) ?? dreamTemp
-        updateEmoticonURL()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if let updatedDream = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) {
+                dreamTemp = updatedDream
+            }
+            updateEmoticonURL()
+        }
+        
     }
     
     func updateEmoticonURL() {

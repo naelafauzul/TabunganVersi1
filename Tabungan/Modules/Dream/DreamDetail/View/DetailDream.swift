@@ -198,21 +198,32 @@ struct DetailDream: View {
                 Text("Kamu tidak akan bisa melihat impian ini lagi")
             }
             .toolbar {
-                Menu {
+                HStack {
                     Button {
                         showUpdateModal.toggle()
                     } label: {
-                        Label("Ubah", systemImage: "pencil")
+                        Text("Anggota")
+                            .font(.caption)
                     }
-                    Button(action: {
-                        showDeleteConfirmation = true
-                    }) {
-                        Label("Delete", systemImage: "trash")
+                    .padding(2)
+                    .background(.white)
+                    .cornerRadius(100)
+                    Menu {
+                        Button {
+                            showUpdateModal.toggle()
+                        } label: {
+                            Label("Ubah", systemImage: "pencil")
+                        }
+                        Button(action: {
+                            showDeleteConfirmation = true
+                        }) {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .imageScale(.large)
+                            .rotationEffect(.degrees(90))
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .imageScale(.large)
-                        .rotationEffect(.degrees(90))
                 }
             }
             .sheet(isPresented: $showModal) {

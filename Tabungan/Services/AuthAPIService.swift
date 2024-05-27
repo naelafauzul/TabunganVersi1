@@ -15,22 +15,25 @@ class AuthAPIService {
     
     func SignInWithApple(idToken: String, nonce: String) async throws -> UserData {
         let session = try await client.auth.signInWithIdToken(credentials: .init(provider: .apple, idToken: idToken, nonce: nonce))
-        return UserData(uid: session.user.id.uuidString, email: session.user.email ?? "not login yet")
+        let userIdLowercased = session.user.id.uuidString.lowercased()
+        return UserData(uid: userIdLowercased, email: session.user.email ?? "not login yet")
     }
     
     func getCurrentSession() async throws -> UserData {
-        let session =  try await client.auth.session
-        return UserData(uid: session.user.id.uuidString, email: session.user.email ?? "not login yet")
+        let session = try await client.auth.session
+        let userIdLowercased = session.user.id.uuidString.lowercased()
+        return UserData(uid: userIdLowercased, email: session.user.email ?? "not login yet")
     }
     
     func SignInWithGoogle(idToken: String, nonce: String) async throws -> UserData {
         let session = try await client.auth.signInWithIdToken(credentials: .init(provider: .google, idToken: idToken, nonce: nonce))
-        return UserData(uid: session.user.id.uuidString, email: session.user.email ?? "not login yet")
+        let userIdLowercased = session.user.id.uuidString.lowercased()
+        return UserData(uid: userIdLowercased, email: session.user.email ?? "not login yet")
     }
     
     func getCurrentUserID() async throws -> String {
         let session = try await client.auth.session
-        return session.user.id.uuidString
+        return session.user.id.uuidString.lowercased()
     }
     
     func signOut() async throws {

@@ -28,7 +28,16 @@ struct ProfileItem: View {
                     .font(.caption2)
             }
             .padding(.leading, 8)
+            
+            Spacer()
+            
+            Image(systemName: "chevron.forward")
+                .foregroundStyle(.gray)
         }
+        .padding(10)
+        .background( Color.gray.opacity(0.05))
+        .cornerRadius(10)
+        
     }
 }
 

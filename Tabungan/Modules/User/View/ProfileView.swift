@@ -15,28 +15,30 @@ struct ProfileView: View {
     @State private var code: String = ""
     @State private var joinDreamState: StateView = .idle
     
-    let profileItems = [
-        ProfileItemModel(image: "person.fill", title: "Ubah Profil", description: "Ubah Nama dan Profil"),
-        ProfileItemModel(image: "square.and.arrow.up.fill", title: "Bagikan Aplikasi", description: "Beritahu teman tentang Celenganku"),
-        ProfileItemModel(image: "star.fill", title: "Nilai Aplikasi", description: "Berikan bintang pada Aplikasi Celenganku"),
-        ProfileItemModel(image: "exclamationmark.shield.fill", title: "Kebijakan Privasi", description: "Lihat Kebijakan Privasi"),
-        ProfileItemModel(image: "flag.fill", title: "Sign Out", description: "Keluar dari Aplikasi")
-    ]
-    
     var body: some View {
         NavigationStack {
-            VStack {
+            ScrollView {
                 VStack {
                     if let user = userViewModel.user {
+                        Image(systemName: user.profile)
+                            .frame(width: 80, height: 80)
+                            .background(.secondary)
+                            .clipShape(Circle())
+                        
                         Text(user.name)
                             .font(.title2)
                     } else {
+                        Image(systemName: "person")
+                            .frame(width: 70, height: 70)
+                            .background(.secondary)
+                            .clipShape(Circle())
+                        
                         Text("Kamu Belum Login")
                             .font(.title2)
                     }
                 }
-                .padding(.top, 100)
-                .padding(.bottom, 50)
+                .padding(.top, 30)
+                .padding(.bottom, 30)
                 .onAppear {
                     if let userData = userData {
                         Task {
@@ -49,60 +51,56 @@ struct ProfileView: View {
                     }
                 }
                 
-                List(profileItems) { item in
-                    NavigationLink(destination: destinationView(for: item)) {
-                        ProfileItem(image: item.image, title: item.title, description: item.description)
-                            .padding(.vertical, 10)
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(
-                        Color.gray.opacity(0.05)
-                            .cornerRadius(10)
-                            .padding(.vertical, 8)
-                    )
+                Group {
+                    ProfileItem(image: "square.and.arrow.up.fill", title: "Ubah Profil", description: "Ubah Nama dan Profil")
+                    ProfileItem(image: "person.fill", title: "Bagikan Aplikasi", description: "Beritahu teman tentang Celenganku")
+                    ProfileItem(image: "star.fill", title: "Nilai Aplikasi", description: "Berikan bintang pada Aplikasi Celenganku")
+                    ProfileItem(image: "exclamationmark.shield.fill", title: "Kebijakan Privasi", description: "Lihat Kebijakan Privasi")
+                    ProfileItem(image: "flag.fill", title: "Sign Out", description: "Keluar dari Aplikasi")
+                        .onTapGesture {
+                            Task {
+                                do {
+                                    try await userViewModel.signOut()
+                                    userData = nil
+                                } catch {
+                                    print("Failed to sign out: \(error)")
+                                }
+                            }
+                        }
                 }
-                .listStyle(.plain)
+                .padding(.vertical, 2)
                 
-                Button("Gabung Undangan Impian Teman") {
+                Button {
                     showingModal.toggle()
+                } label: {
+                    HStack {
+                        Spacer()
+                        Image(systemName: "person.2.fill")
+                            .foregroundStyle(.white)
+                        Text("Gabung Undangan Impian Teman")
+                            .font(.subheadline)
+                            .foregroundStyle(.white)
+                        Spacer()
+                    }
                 }
+                .padding()
+                .background(Color.teal700)
+                .cornerRadius(8)
+                .padding(.top, 30)
                 .sheet(isPresented: $showingModal) {
                     if let user = userViewModel.user {
                         JoinDreamModal(code: $code, userId: user.id, profile: user.profile, name: user.name)
                             .presentationDetents([.large, .medium, .fraction(0.4)])
                     }
                 }
+                
+                Spacer()
             }
-            .padding()
-        }
-    }
-    
-    
-    
-    @ViewBuilder
-    func destinationView(for item: ProfileItemModel) -> some View {
-        switch item.title {
-        case "Ubah Profil":
-            EditProfileView()
-        case "Bagikan Aplikasi":
-            ShareAppView()
-        case "Nilai Aplikasi":
-            RateAppView()
-        case "Kebijakan Privasi":
-            PrivacyPolicyView()
-        case "Sign Out":
-            if let userData = userData {
-                SignOutView(userData: $userData)
-            } else {
-                Text("No user data available")
-            }
-        default:
-            Text("Page not found")
+            .padding(.horizontal, 16)
         }
     }
 }
 
-//
-//#Preview {
-//    ProfileView(userData: .constant(UserData(uid: "123", email: "naela@gmail.com")))
-//}
+#Preview {
+    ProfileView(userData: .constant(UserData(uid: "123", email: "naela@gmail.com")))
+}

@@ -61,4 +61,9 @@ class UserVM: ObservableObject {
         errorMessage = nil
         showErrorAlert = false
     }
+    
+    func signOut() async throws {
+        try await AuthAPIService.shared.signOut()
+        self.user = nil
+    }
 }

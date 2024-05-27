@@ -56,9 +56,9 @@ class DreamDetailVM: ObservableObject {
     
     func addCredit(uid: String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
-        let billId = UUID().uuidString
+        let billId = UUID().uuidString.lowercased()
         let newAmount = amount + credit
-        let noteId = UUID().uuidString
+        let noteId = UUID().uuidString.lowercased()
         
         let userName = try await fetchUserName(for: uid)
         
@@ -71,9 +71,9 @@ class DreamDetailVM: ObservableObject {
     
     func subCredit(uid: String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
-        let billId = UUID().uuidString
+        let billId = UUID().uuidString.lowercased()
         let newAmount = amount - credit
-        let noteId = UUID().uuidString
+        let noteId = UUID().uuidString.lowercased()
         
         let userName = try await fetchUserName(for: uid)
         

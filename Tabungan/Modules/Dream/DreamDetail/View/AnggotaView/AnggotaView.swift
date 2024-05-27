@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct AnggotaView: View {
+    
+    var selectedEmoticonURL: URL?
+    var name: String
+    var created: Int64
+  
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                if let url = selectedEmoticonURL {
+                    EmoticonItem(url: .constant(url))
+                        .frame(width: 60, height: 60)
+                }
+                
+                Text(name)
+            }
+        }
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
 #Preview {
-    AnggotaView()
+    AnggotaView(name: "Holiday", created: 1769000000)
 }

@@ -29,7 +29,7 @@ struct DetailDream: View {
     let progress: CGFloat = 0.0
     
     var body: some View {
-        NavigationStack {
+        NavigationStack{
             VStack {
                 VStack {
                     ZStack {
@@ -37,19 +37,18 @@ struct DetailDream: View {
                             if selectedEmoticonURL != nil {
                                 EmoticonItem(url: $selectedEmoticonURL)
                                     .frame(width: 60, height: 60)
-                                
                             } else {
                                 Image(systemName: "photo")
                                     .foregroundStyle(.black)
                                     .frame(width: 60, height: 60)
-                                
                             }
+                            
                             Text(dreamTemp.name)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.black)
                                 .font(.headline)
                             
                             Text(DreamDetailVewModel.formatCurrency(dreamTemp.target))
-                                .foregroundStyle(.white)
+                                .foregroundStyle(.black)
                                 .font(.title3)
                                 .fontWeight(.bold)
                             
@@ -76,7 +75,6 @@ struct DetailDream: View {
                                         
                                         VStack(alignment: .trailing) {
                                             HStack {
-                                                
                                                 if let username = username {
                                                     Text(username)
                                                         .font(.callout)
@@ -198,16 +196,16 @@ struct DetailDream: View {
                 Text("Kamu tidak akan bisa melihat impian ini lagi")
             }
             .toolbar {
-                HStack {
-                    Button {
-                        showUpdateModal.toggle()
-                    } label: {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AnggotaView(selectedEmoticonURL: selectedEmoticonURL, name: dreamTemp.name, created: dreamTemp.created)) {
                         Text("Anggota")
-                            .font(.caption)
+                            .font(.subheadline)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 10)
+                            .background(.white)
+                            .cornerRadius(50)
                     }
-                    .padding(2)
-                    .background(.white)
-                    .cornerRadius(100)
+                    
                     Menu {
                         Button {
                             showUpdateModal.toggle()
@@ -276,3 +274,4 @@ struct DetailDream: View {
         dreamTemp: Dreams(id: "1", userId: "Dream Vacation", code: "ABC123", profile: "image", background: "#FFDD93", name: "Holiday", target: 100.0, amount: 10.0, isActive: true, created: 123, updated: 234, scheduler: "month", schedulerRate: 10.0)
     )
 }
+

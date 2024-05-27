@@ -14,20 +14,26 @@ struct ContentView: View {
     @State private var selectedTab = 0
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            DreamList(DreamsVM: DreamsVM, userData: $userData)
-                .tag(0)
-                .tabItem {
-                    Label("Beranda", systemImage: "house")
+        Group {
+            if userData != nil {
+                TabView(selection: $selectedTab) {
+                    DreamList(DreamsVM: DreamsVM, userData: $userData)
+                        .tag(0)
+                        .tabItem {
+                            Label("Beranda", systemImage: "house")
+                        }
+                    
+                    ProfileView(userData: $userData)
+                        .tag(1)
+                        .tabItem {
+                            Label("Profil", systemImage: "person")
+                        }
                 }
-            
-            ProfileView(userData: $userData)
-                .tag(1)
-                .tabItem {
-                    Label("Profil", systemImage: "person")
-                }
+                .accentColor(.teal700)
+            } else {
+                DreamList(DreamsVM: DreamsVM, userData: $userData)
+            } 
         }
-        .accentColor(.teal700)
         .onAppear {
             Task {
                 if let sessionUserData = try? await AuthAPIService.shared.getCurrentSession() {

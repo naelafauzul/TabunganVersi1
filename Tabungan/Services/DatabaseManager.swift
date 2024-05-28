@@ -250,5 +250,31 @@ class DatabaseManager {
             print("berhasil insert new user : \(newUserDream)")
         }
     }
+    
+    func fetchAnggotaDreamUsers(for dreamId: String, excludeUserId: String) async throws -> [DreamUsers] {
+        let response = try await client.database.from("dream_users").select()
+            .eq("dreamId", value: dreamId)
+            .neq("userId", value: excludeUserId)
+            .execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
+        return dreamUsers
+    }
+    
+    func fetchAdminDreamUsers(for dreamId: String, userId: String) async throws -> [DreamUsers] {
+        let response = try await client.database.from("dream_users").select()
+            .eq("dreamId", value: dreamId)
+            .eq("userId", value: userId)
+            .execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
+        return dreamUsers
+    }
 }
 

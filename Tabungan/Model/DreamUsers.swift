@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DreamUsers: Codable {
+struct DreamUsers: Codable, Identifiable {
     let id: String
     let dreamId: String
     let userId: String

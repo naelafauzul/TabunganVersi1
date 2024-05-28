@@ -2,6 +2,8 @@ import Foundation
 
 class DreamDetailVM: ObservableObject {
     @Published var historyList = [BillHistory]()
+    @Published var anggotaDreamUsers = [DreamUsers]()
+    @Published var adminDreamUsers = [DreamUsers]()
     @Published var selectedEmoticonURL: URL? = nil
     
     @MainActor
@@ -21,6 +23,14 @@ class DreamDetailVM: ObservableObject {
         let date = Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM"
+        dateFormatter.locale = Locale(identifier: "id_ID")
+        return dateFormatter.string(from: date)
+    }
+    
+    func formatDateWithYear(from timestamp: Int64) -> String {
+        let date = Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM yyyy"
         dateFormatter.locale = Locale(identifier: "id_ID")
         return dateFormatter.string(from: date)
     }
@@ -131,5 +141,29 @@ class DreamDetailVM: ObservableObject {
     
     func updateEmoticonURL(for profile: String) async {
         selectedEmoticonURL = EmoticonService.getEmoticonURL(for: profile)
+    }
+    
+    @MainActor
+    func fetchAnggotaDreamUsers(for dreamId: String, excludeUserId: String) async throws {
+        do {
+            let userDreams = try await DatabaseManager.shared.fetchAnggotaDreamUsers(for: dreamId, excludeUserId: excludeUserId)
+            DispatchQueue.main.async {
+                self.anggotaDreamUsers = userDreams
+            }
+        } catch {
+            print("Error fetching anggota dream: \(error)")
+        }
+    }
+    
+    @MainActor
+    func fetchAdminDreamUsers(for dreamId: String, userId: String) async throws {
+        do {
+            let userDreams = try await DatabaseManager.shared.fetchAdminDreamUsers(for: dreamId, userId: userId)
+            DispatchQueue.main.async {
+                self.adminDreamUsers = userDreams
+            }
+        } catch {
+            print("Error fetching admin dreams: \(error)")
+        }
     }
 }

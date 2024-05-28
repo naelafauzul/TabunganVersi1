@@ -197,7 +197,7 @@ struct DetailDream: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AnggotaView(selectedEmoticonURL: selectedEmoticonURL, name: dreamTemp.name, created: dreamTemp.created)) {
+                    NavigationLink(destination: AnggotaView(DreamDetailViewModel: DreamDetailVewModel, selectedEmoticonURL: selectedEmoticonURL, name: dreamTemp.name, created: dreamTemp.created, dreamId: dreamTemp.id, userId: dreamTemp.userId ?? "")) {
                         Text("Anggota")
                             .font(.subheadline)
                             .padding(.vertical, 8)

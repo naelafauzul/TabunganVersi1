@@ -101,6 +101,7 @@
 		913F21032BADCD2D001AD670 /* Emoticon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoticon.swift; sourceTree = "<group>"; };
 		913F21052BADCD56001AD670 /* EmoticonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonService.swift; sourceTree = "<group>"; };
 		913F21072BADCD9A001AD670 /* EmoticonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonView.swift; sourceTree = "<group>"; };
+		914E63752C06245100768807 /* TabunganDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TabunganDebug.entitlements; sourceTree = "<group>"; };
 		9156BB492BAC5D910022EBA8 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9156BB4D2BAC5DB00022EBA8 /* BillHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistory.swift; sourceTree = "<group>"; };
 		9156BB4F2BAC5DBE0022EBA8 /* BillHistoryNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistoryNote.swift; sourceTree = "<group>"; };
@@ -221,6 +222,7 @@
 		913F1D312BA40DD400EE2E11 /* Tabungan */ = {
 			isa = PBXGroup;
 			children = (
+				914E63752C06245100768807 /* TabunganDebug.entitlements */,
 				913E7BF82BA4B65A00FEA464 /* Info.plist */,
 				913F1D842BA4274600EE2E11 /* App */,
 				9156BB5D2BAC6FFB0022EBA8 /* Extension */,
@@ -747,6 +749,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tabungan/TabunganDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Tabungan/Preview Content\"";

@@ -4,6 +4,8 @@ class DreamDetailVM: ObservableObject {
     @Published var historyList = [BillHistory]()
     @Published var anggotaDreamUsers = [DreamUsers]()
     @Published var adminDreamUsers = [DreamUsers]()
+    @Published var dreamUsers = [DreamUsers]()
+    @Published var userAmount = [DreamUsers]()
     @Published var selectedEmoticonURL: URL? = nil
     
     @MainActor
@@ -76,7 +78,7 @@ class DreamDetailVM: ObservableObject {
         
         let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, createdAt: timeNow, updated: timeNow)
         
-        try await DatabaseManager.shared.addCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
+        try await DatabaseManager.shared.addCredit(dreamId: dreamId, userId: uid, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
     func subCredit(uid: String, dreamId: String, type: Int, amount: Double, credit: Double, note: String) async throws {
@@ -91,7 +93,7 @@ class DreamDetailVM: ObservableObject {
         
         let billHistoryNote = BillHistoryNote(id: noteId, billId: billId, userId: uid, note: note, createdAt: timeNow, updated: timeNow)
         
-        try await DatabaseManager.shared.subCredit(dreamId: dreamId, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
+        try await DatabaseManager.shared.subCredit(dreamId: dreamId, userId: uid, billHistory: billHistory, amount: amount, credit: credit, billHistoryNote: billHistoryNote)
     }
     
     func deleteDream(dreamId: String, userId: String) async throws {
@@ -166,4 +168,28 @@ class DreamDetailVM: ObservableObject {
             print("Error fetching admin dreams: \(error)")
         }
     }
+    
+    @MainActor
+    func fetchDreamUsers(for dreamId: String) async throws {
+        do {
+            let dreamUsers = try await DatabaseManager.shared.fetchAllDreamUser(for: dreamId)
+            DispatchQueue.main.async {
+                self.dreamUsers = dreamUsers
+            }
+        } catch {
+            print("Error fetching admin dreams: \(error)")
+        }
+    }
+    
+    func getUserAmount(dreamId: String, userId: String) async throws {
+        do {
+            let userAmount = try await DatabaseManager.shared.getUserAmount(userId: userId, dreamId: dreamId)
+            DispatchQueue.main.async {
+                self.userAmount = userAmount
+            }
+        } catch {
+            print("Error fetching admin dreams: \(error)")
+        }
+    }
 }
+

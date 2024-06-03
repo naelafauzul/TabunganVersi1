@@ -46,6 +46,7 @@
 		913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F21032BADCD2D001AD670 /* Emoticon.swift */; };
 		913F21062BADCD56001AD670 /* EmoticonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F21052BADCD56001AD670 /* EmoticonService.swift */; };
 		913F21082BADCD9A001AD670 /* EmoticonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913F21072BADCD9A001AD670 /* EmoticonView.swift */; };
+		914E63792C06395600768807 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E63782C06395600768807 /* ProfileViewModel.swift */; };
 		9156BB4A2BAC5D910022EBA8 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB492BAC5D910022EBA8 /* Users.swift */; };
 		9156BB4E2BAC5DB00022EBA8 /* BillHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB4D2BAC5DB00022EBA8 /* BillHistory.swift */; };
 		9156BB502BAC5DBE0022EBA8 /* BillHistoryNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB4F2BAC5DBE0022EBA8 /* BillHistoryNote.swift */; };
@@ -54,12 +55,10 @@
 		9156BB612BAC7EE90022EBA8 /* SignInApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9156BB602BAC7EE90022EBA8 /* SignInApple.swift */; };
 		9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */; };
 		915DF7A92BFF3049002889D9 /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DF7A82BFF3049002889D9 /* ProfileItem.swift */; };
-		915DF7AF2BFF345A002889D9 /* DestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915DF7AE2BFF345A002889D9 /* DestinationView.swift */; };
 		915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F505D2BB40BCA00457B14 /* DetailDream.swift */; };
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
 		918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D583B2BF235650041745D /* UpdateDreamView.swift */; };
-		91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
 		91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1602BA82BF50085AB1C /* DreamList.swift */; };
@@ -102,6 +101,7 @@
 		913F21052BADCD56001AD670 /* EmoticonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonService.swift; sourceTree = "<group>"; };
 		913F21072BADCD9A001AD670 /* EmoticonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmoticonView.swift; sourceTree = "<group>"; };
 		914E63752C06245100768807 /* TabunganDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TabunganDebug.entitlements; sourceTree = "<group>"; };
+		914E63782C06395600768807 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9156BB492BAC5D910022EBA8 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9156BB4D2BAC5DB00022EBA8 /* BillHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistory.swift; sourceTree = "<group>"; };
 		9156BB4F2BAC5DBE0022EBA8 /* BillHistoryNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillHistoryNote.swift; sourceTree = "<group>"; };
@@ -110,12 +110,10 @@
 		9156BB602BAC7EE90022EBA8 /* SignInApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInApple.swift; sourceTree = "<group>"; };
 		9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinDreamModal.swift; sourceTree = "<group>"; };
 		915DF7A82BFF3049002889D9 /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
-		915DF7AE2BFF345A002889D9 /* DestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationView.swift; sourceTree = "<group>"; };
 		915F505D2BB40BCA00457B14 /* DetailDream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDream.swift; sourceTree = "<group>"; };
 		915F50602BB4110000457B14 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		915F50622BB4152100457B14 /* DreamDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailVM.swift; sourceTree = "<group>"; };
 		918D583B2BF235650041745D /* UpdateDreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamView.swift; sourceTree = "<group>"; };
-		91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamItem.swift; sourceTree = "<group>"; };
 		91CFC1602BA82BF50085AB1C /* DreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamList.swift; sourceTree = "<group>"; };
 		91CFC1632BA82DE20085AB1C /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -168,7 +166,7 @@
 		91396E1C2BA561BD000F8901 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				91CE553D2BB2A1BC0089E583 /* UserViewModel.swift */,
+				914E63782C06395600768807 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -196,7 +194,6 @@
 			children = (
 				9128C0392BFF2B200030F94D /* ProfileView.swift */,
 				915DF7A82BFF3049002889D9 /* ProfileItem.swift */,
-				915DF7AE2BFF345A002889D9 /* DestinationView.swift */,
 				9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */,
 			);
 			path = View;
@@ -573,7 +570,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				913F1D5A2BA4107700EE2E11 /* Constant.swift in Sources */,
-				91CE553E2BB2A1BC0089E583 /* UserViewModel.swift in Sources */,
 				913F21062BADCD56001AD670 /* EmoticonService.swift in Sources */,
 				9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */,
 				913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */,
@@ -596,12 +592,12 @@
 				9128C03A2BFF2B200030F94D /* ProfileView.swift in Sources */,
 				913F1D582BA4102D00EE2E11 /* AuthAPIService.swift in Sources */,
 				91F98E732C049DCE0052F55B /* AnggotaView.swift in Sources */,
-				915DF7AF2BFF345A002889D9 /* DestinationView.swift in Sources */,
 				91CFC1672BA832C00085AB1C /* DreamsViewModel.swift in Sources */,
 				913F1D832BA41C0E00EE2E11 /* SignInModel.swift in Sources */,
 				91CFC16E2BA83EA20085AB1C /* TotalView.swift in Sources */,
 				91396E202BA56A5D000F8901 /* SignInGoogle.swift in Sources */,
 				915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */,
+				914E63792C06395600768807 /* ProfileViewModel.swift in Sources */,
 				913F1D332BA40DD400EE2E11 /* TabunganApp.swift in Sources */,
 				9156BB4A2BAC5D910022EBA8 /* Users.swift in Sources */,
 				91CFC1782BA88D3C0085AB1C /* DatabaseManager.swift in Sources */,

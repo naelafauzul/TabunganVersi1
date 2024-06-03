@@ -80,7 +80,7 @@ class DatabaseManager {
     }
     
     
-    func addCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
+    func addCredit(dreamId: String, userId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
         do {
             _ = try await client.database.from("bill_history").insert(billHistory).execute()
             
@@ -89,7 +89,7 @@ class DatabaseManager {
             let newAmount = amount + credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
             
-            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).execute()
+            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).eq("userId", value: userId).execute()
             
             print("Success")
         } catch {
@@ -98,7 +98,7 @@ class DatabaseManager {
         }
     }
     
-    func subCredit(dreamId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
+    func subCredit(dreamId: String, userId: String, billHistory: BillHistory, amount: Double, credit: Double, billHistoryNote: BillHistoryNote) async throws {
         do {
             _ = try await client.database.from("bill_history").insert(billHistory).execute()
             
@@ -107,7 +107,7 @@ class DatabaseManager {
             let newAmount = amount - credit
             _ = try await client.database.from("dreams").update(["amount": newAmount]).eq("id", value: dreamId).execute()
             
-            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).execute()
+            _ = try await client.database.from("dream_users").update(["amount": newAmount]).eq("dreamId", value: dreamId).eq("userId", value: userId).execute()
             
             print("Success")
         } catch {
@@ -190,7 +190,6 @@ class DatabaseManager {
                     "schedulerRate": String(schedulerRate)
                 ])
                 .eq("id", value: dreamId)
-                .eq("userId", value: userId)
                 .execute()
             
             print("Success updated dream \(dreamId)")
@@ -268,6 +267,31 @@ class DatabaseManager {
         let response = try await client.database.from("dream_users").select()
             .eq("dreamId", value: dreamId)
             .eq("userId", value: userId)
+            .execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
+        return dreamUsers
+    }
+    
+    func fetchAllDreamUser(for dreamId: String) async throws -> [DreamUsers] {
+        let response = try await client.database.from("dream_users").select()
+            .eq("dreamId", value: dreamId)
+            .execute()
+        
+        let data = response.data
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
+        return dreamUsers
+    }
+    
+    func getUserAmount(userId: String, dreamId: String) async throws -> [DreamUsers] {
+        let response = try await client.database.from("dream_users").select()
+            .eq("userId", value: userId)
+            .eq("dreamId", value: dreamId)
             .execute()
         
         let data = response.data

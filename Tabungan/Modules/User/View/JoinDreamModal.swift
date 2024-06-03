@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct JoinDreamModal: View {
-    @StateObject private var userViewModel = UserVM()
+    @StateObject private var userViewModel = ProfileVM()
     
     @Binding var code: String
     var userId: String
@@ -14,10 +14,23 @@ struct JoinDreamModal: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 3)
             
-            Button("Gabung") {
+            Button {
                 userViewModel.joinDream(code: code, userId: userId, profile: profile, name: name)
+            } label: {
+                HStack {
+                    Spacer()
+                    Text("Gabung")
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+                
             }
             .padding()
+            .frame(height: 50)
+            .background(.teal700)
+            .cornerRadius(8)
+            .padding(.horizontal, 16)
+            .padding(.top, 10)
             
             switch userViewModel.state {
             case .idle:

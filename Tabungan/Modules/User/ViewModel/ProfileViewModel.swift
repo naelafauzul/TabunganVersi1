@@ -1,5 +1,5 @@
 //
-//  UserViewModel.swift
+//  ProfileViewModel.swift
 //  Tabungan
 //
 //  Created by Naela Fauzul Muna on 26/03/24.
@@ -16,7 +16,7 @@ enum StateView {
 
 
 @MainActor
-class UserVM: ObservableObject {
+class ProfileVM: ObservableObject {
     @Published var user : Users?
     @Published var state: StateView = .idle
     @Published var showErrorAlert: Bool = false

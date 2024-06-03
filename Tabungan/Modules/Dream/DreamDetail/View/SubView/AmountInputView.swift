@@ -16,7 +16,7 @@ struct AmountInputView: View {
     @Binding var note: String
     var uid: String
     var dreamId: String
-    var amount: Double
+    var amount: Double?
     var onComplete: () -> Void
     
     var body: some View {
@@ -39,7 +39,7 @@ struct AmountInputView: View {
                 if operation == "Tambah" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount, credit: credit ?? 0.0, note: note)
+                            try await DreamDetailVewModel.addCredit(uid: uid, dreamId: dreamId, type: 0, amount: amount ?? 0, credit: credit ?? 0.0, note: note)
                             onComplete()
                             resetFields()
                             dismiss()
@@ -50,7 +50,7 @@ struct AmountInputView: View {
                 } else if operation == "Kurang" {
                     Task {
                         do {
-                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount, credit: credit ?? 0.0, note: note)
+                            try await DreamDetailVewModel.subCredit(uid: uid, dreamId: dreamId, type: 1, amount: amount ?? 0, credit: credit ?? 0.0, note: note)
                             onComplete()
                             resetFields()
                             dismiss()

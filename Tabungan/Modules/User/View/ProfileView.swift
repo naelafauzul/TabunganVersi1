@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var userViewModel = UserVM()
+    @StateObject private var userViewModel = ProfileVM()
     @Binding var userData: UserData?
     
     @State private var showingModal = false
@@ -90,7 +90,7 @@ struct ProfileView: View {
                 .sheet(isPresented: $showingModal) {
                     if let user = userViewModel.user {
                         JoinDreamModal(code: $code, userId: user.id, profile: user.profile, name: user.name)
-                            .presentationDetents([.large, .medium, .fraction(0.4)])
+                            .presentationDetents([.large, .medium, .fraction(0.3)])
                     }
                 }
                 

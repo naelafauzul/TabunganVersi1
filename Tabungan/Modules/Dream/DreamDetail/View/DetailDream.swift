@@ -9,7 +9,7 @@ import SwiftUI
 import SVGKit
 
 struct DetailDream: View {
-    @EnvironmentObject var DreamDetailVewModel: DreamDetailVM
+    @EnvironmentObject var DreamDetailViewModel: DreamDetailVM
     @StateObject var DreamsVM: DreamsViewModel
     
     @Environment(\.dismiss) var dismiss
@@ -47,7 +47,7 @@ struct DetailDream: View {
                                 .foregroundStyle(.black)
                                 .font(.headline)
                             
-                            Text(DreamDetailVewModel.formatCurrency(dreamTemp.target))
+                            Text(DreamDetailViewModel.formatCurrency(dreamTemp.amount))
                                 .foregroundStyle(.black)
                                 .font(.title3)
                                 .fontWeight(.bold)
@@ -59,7 +59,7 @@ struct DetailDream: View {
                                             Text("Target")
                                                 .font(.callout)
                                             Spacer()
-                                            Text(DreamDetailVewModel.formatCurrency(dreamTemp.target))
+                                            Text(DreamDetailViewModel.formatCurrency(dreamTemp.target))
                                                 .font(.callout)
                                         }
                                         
@@ -67,27 +67,30 @@ struct DetailDream: View {
                                     }
                                     .foregroundStyle(.black)
                                     
-                                    HStack {
-                                        Image(systemName: "person")
-                                            .frame(width: 30, height: 30)
-                                            .background(.gray.opacity(0.3))
-                                            .clipShape(Circle())
-                                        
-                                        VStack(alignment: .trailing) {
-                                            HStack {
-                                                if let username = username {
-                                                    Text(username)
+                                    ForEach(DreamDetailViewModel.dreamUsers) { user in
+                                        HStack {
+                                            Image(systemName: "person")
+                                                .frame(width: 30, height: 30)
+                                                .background(.gray.opacity(0.3))
+                                                .clipShape(Circle())
+                                            
+                                            VStack(alignment: .trailing) {
+                                                HStack {
+                                                    
+                                                    Text(user.name)
                                                         .font(.callout)
+                                                    
+                                                    Spacer()
+                                                    Text("\(DreamDetailViewModel.formatCurrency(user.amount)) / \(DreamDetailViewModel.formatCurrency(user.target))")
+                                                        .font(.callout)
+                                                        .foregroundStyle(.black)
                                                 }
-                                                Spacer()
-                                                Text("\(DreamDetailVewModel.formatCurrency(dreamTemp.amount)) / \(DreamDetailVewModel.formatCurrency(dreamTemp.target))")
-                                                    .font(.callout)
-                                                    .foregroundStyle(.black)
+                                                ProgressBar(amount: dreamTemp.amount, target: user.target)
                                             }
-                                            ProgressBar(amount: dreamTemp.amount, target: dreamTemp.target)
                                         }
+                                        .padding(.top, 10)
+                                        
                                     }
-                                    .padding(.top, 10)
                                 }
                                 .padding()
                             }
@@ -100,7 +103,7 @@ struct DetailDream: View {
                                 GeometryReader { geometry in
                                     HStack {
                                         VStack {
-                                            Text(DreamDetailVewModel.formatCurrency(dreamTemp.schedulerRate ?? 0.0))
+                                            Text(DreamDetailViewModel.formatCurrency(dreamTemp.schedulerRate ?? 0.0))
                                                 .font(.callout)
                                                 .fontWeight(.bold)
                                                 .foregroundStyle(.blue)
@@ -113,7 +116,7 @@ struct DetailDream: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                         
                                         VStack {
-                                            let targetDate = DreamDetailVewModel.calculateTargetDate(target: dreamTemp.target, scheduler: dreamTemp.scheduler, schedulerRate: dreamTemp.schedulerRate ?? 0.0, amount: dreamTemp.amount)
+                                            let targetDate = DreamDetailViewModel.calculateTargetDate(target: dreamTemp.target, scheduler: dreamTemp.scheduler, schedulerRate: dreamTemp.schedulerRate ?? 0.0, amount: dreamTemp.amount)
                                             Text(targetDate)
                                                 .font(.callout)
                                                 .fontWeight(.bold)
@@ -145,7 +148,7 @@ struct DetailDream: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 3)
                     
-                    List(DreamDetailVewModel.historyList) { billHistory in
+                    List(DreamDetailViewModel.historyList) { billHistory in
                         HistoryItem(billHistory: billHistory)
                     }
                     .listStyle(.plain)
@@ -158,18 +161,35 @@ struct DetailDream: View {
                         operation = "Kurang"
                         showModal.toggle()
                     } label: {
-                        Text("- Kurang")
+                        HStack{
+                            Spacer()
+                            Text("- Kurang")
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
                     }
-                    .buttonStyle(.borderedProminent)
+                    .padding()
+                    .frame(height: 40)
+                    .background(Color.red)
+                    .cornerRadius(8)
                     
                     Button {
                         operation = "Tambah"
                         showModal.toggle()
                     } label: {
-                        Text("+ Tambah")
+                        HStack{
+                            Spacer()
+                            Text("+ Tambah")
+                                .foregroundStyle(.white)
+                            Spacer()
+                        }
                     }
-                    .buttonStyle(.borderedProminent)
+                    .padding()
+                    .frame(height: 40)
+                    .background(Color.teal700)
+                    .cornerRadius(8)
                 }
+                .padding(.horizontal, 16)
                 .onAppear {
                     tabBarVisibility = .hidden
                     Task {
@@ -188,7 +208,7 @@ struct DetailDream: View {
             .alert("Hapus impian \(dreamTemp.name)?", isPresented: $showDeleteConfirmation) {
                 Button("Hapus", role: .destructive) {
                     Task {
-                        try await DreamDetailVewModel.deleteDream(dreamId: dreamTemp.id, userId: userData.uid)
+                        try await DreamDetailViewModel.deleteDream(dreamId: dreamTemp.id, userId: userData.uid)
                     }
                 }
                 Button("Batal", role: .cancel) { }
@@ -197,7 +217,7 @@ struct DetailDream: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AnggotaView(DreamDetailViewModel: DreamDetailVewModel, selectedEmoticonURL: selectedEmoticonURL, name: dreamTemp.name, created: dreamTemp.created, dreamId: dreamTemp.id, userId: dreamTemp.userId ?? "")) {
+                    NavigationLink(destination: AnggotaView(DreamDetailViewModel: DreamDetailViewModel, selectedEmoticonURL: selectedEmoticonURL, name: dreamTemp.name, created: dreamTemp.created, dreamId: dreamTemp.id, userId: dreamTemp.userId ?? "")) {
                         Text("Anggota")
                             .font(.subheadline)
                             .padding(.vertical, 8)
@@ -225,7 +245,7 @@ struct DetailDream: View {
                 }
             }
             .sheet(isPresented: $showModal) {
-                AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dreamTemp.id, amount: dreamTemp.amount, onComplete: {
+                AmountInputView(credit: $credit, operation: $operation, note: $note, uid: userData.uid, dreamId: dreamTemp.id, amount: DreamDetailViewModel.userAmount.first?.amount, onComplete: {
                     Task {
                         try await updateDreamDetail()
                     }
@@ -244,15 +264,18 @@ struct DetailDream: View {
     }
     
     func fetchDreamDetailData() async throws {
-        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
-        username = try await DreamDetailVewModel.fetchUserName(for: userData.uid)
+        try await DreamDetailViewModel.fetchDreamUsers(for: dreamTemp.id)
+        try await DreamDetailViewModel.fetchBillHistory(for: dreamTemp.id)
+        try await DreamDetailViewModel.getUserAmount(dreamId: dreamTemp.id, userId: userData.uid)
+        username = try await DreamDetailViewModel.fetchUserName(for: userData.uid)
         updateEmoticonURL()
     }
     
-    
     func updateDreamDetail() async throws {
-        try await DreamDetailVewModel.fetchBillHistory(for: dreamTemp.id)
+        try await DreamDetailViewModel.fetchBillHistory(for: dreamTemp.id)
         try await DreamsVM.fetchDreams(for: userData.uid)
+        try await DreamDetailViewModel.fetchDreamUsers(for: dreamTemp.id)
+        try await DreamDetailViewModel.getUserAmount(dreamId: dreamTemp.id, userId: userData.uid)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let updatedDream = DreamsVM.dreams.first(where: { $0.id == dreamTemp.id }) {
                 dreamTemp = updatedDream

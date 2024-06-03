@@ -17,7 +17,7 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView (showsIndicators: false) {
                 VStack {
                     if let user = userViewModel.user {
                         Image(systemName: user.profile)

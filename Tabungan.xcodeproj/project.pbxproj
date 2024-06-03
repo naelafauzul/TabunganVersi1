@@ -59,6 +59,10 @@
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
 		918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D583B2BF235650041745D /* UpdateDreamView.swift */; };
+		919BAF8D2C0E1BDD00DC37AE /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF8C2C0E1BDD00DC37AE /* ConfettiView.swift */; };
+		919BAF8F2C0E1BFE00DC37AE /* ConfettiEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */; };
+		919BAF912C0E1C1800DC37AE /* ConfettiLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */; };
+		919BAF932C0E1C4E00DC37AE /* ConfettiUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF922C0E1C4E00DC37AE /* ConfettiUIView.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
 		91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1602BA82BF50085AB1C /* DreamList.swift */; };
@@ -114,6 +118,10 @@
 		915F50602BB4110000457B14 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		915F50622BB4152100457B14 /* DreamDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailVM.swift; sourceTree = "<group>"; };
 		918D583B2BF235650041745D /* UpdateDreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamView.swift; sourceTree = "<group>"; };
+		919BAF8C2C0E1BDD00DC37AE /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiEmitter.swift; sourceTree = "<group>"; };
+		919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiLayer.swift; sourceTree = "<group>"; };
+		919BAF922C0E1C4E00DC37AE /* ConfettiUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiUIView.swift; sourceTree = "<group>"; };
 		91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamItem.swift; sourceTree = "<group>"; };
 		91CFC1602BA82BF50085AB1C /* DreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamList.swift; sourceTree = "<group>"; };
 		91CFC1632BA82DE20085AB1C /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -341,6 +349,7 @@
 		9156BB5D2BAC6FFB0022EBA8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				919BAF8B2C0E1BCD00DC37AE /* Confetti */,
 				9156BB5E2BAC70080022EBA8 /* Color.swift */,
 			);
 			path = Extension;
@@ -373,6 +382,7 @@
 				91135A3E2BBBE84300DE70D2 /* AmountInputView.swift */,
 				91E37AFC2BBEFF8A00B7CE48 /* HistoryItem.swift */,
 				910358E02BD778D100F230DD /* SVGImage.swift */,
+				919BAF922C0E1C4E00DC37AE /* ConfettiUIView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -401,6 +411,16 @@
 				918D583B2BF235650041745D /* UpdateDreamView.swift */,
 			);
 			path = UpdateView;
+			sourceTree = "<group>";
+		};
+		919BAF8B2C0E1BCD00DC37AE /* Confetti */ = {
+			isa = PBXGroup;
+			children = (
+				919BAF8C2C0E1BDD00DC37AE /* ConfettiView.swift */,
+				919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */,
+				919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */,
+			);
+			path = Confetti;
 			sourceTree = "<group>";
 		};
 		91CFC15D2BA82BC60085AB1C /* View */ = {
@@ -574,6 +594,7 @@
 				9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */,
 				913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */,
 				910358E12BD778D100F230DD /* SVGImage.swift in Sources */,
+				919BAF912C0E1C1800DC37AE /* ConfettiLayer.swift in Sources */,
 				91CFC1732BA87ACD0085AB1C /* CustomColorPicker.swift in Sources */,
 				913F1D532BA40F2100EE2E11 /* SignInViewModel.swift in Sources */,
 				91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */,
@@ -588,9 +609,11 @@
 				915F50612BB4110000457B14 /* ProgressBar.swift in Sources */,
 				9156BB612BAC7EE90022EBA8 /* SignInApple.swift in Sources */,
 				9106E2052BAC13C8007AAD82 /* DreamUsers.swift in Sources */,
+				919BAF932C0E1C4E00DC37AE /* ConfettiUIView.swift in Sources */,
 				913CA4422BFDEB40007AA56C /* SegmentedPickerView.swift in Sources */,
 				9128C03A2BFF2B200030F94D /* ProfileView.swift in Sources */,
 				913F1D582BA4102D00EE2E11 /* AuthAPIService.swift in Sources */,
+				919BAF8F2C0E1BFE00DC37AE /* ConfettiEmitter.swift in Sources */,
 				91F98E732C049DCE0052F55B /* AnggotaView.swift in Sources */,
 				91CFC1672BA832C00085AB1C /* DreamsViewModel.swift in Sources */,
 				913F1D832BA41C0E00EE2E11 /* SignInModel.swift in Sources */,
@@ -599,6 +622,7 @@
 				915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */,
 				914E63792C06395600768807 /* ProfileViewModel.swift in Sources */,
 				913F1D332BA40DD400EE2E11 /* TabunganApp.swift in Sources */,
+				919BAF8D2C0E1BDD00DC37AE /* ConfettiView.swift in Sources */,
 				9156BB4A2BAC5D910022EBA8 /* Users.swift in Sources */,
 				91CFC1782BA88D3C0085AB1C /* DatabaseManager.swift in Sources */,
 				910358E32BD77A8100F230DD /* EmoticonItem.swift in Sources */,

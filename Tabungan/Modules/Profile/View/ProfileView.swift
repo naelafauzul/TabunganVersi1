@@ -8,28 +8,33 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var userViewModel = ProfileVM()
+    @StateObject private var profileViewModel = ProfileVM()
     @Binding var userData: UserData?
     
     @State private var showingModal = false
     @State private var code: String = ""
     @State private var joinDreamState: StateView = .idle
+    @State var profileImage = Image(systemName: "person")
+    
+    @State private var navigateToEditProfile = false
     
     var body: some View {
         NavigationStack {
             ScrollView (showsIndicators: false) {
                 VStack {
-                    if let user = userViewModel.user {
-                        Image(systemName: user.profile)
+                    if let user = profileViewModel.user {
+                        profileImage
+                            .resizable()
+                            .scaledToFill()
                             .frame(width: 80, height: 80)
-                            .background(.secondary)
                             .clipShape(Circle())
                         
                         Text(user.name)
                             .font(.title2)
                     } else {
                         Image(systemName: "person")
-                            .frame(width: 70, height: 70)
+                            .frame(width: 80, height: 80)
+                            .scaledToFill()
                             .background(.secondary)
                             .clipShape(Circle())
                         
@@ -43,7 +48,9 @@ struct ProfileView: View {
                     if let userData = userData {
                         Task {
                             do {
-                                try await userViewModel.fetchUserInfo(for: userData.uid)
+                                try await profileViewModel.fetchUserInfo(for: userData.uid)
+                                let uiImage = try await profileViewModel.fetchProfilePhoto(for: userData.uid )
+                                profileImage = Image(uiImage: uiImage)
                             } catch {
                                 print("Failed to fetch user info: \(error)")
                             }
@@ -53,6 +60,14 @@ struct ProfileView: View {
                 
                 Group {
                     ProfileItem(image: "square.and.arrow.up.fill", title: "Ubah Profil", description: "Ubah Nama dan Profil")
+                        .onTapGesture {
+                            navigateToEditProfile = true
+                        }
+                        .background(
+                            NavigationLink(destination: EditProfileView(userData: $userData), isActive: $navigateToEditProfile) {
+                                EmptyView()
+                            }
+                        )
                     ProfileItem(image: "person.fill", title: "Bagikan Aplikasi", description: "Beritahu teman tentang Celenganku")
                     ProfileItem(image: "star.fill", title: "Nilai Aplikasi", description: "Berikan bintang pada Aplikasi Celenganku")
                     ProfileItem(image: "exclamationmark.shield.fill", title: "Kebijakan Privasi", description: "Lihat Kebijakan Privasi")
@@ -60,7 +75,7 @@ struct ProfileView: View {
                         .onTapGesture {
                             Task {
                                 do {
-                                    try await userViewModel.signOut()
+                                    try await profileViewModel.signOut()
                                     userData = nil
                                 } catch {
                                     print("Failed to sign out: \(error)")
@@ -88,7 +103,7 @@ struct ProfileView: View {
                 .cornerRadius(8)
                 .padding(.top, 30)
                 .sheet(isPresented: $showingModal) {
-                    if let user = userViewModel.user {
+                    if let user = profileViewModel.user {
                         JoinDreamModal(code: $code, userId: user.id, profile: user.profile, name: user.name)
                             .presentationDetents([.large, .medium, .fraction(0.3)])
                     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum StateView {
     case idle
@@ -41,6 +42,10 @@ class ProfileVM: ObservableObject {
         }
     }
     
+    func uploadProfilePhoto(for userId: String, photoData: Data) async throws {
+        let uploadProfile = try await StorageManager.shared.uploadProfilePhoto(for: userId, photoData: photoData)
+    }
+    
     @MainActor
     func joinDream(code: String, userId: String, profile: String, name: String) {
         Task {
@@ -65,5 +70,13 @@ class ProfileVM: ObservableObject {
     func signOut() async throws {
         try await AuthAPIService.shared.signOut()
         self.user = nil
+    }
+    
+    func fetchProfilePhoto(for userId: String) async throws -> UIImage {
+        let data = try await StorageManager.shared.fetchProfilePhoto(userId: userId)
+        guard let image = UIImage(data: data) else {
+            throw NSError()
+        }
+        return image
     }
 }

@@ -63,6 +63,11 @@
 		919BAF8F2C0E1BFE00DC37AE /* ConfettiEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */; };
 		919BAF912C0E1C1800DC37AE /* ConfettiLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */; };
 		919BAF932C0E1C4E00DC37AE /* ConfettiUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF922C0E1C4E00DC37AE /* ConfettiUIView.swift */; };
+		91A894DA2C0F0309009C2F58 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A894D92C0F0309009C2F58 /* EditProfileView.swift */; };
+		91A894DC2C0F1BF0009C2F58 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A894DB2C0F1BF0009C2F58 /* StorageManager.swift */; };
+		91A894DF2C0F4478009C2F58 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 91A894DE2C0F4478009C2F58 /* CropViewController */; };
+		91A894E12C0F4478009C2F58 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 91A894E02C0F4478009C2F58 /* TOCropViewController */; };
+		91A894E32C0F4619009C2F58 /* CropViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A894E22C0F4619009C2F58 /* CropViewControllerWrapper.swift */; };
 		91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 91CE55402BB2C9E00089E583 /* SupabaseStorage */; };
 		91CFC15F2BA82BDB0085AB1C /* DreamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */; };
 		91CFC1612BA82BF50085AB1C /* DreamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CFC1602BA82BF50085AB1C /* DreamList.swift */; };
@@ -122,6 +127,9 @@
 		919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiEmitter.swift; sourceTree = "<group>"; };
 		919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiLayer.swift; sourceTree = "<group>"; };
 		919BAF922C0E1C4E00DC37AE /* ConfettiUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiUIView.swift; sourceTree = "<group>"; };
+		91A894D92C0F0309009C2F58 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		91A894DB2C0F1BF0009C2F58 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		91A894E22C0F4619009C2F58 /* CropViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewControllerWrapper.swift; sourceTree = "<group>"; };
 		91CFC15E2BA82BDB0085AB1C /* DreamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamItem.swift; sourceTree = "<group>"; };
 		91CFC1602BA82BF50085AB1C /* DreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamList.swift; sourceTree = "<group>"; };
 		91CFC1632BA82DE20085AB1C /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -150,7 +158,9 @@
 				91CE55412BB2C9E00089E583 /* SupabaseStorage in Frameworks */,
 				913E7BF52BA4B4F900FEA464 /* GoogleSignIn in Frameworks */,
 				913F1D672BA4119D00EE2E11 /* Auth in Frameworks */,
+				91A894E12C0F4478009C2F58 /* TOCropViewController in Frameworks */,
 				910358DD2BD7614400F230DD /* SVGKitSwift in Frameworks */,
+				91A894DF2C0F4478009C2F58 /* CropViewController in Frameworks */,
 				913F1D752BA411C700EE2E11 /* PostgREST in Frameworks */,
 				913F1D732BA411C700EE2E11 /* Functions in Frameworks */,
 				913F1D6F2BA4119D00EE2E11 /* Storage in Frameworks */,
@@ -200,6 +210,7 @@
 		913E7BF02BA4B03600FEA464 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				91A894D82C0F02F5009C2F58 /* EditProfile */,
 				9128C0392BFF2B200030F94D /* ProfileView.swift */,
 				915DF7A82BFF3049002889D9 /* ProfileItem.swift */,
 				9158C0D92C00DC6E007507A6 /* JoinDreamModal.swift */,
@@ -314,18 +325,18 @@
 				913F1D4C2BA40EB200EE2E11 /* SignIn */,
 				913F1D872BA429B800EE2E11 /* Home */,
 				91396E1A2BA56152000F8901 /* Dream */,
-				913F1D862BA429A500EE2E11 /* User */,
+				913F1D862BA429A500EE2E11 /* Profile */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		913F1D862BA429A500EE2E11 /* User */ = {
+		913F1D862BA429A500EE2E11 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				913E7BF02BA4B03600FEA464 /* View */,
 				91396E1C2BA561BD000F8901 /* ViewModel */,
 			);
-			path = User;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		913F1D872BA429B800EE2E11 /* Home */ = {
@@ -401,6 +412,7 @@
 				913F1D572BA4102D00EE2E11 /* AuthAPIService.swift */,
 				91CFC1772BA88D3C0085AB1C /* DatabaseManager.swift */,
 				913F21052BADCD56001AD670 /* EmoticonService.swift */,
+				91A894DB2C0F1BF0009C2F58 /* StorageManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -421,6 +433,15 @@
 				919BAF902C0E1C1800DC37AE /* ConfettiLayer.swift */,
 			);
 			path = Confetti;
+			sourceTree = "<group>";
+		};
+		91A894D82C0F02F5009C2F58 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				91A894D92C0F0309009C2F58 /* EditProfileView.swift */,
+				91A894E22C0F4619009C2F58 /* CropViewControllerWrapper.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		91CFC15D2BA82BC60085AB1C /* View */ = {
@@ -528,6 +549,8 @@
 				91CE55402BB2C9E00089E583 /* SupabaseStorage */,
 				910358DA2BD7614400F230DD /* SVGKit */,
 				910358DC2BD7614400F230DD /* SVGKitSwift */,
+				91A894DE2C0F4478009C2F58 /* CropViewController */,
+				91A894E02C0F4478009C2F58 /* TOCropViewController */,
 			);
 			productName = Tabungan;
 			productReference = 913F1D2F2BA40DD400EE2E11 /* Tabungan.app */;
@@ -562,6 +585,7 @@
 				913E7BF32BA4B4F900FEA464 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */,
 				910358D92BD7614400F230DD /* XCRemoteSwiftPackageReference "SVGKit" */,
+				91A894DD2C0F4478009C2F58 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 913F1D302BA40DD400EE2E11 /* Products */;
 			projectDirPath = "";
@@ -591,6 +615,7 @@
 			files = (
 				913F1D5A2BA4107700EE2E11 /* Constant.swift in Sources */,
 				913F21062BADCD56001AD670 /* EmoticonService.swift in Sources */,
+				91A894E32C0F4619009C2F58 /* CropViewControllerWrapper.swift in Sources */,
 				9158C0DA2C00DC6E007507A6 /* JoinDreamModal.swift in Sources */,
 				913F21042BADCD2D001AD670 /* Emoticon.swift in Sources */,
 				910358E12BD778D100F230DD /* SVGImage.swift in Sources */,
@@ -607,6 +632,7 @@
 				9156BB502BAC5DBE0022EBA8 /* BillHistoryNote.swift in Sources */,
 				91CFC16C2BA833200085AB1C /* DreamsModel.swift in Sources */,
 				915F50612BB4110000457B14 /* ProgressBar.swift in Sources */,
+				91A894DA2C0F0309009C2F58 /* EditProfileView.swift in Sources */,
 				9156BB612BAC7EE90022EBA8 /* SignInApple.swift in Sources */,
 				9106E2052BAC13C8007AAD82 /* DreamUsers.swift in Sources */,
 				919BAF932C0E1C4E00DC37AE /* ConfettiUIView.swift in Sources */,
@@ -639,6 +665,7 @@
 				915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */,
 				91CFC1702BA8403F0085AB1C /* CreateDreamForm.swift in Sources */,
 				918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */,
+				91A894DC2C0F1BF0009C2F58 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +902,14 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		91A894DD2C0F4478009C2F58 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.4;
+			};
+		};
 		91CE553F2BB2C9E00089E583 /* XCRemoteSwiftPackageReference "storage-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/supabase-community/storage-swift.git";
@@ -960,6 +995,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 913F1D652BA4119D00EE2E11 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		91A894DE2C0F4478009C2F58 /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A894DD2C0F4478009C2F58 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		91A894E02C0F4478009C2F58 /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A894DD2C0F4478009C2F58 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
 		};
 		91CE55402BB2C9E00089E583 /* SupabaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;

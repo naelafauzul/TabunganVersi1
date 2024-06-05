@@ -41,17 +41,18 @@ struct DreamItem: View {
                 .font(.headline)
                 .foregroundStyle(.black)
                 .lineLimit(1)
-                .padding(.bottom, 5)
+                .padding(.bottom, 2)
+                .padding(.top, 10)
+            
             Text(CreateDreamsVM.formatCurrency(dream.target))
                 .font(.subheadline)
                 .foregroundStyle(.black)
                 .lineLimit(1)
-                .padding(.bottom, 10)
         }
         .padding()
-        .frame(width: 170, height: 170)
+        .frame(minWidth: 150, minHeight: 150)
         .background(Color(hex: dream.background))
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

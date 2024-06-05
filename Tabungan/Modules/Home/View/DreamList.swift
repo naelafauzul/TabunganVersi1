@@ -58,6 +58,7 @@ struct DreamList: View {
                                         .environmentObject(DreamDetailViewModel)
                                     ) {
                                         DreamItem(dream: dream)
+                                            .padding(2)
                                     }
                                     .toolbar(.hidden, for: .tabBar)
                                 }

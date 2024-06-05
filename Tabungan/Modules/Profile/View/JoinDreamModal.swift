@@ -32,6 +32,8 @@ struct JoinDreamModal: View {
             .padding(.horizontal, 16)
             .padding(.top, 10)
             
+            Spacer()
+            
             switch userViewModel.state {
             case .idle:
                 EmptyView()
@@ -45,6 +47,7 @@ struct JoinDreamModal: View {
             }
         }
         .padding()
+        .padding(.top, 30)
         .alert(isPresented: $userViewModel.showErrorAlert) {
             Alert(
                 title: Text("Gagal bergabung tabungan"),

@@ -199,11 +199,30 @@ class DatabaseManager {
         }
     }
     
+    func updateUserInfo(userId: String, name: String, day_of_birth: String, gender: String) async throws {
+        do {
+            let _ = try await client.database
+                .from("users")
+                .update(["name" : name,
+                         "day_of_birth" : day_of_birth,
+                         "gender" : gender
+                        ]).eq("id", value: userId).execute()
+            
+            let _ = try await client.database.from("dream_users").update(["name" : name]).eq("userId", value: userId).execute()
+            let _ = try await client.database.from("bill_history").update(["userName" : name]).eq("userId", value: userId).execute()
+            
+            print("Success updated dream \(userId)")
+        } catch {
+            print("Error occurred while updating dream: \(error)")
+            throw error
+        }
+    }
+    
     func joinDream(code: String, userId: String, profile: String, name: String) async throws {
         
         let response = try await client.database.from("dreams").select().eq("code", value: code).execute()
         let data = response.data
-       
+        
         guard let dreams = try? JSONDecoder().decode([Dreams].self, from: data), let dream = dreams.first else {
             throw URLError(.badServerResponse, userInfo: [NSLocalizedDescriptionKey: "Kode undangan tidak valid."])
         }

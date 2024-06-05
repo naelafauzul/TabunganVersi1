@@ -96,7 +96,7 @@ struct DetailDream: View {
                                     }
                                     .padding()
                                 }
-                                .frame(minHeight: 150, maxHeight: 180)
+                                .frame(minHeight: 170, maxHeight: 180)
                                 .background(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .padding(.horizontal, 16)

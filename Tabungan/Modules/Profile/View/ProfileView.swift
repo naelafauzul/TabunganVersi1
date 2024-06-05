@@ -23,14 +23,22 @@ struct ProfileView: View {
             ScrollView (showsIndicators: false) {
                 VStack {
                     if let user = profileViewModel.user {
-                        profileImage
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 80, height: 80)
-                            .clipShape(Circle())
-                        
+                        if profileImage != Image(systemName: "person") {
+                            profileImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person")
+                                .frame(width: 80, height: 80)
+                                .scaledToFill()
+                                .background(.secondary)
+                                .clipShape(Circle())
+                        }
                         Text(user.name)
                             .font(.title2)
+                        
                     } else {
                         Image(systemName: "person")
                             .frame(width: 80, height: 80)

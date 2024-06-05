@@ -15,16 +15,14 @@ enum StateView {
     case joinFailed(Error)
 }
 
-
 @MainActor
 class ProfileVM: ObservableObject {
-    @Published var user : Users?
+    @Published var user: Users?
     @Published var state: StateView = .idle
     @Published var showErrorAlert: Bool = false
     @Published var errorMessage: String?
-    
+
     func createUser(uid: String, email: String, profile: String, name: String, gender: String, day_of_birth: String, isActive: Bool, created: Int64, updated: Int64) async throws {
-        
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
         let profile = "celengan/emoticons/emoticon_39.svg"
         let gender = "Male"
@@ -37,13 +35,15 @@ class ProfileVM: ObservableObject {
     
     func fetchUserInfo(for uid: String) async throws {
         let fetchedUser = try await DatabaseManager.shared.fetchUserFromDatabase(uid: uid)
-        DispatchQueue.main.async {
-            self.user = fetchedUser
-        }
+        self.user = fetchedUser
     }
     
     func uploadProfilePhoto(for userId: String, photoData: Data) async throws {
         let uploadProfile = try await StorageManager.shared.uploadProfilePhoto(for: userId, photoData: photoData)
+    }
+    
+    func updateUserInfo(userId: String, name: String, day_of_birth: String, gender: String) async throws {
+        let userInfo: () = try await DatabaseManager.shared.updateUserInfo(userId: userId, name: name, day_of_birth: day_of_birth, gender: gender)
     }
     
     @MainActor

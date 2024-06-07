@@ -7,6 +7,7 @@
 
 import Foundation
 import SupabaseStorage
+import UIKit
 
 class StorageManager {
     static let shared = StorageManager()

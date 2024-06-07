@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AnggotaView: View {
     @ObservedObject var DreamDetailViewModel: DreamDetailVM
+    @StateObject private var profileViewModel = ProfileVM()
     
     var selectedEmoticonURL: URL?
     var name: String
@@ -25,7 +26,7 @@ struct AnggotaView: View {
                 } else {
                     Image(systemName: "photo")
                         .frame(width: 70, height: 70)
-                        .background(.purple.opacity(0.1))
+                        .background(Color.purple.opacity(0.1))
                         .clipShape(Circle())
                 }
                 VStack(alignment: .leading) {
@@ -48,12 +49,28 @@ struct AnggotaView: View {
                 .padding(.bottom, 10)
             
             if let admin = DreamDetailViewModel.adminDreamUsers.first {
-                
                 HStack {
-                    Image(systemName: "photo")
-                        .frame(width: 50, height: 50)
-                        .background(.purple.opacity(0.1))
-                        .clipShape(Circle())
+                    if let profilePhoto = profileViewModel.profilePhotos[admin.userId] {
+                        Image(uiImage: profilePhoto)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .background(Color.purple.opacity(0.1))
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(Circle())
+                            .task {
+                                do {
+                                    let profilePhoto = try await profileViewModel.fetchProfilePhoto(for: admin.userId)
+                                    profileViewModel.profilePhotos[admin.userId] = profilePhoto
+                                } catch {
+                                    print("Error fetching profile photo: \(error)")
+                                }
+                            }
+                    }
                     
                     VStack(alignment: .leading) {
                         Text(admin.name)
@@ -73,10 +90,27 @@ struct AnggotaView: View {
             
             ForEach(DreamDetailViewModel.anggotaDreamUsers) { user in
                 HStack {
-                    Image(systemName: "photo")
-                        .frame(width: 50, height: 50)
-                        .background(.purple.opacity(0.1))
-                        .clipShape(Circle())
+                    if let profilePhoto = profileViewModel.profilePhotos[user.userId] {
+                        Image(uiImage: profilePhoto)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .background(Color.purple.opacity(0.1))
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .background(Color.gray.opacity(0.1))
+                            .clipShape(Circle())
+                            .task {
+                                do {
+                                    let profilePhoto = try await profileViewModel.fetchProfilePhoto(for: user.userId)
+                                    profileViewModel.profilePhotos[user.userId] = profilePhoto
+                                } catch {
+                                    print("Error fetching profile photo: \(error)")
+                                }
+                            }
+                    }
                     
                     VStack(alignment: .leading) {
                         Text(user.name)
@@ -124,14 +158,17 @@ struct AnggotaView: View {
         .toolbar(.hidden, for: .tabBar)
         .navigationTitle("Anggota Impian")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            Task {
-                do {
-                    try await DreamDetailViewModel.fetchAnggotaDreamUsers(for: dreamId, excludeUserId: userId)
-                    try await DreamDetailViewModel.fetchAdminDreamUsers(for: dreamId, userId: userId)
-                } catch {
-                    print("Error fetching users: \(error)")
+        .task {
+            do {
+                try await DreamDetailViewModel.fetchAnggotaDreamUsers(for: dreamId, excludeUserId: userId)
+                try await DreamDetailViewModel.fetchAdminDreamUsers(for: dreamId, userId: userId)
+                
+                for user in DreamDetailViewModel.anggotaDreamUsers {
+                    let profilePhoto = try await profileViewModel.fetchProfilePhoto(for: user.userId)
+                    profileViewModel.profilePhotos[user.userId] = profilePhoto
                 }
+            } catch {
+                print("Error fetching users: \(error)")
             }
         }
     }

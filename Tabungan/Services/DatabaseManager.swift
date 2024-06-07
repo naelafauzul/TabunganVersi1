@@ -319,5 +319,18 @@ class DatabaseManager {
         let dreamUsers = try decoder.decode([DreamUsers].self, from: data)
         return dreamUsers
     }
+    
+    func updateProfileDreamUser(userId: String, profile: String) async throws {
+        do {
+            let _ = try await client.database
+                .from("dream_users")
+                .update(["profile": profile]).eq("userId", value: userId).execute()
+            
+            print("Success profile dream user \(userId)")
+        } catch {
+            print("Error occurred while updating dream: \(error)")
+            throw error
+        }
+    }
 }
 

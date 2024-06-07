@@ -11,6 +11,7 @@ import SVGKit
 struct DetailDream: View {
     @EnvironmentObject var DreamDetailViewModel: DreamDetailVM
     @StateObject var DreamsVM: DreamsViewModel
+    @StateObject private var profileViewModel = ProfileVM()
     
     @Environment(\.dismiss) var dismiss
     @Binding var tabBarVisibility: Visibility
@@ -72,10 +73,27 @@ struct DetailDream: View {
                                         ScrollView {
                                             ForEach(DreamDetailViewModel.dreamUsers) { user in
                                                 HStack {
-                                                    Image(systemName: "person")
-                                                        .frame(width: 30, height: 30)
-                                                        .background(.gray.opacity(0.3))
-                                                        .clipShape(Circle())
+                                                    if let profilePhoto = profileViewModel.profilePhotos[user.userId] {
+                                                        Image(uiImage: profilePhoto)
+                                                            .resizable()
+                                                            .frame(width: 30, height: 30)
+                                                            .background(.gray.opacity(0.3))
+                                                            .clipShape(Circle())
+                                                    } else {
+                                                        Image(systemName: "person.crop.circle")
+                                                            .resizable()
+                                                            .frame(width: 30, height: 30)
+                                                            .background(.gray.opacity(0.3))
+                                                            .clipShape(Circle())
+                                                            .task {
+                                                                do {
+                                                                    let profilePhoto = try await profileViewModel.fetchProfilePhoto(for: user.userId)
+                                                                    profileViewModel.profilePhotos[user.userId] = profilePhoto
+                                                                } catch {
+                                                                    print("Error fetching profile photo: \(error)")
+                                                                }
+                                                            }
+                                                    }
                                                     
                                                     VStack(alignment: .trailing) {
                                                         HStack {
@@ -287,6 +305,10 @@ struct DetailDream: View {
         try await DreamDetailViewModel.fetchDreamUsers(for: dreamTemp.id)
         try await DreamDetailViewModel.fetchBillHistory(for: dreamTemp.id)
         try await DreamDetailViewModel.getUserAmount(dreamId: dreamTemp.id, userId: userData.uid)
+        for user in DreamDetailViewModel.anggotaDreamUsers {
+            let profilePhoto = try await profileViewModel.fetchProfilePhoto(for: user.userId)
+            profileViewModel.profilePhotos[user.userId] = profilePhoto
+        }
         username = try await DreamDetailViewModel.fetchUserName(for: userData.uid)
         updateEmoticonURL()
     }

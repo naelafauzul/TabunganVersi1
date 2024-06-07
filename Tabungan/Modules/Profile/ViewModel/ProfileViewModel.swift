@@ -21,7 +21,8 @@ class ProfileVM: ObservableObject {
     @Published var state: StateView = .idle
     @Published var showErrorAlert: Bool = false
     @Published var errorMessage: String?
-
+    @Published var profilePhotos: [String: UIImage] = [:]
+    
     func createUser(uid: String, email: String, profile: String, name: String, gender: String, day_of_birth: String, isActive: Bool, created: Int64, updated: Int64) async throws {
         let timeNow = Int64(Date().timeIntervalSince1970 * 1000)
         let profile = "celengan/emoticons/emoticon_39.svg"
@@ -40,6 +41,8 @@ class ProfileVM: ObservableObject {
     
     func uploadProfilePhoto(for userId: String, photoData: Data) async throws {
         let uploadProfile = try await StorageManager.shared.uploadProfilePhoto(for: userId, photoData: photoData)
+        let updateProfileDreamUser = try await DatabaseManager.shared.updateProfileDreamUser(userId: userId, profile: "tabungan/profile/\(userId).png")
+        
     }
     
     func updateUserInfo(userId: String, name: String, day_of_birth: String, gender: String) async throws {

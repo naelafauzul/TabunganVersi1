@@ -24,7 +24,7 @@ class CreateDreamVM: ObservableObject {
         
         let dream = Dreams(id: dreamId, userId: uid, code: dreamId, profile: profile, background: background, name: name, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow, scheduler: scheduler, schedulerRate: schedulerRate)
         
-        let dreamUser = DreamUsers(id: dreamUserId, dreamId: dreamId, userId: uid, profile: profile, name: name_user, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow)
+        let dreamUser = DreamUsers(id: dreamUserId, dreamId: dreamId, userId: uid, profile: "tabungan/emoticons/emoticon_19", name: name_user, target: target, amount: 0.0, isActive: true, created: timeNow, updated: timeNow)
         
         print("Creating dream: \(dream)")
         print("Creating dream user: \(dreamUser)")

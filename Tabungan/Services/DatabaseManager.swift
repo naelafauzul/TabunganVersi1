@@ -332,5 +332,18 @@ class DatabaseManager {
             throw error
         }
     }
+    
+    func aturTarget(userId: String, dreamId: String, target: Double) async throws {
+        do {
+            let _ = try await client.database
+                .from("dream_users")
+                .update(["target" : target]).eq("userId", value: userId).eq("dreamId", value: dreamId).execute()
+            
+            print("Success atur target \(dreamId)")
+        } catch {
+            print("Error occurred while atur target: \(error)")
+            throw error
+        }
+    }
 }
 

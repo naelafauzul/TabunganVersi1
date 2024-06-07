@@ -58,6 +58,7 @@
 		915F505E2BB40BCA00457B14 /* DetailDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F505D2BB40BCA00457B14 /* DetailDream.swift */; };
 		915F50612BB4110000457B14 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50602BB4110000457B14 /* ProgressBar.swift */; };
 		915F50632BB4152100457B14 /* DreamDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F50622BB4152100457B14 /* DreamDetailVM.swift */; };
+		9183B5602C13529A00FC9D98 /* AturTargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9183B55F2C13529900FC9D98 /* AturTargetView.swift */; };
 		918D583C2BF235650041745D /* UpdateDreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D583B2BF235650041745D /* UpdateDreamView.swift */; };
 		919BAF8D2C0E1BDD00DC37AE /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF8C2C0E1BDD00DC37AE /* ConfettiView.swift */; };
 		919BAF8F2C0E1BFE00DC37AE /* ConfettiEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */; };
@@ -122,6 +123,7 @@
 		915F505D2BB40BCA00457B14 /* DetailDream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDream.swift; sourceTree = "<group>"; };
 		915F50602BB4110000457B14 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		915F50622BB4152100457B14 /* DreamDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamDetailVM.swift; sourceTree = "<group>"; };
+		9183B55F2C13529900FC9D98 /* AturTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AturTargetView.swift; sourceTree = "<group>"; };
 		918D583B2BF235650041745D /* UpdateDreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDreamView.swift; sourceTree = "<group>"; };
 		919BAF8C2C0E1BDD00DC37AE /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		919BAF8E2C0E1BFE00DC37AE /* ConfettiEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiEmitter.swift; sourceTree = "<group>"; };
@@ -512,6 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				91F98E722C049DCE0052F55B /* AnggotaView.swift */,
+				9183B55F2C13529900FC9D98 /* AturTargetView.swift */,
 			);
 			path = AnggotaView;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				9128C03A2BFF2B200030F94D /* ProfileView.swift in Sources */,
 				913F1D582BA4102D00EE2E11 /* AuthAPIService.swift in Sources */,
 				919BAF8F2C0E1BFE00DC37AE /* ConfettiEmitter.swift in Sources */,
+				9183B5602C13529A00FC9D98 /* AturTargetView.swift in Sources */,
 				91F98E732C049DCE0052F55B /* AnggotaView.swift in Sources */,
 				91CFC1672BA832C00085AB1C /* DreamsViewModel.swift in Sources */,
 				913F1D832BA41C0E00EE2E11 /* SignInModel.swift in Sources */,

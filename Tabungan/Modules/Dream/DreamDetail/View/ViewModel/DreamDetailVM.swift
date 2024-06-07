@@ -191,5 +191,14 @@ class DreamDetailVM: ObservableObject {
             print("Error fetching admin dreams: \(error)")
         }
     }
+    
+    func aturTarget(userId: String, dreamid: String, target: Double) async throws {
+        do {
+            let target = try await DatabaseManager.shared.aturTarget(userId: userId, dreamId: dreamid, target: target)
+
+        } catch {
+            print("Error updating target: \(error)")
+        }
+    }
 }
 

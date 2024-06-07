@@ -17,6 +17,9 @@ struct AnggotaView: View {
     var dreamId: String
     var userId: String
     
+    @State private var showAturTarget = false
+    @State private var selectedUser: DreamUsers? = nil
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -119,6 +122,26 @@ struct AnggotaView: View {
                             .font(.subheadline)
                     }
                     .padding(.leading, 10)
+                    
+                    Spacer()
+                    
+                    Menu {
+                        Button {
+                            selectedUser = user
+                            showAturTarget.toggle()
+                        } label: {
+                            Label("Atur target", systemImage: "pencil")
+                        }
+                        Button(action: {
+                            // Aksi untuk menghapus anggota
+                        }) {
+                            Label("Hapus anggota", systemImage: "trash")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .imageScale(.large)
+                            .rotationEffect(.degrees(90))
+                    }
                 }
                 .padding(.bottom, 10)
             }
@@ -169,6 +192,12 @@ struct AnggotaView: View {
                 }
             } catch {
                 print("Error fetching users: \(error)")
+            }
+        }
+        .sheet(isPresented: $showAturTarget) {
+            if let user = selectedUser {
+                AturTargetView(userId: user.userId, dreamId: dreamId, initialTarget: user.target)
+                    .environmentObject(DreamDetailViewModel)
             }
         }
     }
